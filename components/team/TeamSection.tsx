@@ -20,8 +20,8 @@ export default function TeamSection() {
         />
 
         <div className="mt-16 grid grid-cols-1 gap-10 sm:grid-cols-3 sm:gap-8">
-          {TEAM.map((member, i) => (
-            <TeamCard key={member.name} member={member} onOpen={() => setSelected(member)} index={i} />
+          {TEAM.map((member) => (
+            <TeamCard key={member.name} member={member} onOpen={() => setSelected(member)} />
           ))}
         </div>
       </div>

@@ -62,79 +62,23 @@ export default function AboutSection() {
             />
 
             {/* Text Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-paper/80 via-transparent to-transparent flex flex-col justify-end p-8">
-              <h3 className="font-heading text-3xl lg:text-4xl text-ink max-w-md font-light">
+            <motion.a
+              href="#galerie"
+              className="absolute inset-0 bg-gradient-to-r from-paper/80 via-transparent to-transparent flex flex-col justify-end p-8 group cursor-pointer"
+              whileHover={{ backgroundImage: "linear-gradient(to right, rgba(10, 10, 10, 0.95), transparent)" }}
+            >
+              <motion.h3
+                className="font-heading text-3xl lg:text-4xl text-ink max-w-md font-light group-hover:text-barber-red transition-colors"
+                whileHover={{ x: 4 }}
+              >
                 Unser Salon
-              </h3>
-              <p className="text-sm text-stone-400 mt-2 max-w-sm">
+              </motion.h3>
+              <p className="text-sm text-stone-400 mt-2 max-w-sm group-hover:text-stone-300 transition-colors">
                 Ein Ort der Kreativität, wo Handwerk auf Leidenschaft trifft
               </p>
-            </div>
+            </motion.a>
           </motion.div>
 
-          {/* Two Column Layout */}
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              viewport={{ once: true }}
-              className="lg:col-span-2"
-            >
-              <EditorialImage
-                src="/images/salon-reception.jpg"
-                alt="Sino Friseurstudio – Empfangsbereich"
-                sizes="(min-width: 1024px) 66vw, 100vw"
-                className="aspect-video"
-              />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="lg:col-span-1"
-            >
-              <EditorialImage
-                src="/images/salon-lounge.jpg"
-                alt="Sino Friseurstudio – Lounge"
-                sizes="(min-width: 1024px) 33vw, 100vw"
-                className="aspect-square"
-              />
-            </motion.div>
-          </div>
-
-          {/* Detail Images */}
-          <div className="grid grid-cols-2 gap-8">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.15 }}
-              viewport={{ once: true }}
-            >
-              <EditorialImage
-                src="/images/salon-detail-cape.jpg"
-                alt="Sino Friseurstudio – Detail"
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                className="aspect-square"
-              />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.25 }}
-              viewport={{ once: true }}
-            >
-              <EditorialImage
-                src="/images/salon-detail-leopard.jpg"
-                alt="Sino Friseurstudio – Dekoration"
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                className="aspect-square"
-              />
-            </motion.div>
-          </div>
         </div>
       </div>
     </section>

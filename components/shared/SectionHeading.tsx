@@ -39,7 +39,7 @@ export default function SectionHeading({
         </motion.p>
       )}
       <motion.h2
-        className={`text-balance font-display text-5xl font-thin tracking-wide leading-[1.2] sm:text-6xl ${
+        className={`text-balance font-display text-5xl font-normal tracking-wide leading-[1.2] sm:text-6xl lg:text-7xl ${
           invert ? "text-paper" : "text-ink"
         }`}
         initial={{ opacity: 0, y: 10 }}
