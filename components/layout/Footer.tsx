@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { CONTACT, OPENING_HOURS, SALON_NAME, SOCIAL_LINKS } from "@/lib/config";
 import MapsLink from "@/components/shared/MapsLink";
 import PhoneLink from "@/components/shared/PhoneLink";
@@ -7,7 +10,13 @@ export default function Footer() {
   return (
     <footer className="border-t border-line bg-paper">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20">
-        <div className="grid gap-12 lg:grid-cols-[1.3fr_1fr_1fr] lg:gap-8">
+        <motion.div
+          className="grid gap-12 lg:grid-cols-[1.3fr_1fr_1fr] lg:gap-8"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true, margin: "-100px" }}
+        >
           <div>
             <p className="font-display text-sm font-light uppercase tracking-[0.2em] text-ink">
               {SALON_NAME}
@@ -50,24 +59,38 @@ export default function Footer() {
               Öffnungszeiten
             </p>
             <ul className="mt-4 flex flex-col gap-2">
-              {OPENING_HOURS.map((entry) => (
-                <li key={entry.day} className="flex justify-between gap-6 text-sm font-light text-stone-600">
-                  <span>{entry.day}</span>
-                  <span className={entry.hours === "geschlossen" ? "text-stone-400" : "text-ink"}>
+              {OPENING_HOURS.map((entry, i) => (
+                <motion.li
+                  key={entry.day}
+                  className="group flex justify-between gap-6 text-sm font-light text-stone-600 hover:text-ink transition-colors cursor-default"
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.03, duration: 0.4 }}
+                  viewport={{ once: true }}
+                  whileHover={{ x: 4 }}
+                >
+                  <span className="group-hover:text-barber-red transition-colors">{entry.day}</span>
+                  <span className={entry.hours === "geschlossen" ? "text-stone-400" : "text-ink group-hover:text-barber-blue transition-colors"}>
                     {entry.hours}
                   </span>
-                </li>
+                </motion.li>
               ))}
             </ul>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="mt-16 flex flex-col gap-4 border-t border-line pt-8 text-xs text-stone-500 sm:flex-row sm:items-center sm:justify-between">
+        <motion.div
+          className="mt-16 flex flex-col gap-4 border-t border-line pt-8 text-xs text-stone-500 sm:flex-row sm:items-center sm:justify-between"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          viewport={{ once: true, margin: "-100px" }}
+        >
           <p>
             © {new Date().getFullYear()} {SALON_NAME}. Alle Rechte vorbehalten.
           </p>
           <p>{CONTACT.fullAddress}</p>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );
