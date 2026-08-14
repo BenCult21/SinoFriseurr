@@ -76,7 +76,7 @@ export default function Hero() {
               y: scrollProgress * -100,
             }}
           >
-            <h1 className="font-heading text-7xl sm:text-8xl lg:text-[150px] xl:text-[180px] font-semibold tracking-tight leading-[0.85] text-ink glow-title">
+            <h1 className="font-hero text-7xl sm:text-8xl lg:text-[150px] xl:text-[180px] font-light tracking-tight leading-[0.85] text-ink glow-title">
               SINO
             </h1>
           </motion.div>

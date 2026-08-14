@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import { Playfair_Display, Inter, Cormorant } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -11,6 +11,13 @@ const playfairDisplay = Playfair_Display({
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "500", "600", "700"],
+});
+
+const cormorant = Cormorant({
+  variable: "--font-hero",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["300", "400", "500", "600"],
 });
 
 const inter = Inter({
@@ -79,7 +86,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="de" className={`${playfairDisplay.variable} ${inter.variable} h-full antialiased`}>
+    <html lang="de" className={`${playfairDisplay.variable} ${cormorant.variable} ${inter.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-paper text-ink">
         <script
           type="application/ld+json"
