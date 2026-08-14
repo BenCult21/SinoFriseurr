@@ -35,7 +35,7 @@ export default function SectionHeading({
         </p>
       )}
       <h2
-        className={`text-balance font-display text-4xl font-medium tracking-tight sm:text-5xl ${
+        className={`text-balance font-display text-5xl font-thin tracking-wide leading-[1.2] sm:text-6xl ${
           invert ? "text-paper" : "text-ink"
         }`}
       >

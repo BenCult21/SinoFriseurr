@@ -13,10 +13,10 @@ export default function ServiceCard({ item, index }: { item: ServiceItem; index:
       className="group flex items-baseline justify-between gap-6 border-b border-line py-6 transition-colors hover:border-ink"
     >
       <div>
-        <p className="font-display text-lg font-medium text-ink sm:text-xl">{item.name}</p>
-        <p className="mt-1 text-xs uppercase tracking-[0.15em] text-stone-400">{item.duration}</p>
+        <p className="font-display text-lg font-light text-ink sm:text-xl">{item.name}</p>
+        <p className="mt-2 text-xs font-light text-stone-500">{item.duration}</p>
       </div>
-      <p className="whitespace-nowrap font-display text-lg text-ink sm:text-xl">{item.price}</p>
+      <p className="whitespace-nowrap font-display text-lg font-light text-stone-600 sm:text-xl">{item.price}</p>
     </motion.div>
   );
 }

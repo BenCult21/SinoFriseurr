@@ -5,22 +5,22 @@ import BookingButton from "@/components/booking/BookingButton";
 
 export default function ServicesSection() {
   return (
-    <section id="leistungen" className="bg-stone-50 px-6 py-28 lg:px-10 lg:py-36">
-      <div className="mx-auto max-w-5xl">
+    <section id="leistungen" className="bg-paper px-6 py-28 lg:px-10 lg:py-40">
+      <div className="mx-auto max-w-6xl">
         <SectionHeading
           eyebrow="Leistungen"
-          title="Unsere Leistungen"
+          title="Unsere Services"
           align="center"
-          description="Eine Auswahl unserer Services — persönlich abgestimmt auf Ihren Typ."
+          description="Professionelle Haarschnitte und Treatments, persönlich abgestimmt auf Ihren Typ."
         />
 
-        <div className="mt-16 grid gap-16 sm:grid-cols-2">
+        <div className="mt-20 space-y-16">
           {SERVICES.map((category) => (
             <div key={category.category}>
-              <p className="text-xs font-medium uppercase tracking-[0.3em] text-stone-500">
+              <h3 className="font-display text-2xl font-light text-ink tracking-wide mb-8">
                 {category.category}
-              </p>
-              <div className="mt-4">
+              </h3>
+              <div className="space-y-0">
                 {category.items.map((item, i) => (
                   <ServiceCard key={item.name} item={item} index={i} />
                 ))}
@@ -29,7 +29,7 @@ export default function ServicesSection() {
           ))}
         </div>
 
-        <div className="mt-16 flex justify-center">
+        <div className="mt-20 flex justify-center">
           <BookingButton label="Termin buchen" />
         </div>
       </div>

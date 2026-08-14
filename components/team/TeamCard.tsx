@@ -23,15 +23,15 @@ export default function TeamCard({ member, onOpen }: TeamCardProps) {
     >
       <motion.div
         layoutId={`team-tile-${member.name}`}
-        className="flex aspect-square w-full items-center justify-center overflow-hidden rounded-xl bg-ink transition-transform duration-500 group-hover:scale-[1.02]"
+        className="flex aspect-square w-full items-center justify-center overflow-hidden rounded-lg bg-ink transition-transform duration-500 group-hover:scale-[1.02]"
       >
-        <span className="font-display text-6xl font-medium text-paper">
+        <span className="font-display text-6xl font-thin text-paper">
           {member.name.charAt(0)}
         </span>
       </motion.div>
       <motion.p
         layoutId={`team-name-${member.name}`}
-        className="mt-5 font-display text-xl font-medium tracking-tight text-ink"
+        className="mt-5 font-display text-lg font-light tracking-wide text-ink"
       >
         {member.name}
       </motion.p>
