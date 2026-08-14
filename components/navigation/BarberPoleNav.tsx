@@ -58,22 +58,22 @@ export default function BarberPoleNav() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.3 }}
-            className="absolute right-0 top-32 w-56 rounded-lg bg-paper shadow-xl border border-stone-200 overflow-hidden"
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.25 }}
+            className="absolute right-0 top-28 w-52 rounded-lg bg-paper shadow-xl border border-stone-200 overflow-hidden"
           >
-            <nav className="flex flex-col">
+            <nav className="flex flex-col divide-y divide-stone-100">
               {NAV_LINKS.map((link, i) => (
                 <motion.a
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  initial={{ opacity: 0, x: 20 }}
+                  initial={{ opacity: 0, x: 10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: i * 0.05 }}
-                  className="px-6 py-4 font-display text-sm font-light tracking-wide text-ink border-b border-stone-100 last:border-b-0 hover:bg-stone-50 transition-colors"
+                  transition={{ duration: 0.2, delay: i * 0.04 }}
+                  className="px-5 py-3.5 font-display text-xs font-light tracking-wider text-ink hover:bg-stone-50 transition-colors"
                 >
                   {link.label}
                 </motion.a>

@@ -9,19 +9,19 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20">
         <div className="grid gap-12 lg:grid-cols-[1.3fr_1fr_1fr] lg:gap-8">
           <div>
-            <p className="font-display text-lg font-semibold uppercase tracking-[0.2em] text-ink">
+            <p className="font-display text-sm font-light uppercase tracking-[0.2em] text-ink">
               {SALON_NAME}
             </p>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-stone-600">
+            <p className="mt-4 max-w-xs text-sm font-light leading-relaxed text-stone-600">
               Modernes Styling, typgerechte Beratung und Wohlfühlambiente in Kassel.
             </p>
             <div className="mt-6">
-              <BookingButton label="Termin buchen" />
+              <BookingButton label="Termin buchen" modal />
             </div>
           </div>
 
           <div>
-            <p className="text-xs font-medium uppercase tracking-[0.25em] text-stone-500">
+            <p className="text-xs font-light uppercase tracking-[0.25em] text-stone-500">
               Kontakt
             </p>
             <div className="mt-4 flex flex-col gap-3">
@@ -46,12 +46,12 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="text-xs font-medium uppercase tracking-[0.25em] text-stone-500">
+            <p className="text-xs font-light uppercase tracking-[0.25em] text-stone-500">
               Öffnungszeiten
             </p>
             <ul className="mt-4 flex flex-col gap-2">
               {OPENING_HOURS.map((entry) => (
-                <li key={entry.day} className="flex justify-between gap-6 text-sm text-stone-600">
+                <li key={entry.day} className="flex justify-between gap-6 text-sm font-light text-stone-600">
                   <span>{entry.day}</span>
                   <span className={entry.hours === "geschlossen" ? "text-stone-400" : "text-ink"}>
                     {entry.hours}

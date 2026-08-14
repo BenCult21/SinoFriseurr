@@ -1,12 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import BookingButton from "@/components/booking/BookingButton";
 
 export default function Hero() {
-  const [bookingOpen, setBookingOpen] = useState(false);
-
   return (
     <section
       id="start"
@@ -55,7 +52,7 @@ export default function Hero() {
           transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
           className="mt-16"
         >
-          <BookingButton label="Termin buchen" onClick={() => setBookingOpen(true)} />
+          <BookingButton label="Termin buchen" modal />
         </motion.div>
 
         {/* Scroll Indicator */}
