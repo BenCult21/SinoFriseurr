@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import BookingButton from "@/components/booking/BookingButton";
+import { CONTACT } from "@/lib/config";
 
 export default function Hero() {
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -33,7 +34,7 @@ export default function Hero() {
       >
         {/* Red accent glow */}
         <motion.div
-          className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-barber-red blur-3xl opacity-5"
+          className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-barber-red blur-3xl opacity-8"
           animate={{
             scale: [1, 1.2, 1],
             x: [0, 40, 0],
@@ -43,7 +44,7 @@ export default function Hero() {
 
         {/* Blue accent glow */}
         <motion.div
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-barber-blue blur-3xl opacity-5"
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-barber-blue blur-3xl opacity-8"
           animate={{
             scale: [1, 1.1, 1],
             x: [0, -30, 0],
@@ -58,7 +59,7 @@ export default function Hero() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
       >
-        {/* Main Headline - VERY LARGE */}
+        {/* Main Headline - Editorial Character */}
         <div className="space-y-6 mb-12">
           <motion.div
             initial={{ opacity: 0, y: 60 }}
@@ -68,7 +69,7 @@ export default function Hero() {
               y: scrollProgress * -100,
             }}
           >
-            <h1 className="font-heading text-8xl sm:text-9xl lg:text-[180px] xl:text-[220px] font-bold tracking-tighter leading-[0.8] text-ink">
+            <h1 className="font-heading text-7xl sm:text-8xl lg:text-[150px] xl:text-[180px] font-semibold tracking-tight leading-[0.85] text-ink glow-title">
               SINO
             </h1>
           </motion.div>
@@ -81,7 +82,7 @@ export default function Hero() {
               y: scrollProgress * -60,
             }}
           >
-            <h2 className="font-heading text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight text-stone-400">
+            <h2 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-regular tracking-wide text-stone-400">
               FRISEURSTUDIO
             </h2>
           </motion.div>
@@ -91,56 +92,67 @@ export default function Hero() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
-            className="flex items-center justify-center gap-4"
+            className="flex items-center justify-center gap-4 pt-4"
             style={{
               y: scrollProgress * -40,
             }}
           >
-            <div className="h-px w-8 bg-barber-red" />
-            <p className="font-heading text-2xl font-semibold text-ink tracking-wide">
+            <motion.div
+              className="h-px w-12 bg-barber-red"
+              animate={{
+                opacity: [0.5, 1, 0.5],
+              }}
+              transition={{ duration: 3, repeat: Infinity }}
+            />
+            <p className="font-heading text-xl font-medium text-ink tracking-wider">
               KASSEL
             </p>
-            <div className="h-px w-8 bg-barber-blue" />
+            <motion.div
+              className="h-px w-12 bg-barber-blue"
+              animate={{
+                opacity: [0.5, 1, 0.5],
+              }}
+              transition={{ duration: 3, repeat: Infinity, delay: 0.2 }}
+            />
           </motion.div>
         </div>
 
-        {/* Booking CTA - Premium style */}
+        {/* Premium Booking CTA */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
           className="mt-20"
         >
-          <motion.a
-            href="#booking"
-            className="group inline-flex items-center gap-4 font-heading text-lg font-semibold text-ink hover:text-barber-red transition-colors duration-300 border-b-2 border-stone-400 hover:border-barber-red pb-2"
-            whileHover={{ x: 10 }}
-            whileTap={{ x: 5 }}
-          >
-            TERMIN VEREINBAREN
-            <motion.span
-              className="text-barber-red"
-              animate={{ x: [0, 8, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              →
-            </motion.span>
-          </motion.a>
+          <BookingButton label="TERMIN VEREINBAREN" modal />
         </motion.div>
 
-        {/* Address info */}
+        {/* Contact Info - Clickable */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.6 }}
-          className="mt-16 text-center"
+          className="mt-16 space-y-3 text-center"
         >
-          <p className="font-inter text-sm text-stone-500 tracking-wide">
-            Kurt-Schumacher-Straße 31, 34117 Kassel
-          </p>
-          <p className="font-inter text-sm text-stone-500 tracking-wide mt-2">
-            0561 76602459
-          </p>
+          <motion.a
+            href={CONTACT.mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block font-inter text-sm text-stone-500 hover:text-barber-red transition-colors"
+            whileHover={{ x: 8 }}
+          >
+            {CONTACT.street}
+            <br />
+            {CONTACT.postalCode} {CONTACT.city}
+          </motion.a>
+
+          <motion.a
+            href={CONTACT.phoneHref}
+            className="block font-inter text-sm text-stone-400 hover:text-barber-blue transition-colors"
+            whileHover={{ x: -8 }}
+          >
+            {CONTACT.phone}
+          </motion.a>
         </motion.div>
       </motion.div>
 
