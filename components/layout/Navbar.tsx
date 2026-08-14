@@ -27,7 +27,11 @@ export default function Navbar() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6 }}
-          className="font-display text-xs font-light uppercase tracking-[0.3em] text-ink"
+          className="font-display text-xs font-light uppercase tracking-[0.3em] text-ink hover:text-barber-red transition-colors"
+          whileHover={{
+            letterSpacing: "0.35em",
+            textShadow: "0 0 20px rgba(255, 46, 59, 0.5)",
+          }}
         >
           {SALON_NAME}
         </motion.a>
