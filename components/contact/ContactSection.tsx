@@ -36,17 +36,32 @@ export default function ContactSection() {
               </div>
 
               {/* Map Link */}
-              <a
+              <motion.a
                 href={CONTACT.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 font-display text-sm font-light tracking-wide text-ink hover:text-stone-600 transition-colors"
+                className="inline-flex items-center gap-3 font-display text-sm font-light tracking-wide text-ink hover:text-barber-red transition-colors"
+                whileHover={{ x: 4 }}
               >
-                Route öffnen
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <span className="relative">
+                  Route öffnen
+                  <motion.span
+                    className="absolute -bottom-1 left-0 h-px bg-barber-red"
+                    initial={{ width: 0 }}
+                    whileHover={{ width: "100%" }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </span>
+                <motion.svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  whileHover={{ x: 4 }}
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
-              </a>
+                </motion.svg>
+              </motion.a>
             </div>
 
             {/* Opening Hours */}
@@ -56,10 +71,19 @@ export default function ContactSection() {
               </h3>
               <div className="space-y-2 text-sm text-ink">
                 {OPENING_HOURS.map((hour, i) => (
-                  <div key={i} className="flex justify-between gap-8">
-                    <span className="font-light">{hour.day}</span>
-                    <span className="font-light text-stone-500">{hour.hours}</span>
-                  </div>
+                  <motion.div
+                    key={i}
+                    className="flex justify-between gap-8 group cursor-default"
+                    initial={{ opacity: 0.7 }}
+                    whileHover={{ opacity: 1 }}
+                  >
+                    <span className="font-light group-hover:text-barber-red transition-colors">
+                      {hour.day}
+                    </span>
+                    <span className="font-light text-stone-500 group-hover:text-stone-400 transition-colors">
+                      {hour.hours}
+                    </span>
+                  </motion.div>
                 ))}
               </div>
             </div>
@@ -72,12 +96,13 @@ export default function ContactSection() {
               <h3 className="font-display text-sm font-light uppercase tracking-[0.2em] text-stone-500">
                 Telefon
               </h3>
-              <a
+              <motion.a
                 href={CONTACT.phoneHref}
-                className="font-display text-3xl lg:text-4xl font-thin tracking-wide text-ink hover:text-stone-600 transition-colors"
+                className="inline-block font-display text-3xl lg:text-4xl font-thin tracking-wide text-ink hover:text-barber-blue transition-colors"
+                whileHover={{ scale: 1.05 }}
               >
                 {CONTACT.phone}
-              </a>
+              </motion.a>
             </div>
 
             {/* Booking Button */}
