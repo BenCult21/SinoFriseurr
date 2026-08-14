@@ -39,24 +39,33 @@ export default function ServicesSection() {
                     viewport={{ once: true }}
                     className="group relative"
                   >
-                    <div className="flex items-start justify-between gap-6 pb-6 border-b border-stone-200 transition-all duration-300 group-hover:border-stone-300">
+                    <div className="flex items-start justify-between gap-6 pb-6 border-b transition-all duration-300 group-hover:border-barber-red/50">
                       <div className="flex-1">
                         <div className="flex items-baseline gap-4">
-                          <span className="font-heading text-sm font-light text-stone-400 tracking-wide">
+                          <motion.span
+                            className="font-heading text-sm font-light text-stone-400 tracking-wide"
+                            whileHover={{ scale: 1.2, color: "rgb(255, 46, 59)" }}
+                          >
                             {String(index + 1).padStart(2, "0")}
-                          </span>
-                          <h4 className="font-heading text-base lg:text-lg font-light text-ink">
+                          </motion.span>
+                          <h4 className="font-heading text-base lg:text-lg font-light text-ink group-hover:text-barber-red transition-colors">
                             {item.name}
                           </h4>
                         </div>
-                        <p className="mt-2 text-sm font-light text-stone-500 ml-14">
+                        <motion.p
+                          className="mt-2 text-sm font-light text-stone-500 ml-14"
+                          whileHover={{ x: 4 }}
+                        >
                           {item.duration}
-                        </p>
+                        </motion.p>
                       </div>
                       <div className="whitespace-nowrap">
-                        <p className="font-heading text-base lg:text-lg font-light text-stone-600">
+                        <motion.p
+                          className="font-heading text-base lg:text-lg font-light text-stone-600 group-hover:text-barber-blue transition-colors"
+                          whileHover={{ scale: 1.1 }}
+                        >
                           {item.price}
-                        </p>
+                        </motion.p>
                       </div>
                     </div>
                   </motion.div>
