@@ -1,21 +1,22 @@
 @import "tailwindcss";
 
 :root {
-  --color-paper: #ffffff;
-  --color-ink: #0a0a0a;
-  --color-ink-soft: #1c1c1c;
-  --color-stone-50: #fafafa;
-  --color-stone-100: #f2f1ef;
-  --color-stone-200: #e7e5e1;
-  --color-stone-300: #d4d1cb;
-  --color-stone-400: #787268;
-  --color-stone-500: #6b675f;
-  --color-stone-600: #55524c;
-  --color-line: #e2e0da;
+  --color-paper: #fafaf9;
+  --color-ink: #1a1a1a;
+  --color-ink-soft: #2d2d2d;
+  --color-stone-50: #f8f7f6;
+  --color-stone-100: #f0eeeb;
+  --color-stone-200: #e8e6e1;
+  --color-stone-300: #dddad2;
+  --color-stone-400: #9a9590;
+  --color-stone-500: #8b8580;
+  --color-stone-600: #7a7470;
+  --color-line: #ebe8e1;
 
   /* Barber Pole Colors */
-  --color-barber-red: #dc2626;
-  --color-barber-blue: #2563eb;
+  --color-barber-red: #e63946;
+  --color-barber-blue: #1e40af;
+  --color-barber-white: #ffffff;
 }
 
 @theme inline {
@@ -75,7 +76,7 @@ body {
 }
 
 .glow-star {
-  filter: drop-shadow(0 0 3px rgba(10, 10, 10, 0.18)) drop-shadow(0 0 1px rgba(10, 10, 10, 0.25));
+  filter: drop-shadow(0 0 6px rgba(26, 26, 26, 0.15));
 }
 
 .perspective-hero {
