@@ -1,25 +1,37 @@
-# SinoFriseurr
+# Sino Friseurstudio Kassel — Website
 
-Eine moderne Lösung für Friseursalons und Barbershops.
+Premium-Website für das Sino Friseurstudio (Kurt-Schumacher-Straße 31, 34117 Kassel), gebaut mit Next.js (App Router), TypeScript, Tailwind CSS und Framer Motion.
 
-## Features
-
-- Terminverwaltung
-- Kundenverwaltung
-- Dienstleistungsmanagement
-- Abrechnung und Reporting
-
-## Installation
+## Entwicklung
 
 ```bash
 npm install
+npm run dev
 ```
 
-## Verwendung
+Anschließend [http://localhost:3000](http://localhost:3000) öffnen.
 
 ```bash
-npm start
+npm run build   # Produktions-Build
+npm run start   # Produktions-Server lokal starten
+npm run lint    # ESLint
 ```
+
+## Calendly-Konfiguration
+
+Alle „Termin buchen"-CTAs lesen zentral aus `lib/config.ts` (`CALENDLY_URL`). Solange keine echte Kunden-URL vorliegt, ist dort ein klar erkennbarer Platzhalter hinterlegt.
+
+Sobald die echte Calendly-URL vorliegt:
+
+1. `.env.example` nach `.env.local` kopieren
+2. `NEXT_PUBLIC_CALENDLY_URL=https://calendly.com/...` eintragen
+3. Dieselbe Variable in den Vercel-Projekteinstellungen (Environment Variables) für Production/Preview setzen
+
+Kein Code muss angepasst werden — alle Buttons verwenden automatisch die neue URL.
+
+## Zentrale Kundendaten
+
+Alle verbindlichen Kundendaten (Adresse, Telefon, Öffnungszeiten, Team, Leistungen, Bewertungen) liegen gebündelt in [`lib/config.ts`](./lib/config.ts). Nur dort bearbeiten — die Komponenten greifen ausschließlich auf diese zentrale Quelle zu.
 
 ## Tests
 
@@ -53,9 +65,20 @@ npm test -- --watch
 npm test -- path/to/test.js
 ```
 
-## Lizenz
+## Offene Punkte (bewusst nicht erfunden)
 
-MIT
+- Echte Calendly-URL
+- Social-Media-Links
+- Team-Rollen, Spezialisierungen, Erfahrung, Bio-Texte und Fotos für Ibrahim, Sino, Azad
+- Individuelle Rezensionstexte (aktuell nur Aggregat-Bewertung 5,0/5,0 bei 4 Bewertungen bekannt)
+
+## Bilder
+
+Die Salon-Fotos in `public/images/` stammen aus der vom Kunden bereitgestellten Planity-PDF (Empfang, Lounge, Barber-Stühle, Deko-Details). Keine Stockfotos, keine KI-generierten Bilder.
+
+## Deployment
+
+Zero-Config-Deployment auf [Vercel](https://vercel.com). `NEXT_PUBLIC_CALENDLY_URL` als Environment Variable nicht vergessen (siehe oben).
 
 ## Kontakt
 
