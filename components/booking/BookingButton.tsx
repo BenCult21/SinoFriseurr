@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import BookingModal from "./BookingModal";
 import { CALENDLY_URL } from "@/lib/config";
 
@@ -39,15 +40,20 @@ export default function BookingButton({
 
   if (!modal) {
     return (
-      <a
+      <motion.a
         href={CALENDLY_URL}
         target="_blank"
         rel="noopener noreferrer"
         onClick={handleClick as any}
         className={`${base} ${variant === "solid" ? solid : outline} ${className}`}
+        whileHover={{
+          scale: 1.05,
+          boxShadow: "0 10px 30px rgba(255, 46, 59, 0.2)",
+        }}
+        whileTap={{ scale: 0.98 }}
       >
         <span>{label}</span>
-        <svg
+        <motion.svg
           width="14"
           height="14"
           viewBox="0 0 24 24"
@@ -55,22 +61,28 @@ export default function BookingButton({
           stroke="currentColor"
           strokeWidth="1.5"
           aria-hidden="true"
-          className="transition-transform duration-300 group-hover:translate-x-1"
+          className="transition-transform duration-300"
+          whileHover={{ x: 4 }}
         >
           <path d="M5 12h14M13 6l6 6-6 6" />
-        </svg>
-      </a>
+        </motion.svg>
+      </motion.a>
     );
   }
 
   return (
     <>
-      <button
+      <motion.button
         onClick={handleClick}
         className={`${base} ${variant === "solid" ? solid : outline} ${className}`}
+        whileHover={{
+          scale: 1.05,
+          boxShadow: "0 10px 30px rgba(255, 46, 59, 0.2)",
+        }}
+        whileTap={{ scale: 0.98 }}
       >
         <span>{label}</span>
-        <svg
+        <motion.svg
           width="14"
           height="14"
           viewBox="0 0 24 24"
@@ -78,11 +90,12 @@ export default function BookingButton({
           stroke="currentColor"
           strokeWidth="1.5"
           aria-hidden="true"
-          className="transition-transform duration-300 group-hover:translate-x-1"
+          className="transition-transform duration-300"
+          whileHover={{ x: 4 }}
         >
           <path d="M5 12h14M13 6l6 6-6 6" />
-        </svg>
-      </button>
+        </motion.svg>
+      </motion.button>
       <BookingModal open={modalOpen} onClose={() => setModalOpen(false)} />
     </>
   );
