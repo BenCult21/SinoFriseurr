@@ -51,14 +51,25 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
+            className="relative overflow-hidden rounded-lg h-96 lg:h-[500px]"
           >
             <EditorialImage
               src="/images/salon-barber-row.jpg"
               alt="Sino Friseurstudio – Barber Stühle"
               sizes="100vw"
-              className="aspect-video w-full object-cover"
+              className="w-full h-full object-cover"
               priority
             />
+
+            {/* Text Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-paper/80 via-transparent to-transparent flex flex-col justify-end p-8">
+              <h3 className="font-heading text-3xl lg:text-4xl text-ink max-w-md font-light">
+                Unser Salon
+              </h3>
+              <p className="text-sm text-stone-400 mt-2 max-w-sm">
+                Ein Ort der Kreativität, wo Handwerk auf Leidenschaft trifft
+              </p>
+            </div>
           </motion.div>
 
           {/* Two Column Layout */}

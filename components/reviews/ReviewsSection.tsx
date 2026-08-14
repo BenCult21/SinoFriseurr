@@ -7,8 +7,19 @@ import RatingStars from "@/components/reviews/RatingStars";
 
 export default function ReviewsSection() {
   return (
-    <section id="rezensionen" className="bg-paper px-6 py-28 lg:px-10 lg:py-40 border-t border-line">
-      <div className="mx-auto max-w-6xl">
+    <section
+      id="rezensionen"
+      className="relative px-6 py-28 lg:px-10 lg:py-40 border-t border-line"
+      style={{
+        backgroundImage: "url('/images/salon-reception.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+      }}
+    >
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-paper/90" />
+      <div className="relative z-10 mx-auto max-w-6xl">
         <SectionHeading eyebrow="Bewertungen" title="Was Gäste sagen" align="center" />
 
         <motion.div
