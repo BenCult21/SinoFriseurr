@@ -23,7 +23,7 @@ export default function BookingModal({ open, onClose }: BookingModalProps) {
 
   // Load Calendly script
   useEffect(() => {
-    if (open && !window.Calendly) {
+    if (open && typeof window !== "undefined" && !(window as any).Calendly) {
       const script = document.createElement("script");
       script.src = "https://assets.calendly.com/assets/external/widget.js";
       script.async = true;
