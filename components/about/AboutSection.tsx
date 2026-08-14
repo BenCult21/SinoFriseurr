@@ -30,11 +30,15 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: i * 0.05 }}
               viewport={{ once: true }}
-              className="flex flex-col gap-2 border-l-2 border-stone-300 pl-6 hover:border-stone-500 transition-colors duration-300"
+              className="group flex flex-col gap-2 border-l-2 border-stone-300 pl-6 hover:border-barber-red transition-colors duration-300 cursor-default"
+              whileHover={{ x: 4 }}
             >
-              <span className="font-heading text-sm font-light text-ink tracking-wide">
+              <motion.span
+                className="font-heading text-sm font-light text-ink tracking-wide group-hover:text-barber-red transition-colors"
+                whileHover={{ letterSpacing: "0.1em" }}
+              >
                 {value}
-              </span>
+              </motion.span>
             </motion.div>
           ))}
         </motion.div>
