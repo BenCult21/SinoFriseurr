@@ -1,26 +1,40 @@
 @import "tailwindcss";
 
 :root {
-  --color-paper: #fafaf9;
-  --color-ink: #1a1a1a;
-  --color-ink-soft: #2d2d2d;
-  --color-stone-50: #f8f7f6;
-  --color-stone-100: #f0eeeb;
-  --color-stone-200: #e8e6e1;
-  --color-stone-300: #dddad2;
-  --color-stone-400: #9a9590;
-  --color-stone-500: #8b8580;
-  --color-stone-600: #7a7470;
-  --color-line: #ebe8e1;
+  /* Dark Background */
+  --color-paper: #0a0a0a;
+  --color-paper-alt: #121212;
+  --color-paper-light: #1a1a1a;
 
-  /* Barber Pole Colors */
-  --color-barber-red: #e63946;
-  --color-barber-blue: #1e40af;
+  /* Light Text */
+  --color-ink: #ffffff;
+  --color-ink-soft: #f5f5f5;
+
+  /* Grays for dark mode */
+  --color-stone-50: #2a2a2a;
+  --color-stone-100: #333333;
+  --color-stone-200: #404040;
+  --color-stone-300: #4d4d4d;
+  --color-stone-400: #666666;
+  --color-stone-500: #808080;
+  --color-stone-600: #999999;
+  --color-line: #262626;
+
+  /* Barber Colors - Strong Accents */
+  --color-barber-red: #ff2e3b;
+  --color-barber-blue: #0099ff;
   --color-barber-white: #ffffff;
+
+  /* Additional accent colors */
+  --color-accent-red: #e63946;
+  --color-accent-blue: #1e40af;
+  --color-accent-cream: #f5ead6;
 }
 
 @theme inline {
   --color-paper: var(--color-paper);
+  --color-paper-alt: var(--color-paper-alt);
+  --color-paper-light: var(--color-paper-light);
   --color-ink: var(--color-ink);
   --color-ink-soft: var(--color-ink-soft);
   --color-stone-50: var(--color-stone-50);
@@ -34,17 +48,6 @@
 
   --font-display: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-
-  --animate-slow-spin: slow-spin 26s linear infinite;
-}
-
-@keyframes slow-spin {
-  from {
-    transform: rotateY(0deg);
-  }
-  to {
-    transform: rotateY(360deg);
-  }
 }
 
 html {
@@ -55,6 +58,10 @@ body {
   background: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-sans);
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(255, 46, 59, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(0, 153, 255, 0.03) 0%, transparent 50%);
+  background-attachment: fixed;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -76,9 +83,31 @@ body {
 }
 
 .glow-star {
-  filter: drop-shadow(0 0 6px rgba(26, 26, 26, 0.15));
+  filter: drop-shadow(0 0 8px rgba(255, 46, 59, 0.4));
 }
 
-.perspective-hero {
-  perspective: 1400px;
+.glow-red {
+  text-shadow: 0 0 20px rgba(255, 46, 59, 0.4);
+}
+
+.glow-blue {
+  text-shadow: 0 0 20px rgba(0, 153, 255, 0.4);
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-paper);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-stone-300);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-stone-400);
 }

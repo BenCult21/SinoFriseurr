@@ -1,23 +1,23 @@
 import type { Metadata } from "next";
-import { Manrope, Inter } from "next/font/google";
+import { Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import BarberPoleNav from "@/components/navigation/BarberPoleNav";
 import { CONTACT, OPENING_HOURS, SALON_NAME } from "@/lib/config";
 
-const manrope = Manrope({
+const spaceGrotesk = Space_Grotesk({
   variable: "--font-heading",
   subsets: ["latin"],
   display: "swap",
-  weight: ["200", "300", "400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
-  weight: ["300", "400", "500"],
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -79,7 +79,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="de" className={`${manrope.variable} ${inter.variable} h-full antialiased`}>
+    <html lang="de" className={`${spaceGrotesk.variable} ${inter.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-paper text-ink">
         <script
           type="application/ld+json"
