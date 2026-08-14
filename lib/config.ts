@@ -108,6 +108,7 @@ export const ABOUT_VALUES = [
 export const NAV_LINKS = [
   { label: "Start", href: "#start" },
   { label: "Über uns", href: "#ueber-uns" },
+  { label: "Galerie", href: "#galerie" },
   { label: "Leistungen", href: "#leistungen" },
   { label: "Team", href: "#team" },
   { label: "Rezensionen", href: "#rezensionen" },
