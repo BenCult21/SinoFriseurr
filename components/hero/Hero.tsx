@@ -23,11 +23,18 @@ export default function Hero() {
   return (
     <section
       id="start"
-      className="relative min-h-screen flex flex-col items-center justify-center bg-paper px-6 py-32 overflow-hidden"
+      className="relative min-h-screen flex flex-col items-center justify-center px-6 py-32 overflow-hidden"
+      style={{
+        backgroundImage: "url('/images/salon-lounge.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-paper/85" />
       {/* Animated background elements */}
       <motion.div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none z-0"
         style={{
           opacity: 1 - scrollProgress * 0.5,
         }}
@@ -54,7 +61,7 @@ export default function Hero() {
       </motion.div>
 
       <motion.div
-        className="flex flex-col items-center justify-center text-center relative z-10 max-w-6xl"
+        className="flex flex-col items-center justify-center text-center relative z-20 max-w-6xl"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
@@ -158,7 +165,7 @@ export default function Hero() {
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
         animate={{ y: [0, 12, 0] }}
         transition={{ duration: 2.5, repeat: Infinity }}
         style={{

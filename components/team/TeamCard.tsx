@@ -1,14 +1,22 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import type { TeamMember } from "@/lib/config";
 
 type TeamCardProps = {
   member: TeamMember;
   onOpen: () => void;
+  index?: number;
 };
 
-export default function TeamCard({ member, onOpen }: TeamCardProps) {
+const TEAM_IMAGES = [
+  "/images/salon-barber-row.jpg",
+  "/images/salon-reception.jpg",
+  "/images/salon-detail-leopard.jpg",
+];
+
+export default function TeamCard({ member, onOpen, index = 0 }: TeamCardProps) {
   return (
     <motion.button
       type="button"
@@ -30,8 +38,18 @@ export default function TeamCard({ member, onOpen }: TeamCardProps) {
           boxShadow: "0 15px 40px rgba(255, 46, 59, 0.1), 0 0 30px rgba(0, 153, 255, 0.05)",
         }}
       >
+        <Image
+          src={TEAM_IMAGES[index % TEAM_IMAGES.length]}
+          alt={member.name}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-110"
+        />
+
+        {/* Overlay for letter */}
+        <div className="absolute inset-0 bg-stone-900/40 flex items-center justify-center group-hover:bg-stone-900/50 transition-colors duration-300" />
+
         <motion.span
-          className="font-heading text-6xl lg:text-7xl font-light text-white/60 group-hover:text-white/40 transition-colors duration-300"
+          className="font-heading text-6xl lg:text-7xl font-light text-white/60 group-hover:text-white/40 transition-colors duration-300 relative z-10"
           whileHover={{ scale: 0.9, y: -10 }}
         >
           {member.name.charAt(0)}

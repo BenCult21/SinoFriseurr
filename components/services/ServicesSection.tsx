@@ -17,19 +17,22 @@ export default function ServicesSection() {
         />
 
         <div className="mt-24 space-y-20">
-          {SERVICES.map((category) => (
+          {SERVICES.map((category, catIndex) => (
             <motion.div
               key={category.category}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
+              className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-8 items-start"
             >
-              <h3 className="font-heading text-2xl lg:text-3xl font-light text-ink tracking-tight mb-10">
-                {category.category}
-              </h3>
+              {/* Left: Services List */}
+              <div className="lg:col-span-2">
+                <h3 className="font-heading text-2xl lg:text-3xl font-light text-ink tracking-tight mb-10">
+                  {category.category}
+                </h3>
 
-              <div className="space-y-6">
+                <div className="space-y-6">
                 {category.items.map((item, index) => (
                   <motion.div
                     key={item.name}
@@ -70,7 +73,23 @@ export default function ServicesSection() {
                     </div>
                   </motion.div>
                 ))}
+                </div>
               </div>
+
+              {/* Right: Image */}
+              <motion.div
+                className="hidden lg:block overflow-hidden rounded-lg bg-stone-200 aspect-square sticky top-32"
+                initial={{ opacity: 0, x: 40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                <img
+                  src={catIndex === 0 ? "/images/salon-barber-row.jpg" : "/images/salon-detail-cape.jpg"}
+                  alt={category.category}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+              </motion.div>
             </motion.div>
           ))}
         </div>
