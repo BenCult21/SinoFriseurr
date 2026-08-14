@@ -1,14 +1,23 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { IBM_Plex_Sans, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import BarberPoleNav from "@/components/navigation/BarberPoleNav";
 import { CONTACT, OPENING_HOURS, SALON_NAME } from "@/lib/config";
+
+const ibmPlexSans = IBM_Plex_Sans({
+  variable: "--font-heading",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["100", "200", "300", "400"],
+});
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
+  weight: ["300", "400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -70,13 +79,14 @@ const jsonLd = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="de" className={`${inter.variable} h-full antialiased`}>
+    <html lang="de" className={`${ibmPlexSans.variable} ${inter.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-paper text-ink">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <Navbar />
+        <BarberPoleNav />
         <main className="flex-1">{children}</main>
         <Footer />
       </body>

@@ -2,65 +2,80 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import RotatingLogo3D from "@/components/hero/RotatingLogo3D";
-import AnimatedScissors from "@/components/hero/AnimatedScissors";
-import BarberPoleAccent from "@/components/hero/BarberPoleAccent";
-import ContactModal from "@/components/modal/ContactModal";
 import BookingButton from "@/components/booking/BookingButton";
-import MapsLink from "@/components/shared/MapsLink";
 
 export default function Hero() {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [bookingOpen, setBookingOpen] = useState(false);
 
   return (
     <section
       id="start"
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-paper px-6 pb-20 pt-32"
+      className="relative min-h-screen flex flex-col items-center justify-center bg-paper px-6 py-32"
     >
       <motion.div
-        initial={{ opacity: 0, y: 14 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        className="flex items-center gap-5 text-stone-400"
+        className="flex flex-col items-center justify-center text-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
       >
-        <AnimatedScissors className="h-8 w-8 sm:h-9 sm:w-9" />
-        <span className="h-6 w-px bg-line" aria-hidden="true" />
-        <BarberPoleAccent className="h-10 w-10 sm:h-11 sm:w-11" />
+        {/* Main Headline */}
+        <div className="space-y-3">
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut", delay: 0.1 }}
+            className="font-display text-7xl sm:text-8xl lg:text-9xl font-thin tracking-wide leading-[1.1] text-ink"
+          >
+            SINO
+          </motion.h1>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+            className="font-display text-5xl sm:text-6xl lg:text-7xl font-thin tracking-wide leading-[1.1] text-ink"
+          >
+            Friseurstudio
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
+            className="font-display text-3xl sm:text-4xl lg:text-5xl font-thin tracking-wide leading-[1.1] text-stone-400"
+          >
+            Kassel
+          </motion.p>
+        </div>
+
+        {/* Booking Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
+          className="mt-16"
+        >
+          <BookingButton label="Termin buchen" onClick={() => setBookingOpen(true)} />
+        </motion.div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, ease: "easeOut", delay: 0.8 }}
+          className="absolute bottom-8 flex flex-col items-center gap-3"
+        >
+          <span className="text-xs uppercase tracking-widest text-stone-400">Scroll</span>
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="flex flex-col items-center"
+          >
+            <div className="h-px w-px bg-stone-300" />
+            <div className="h-4 w-px bg-gradient-to-b from-stone-300 to-transparent" />
+          </motion.div>
+        </motion.div>
       </motion.div>
-
-      <motion.p
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-        className="mt-10 text-xs font-medium uppercase tracking-[0.35em] text-stone-500"
-      >
-        Friseur in Kassel
-      </motion.p>
-
-      <div className="mt-4 w-full max-w-5xl">
-        <RotatingLogo3D onOpen={() => setModalOpen(true)} />
-      </div>
-
-      <motion.p
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-        className="mt-6 max-w-md text-balance text-center text-sm leading-relaxed text-stone-500"
-      >
-        Modernes Styling, typgerechte Beratung und Wohlfühlambiente.
-      </motion.p>
-
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-        className="mt-10 flex flex-col items-center gap-6"
-      >
-        <BookingButton label="Termin buchen" />
-        <MapsLink showAddress className="text-stone-500" />
-      </motion.div>
-
-      <ContactModal open={modalOpen} onClose={() => setModalOpen(false)} />
     </section>
   );
 }

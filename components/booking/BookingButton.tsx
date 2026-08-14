@@ -14,18 +14,25 @@ export default function BookingButton({
   onClick,
 }: BookingButtonProps) {
   const base =
-    "group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-7 py-3 text-sm font-medium tracking-wide transition-all duration-300 ease-out";
+    "group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-lg px-6 py-3 text-sm font-light tracking-wide transition-all duration-300 ease-out";
   const solid =
-    "bg-ink text-paper hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)]";
+    "bg-ink text-paper hover:bg-ink/90";
   const outline =
-    "border border-ink text-ink hover:-translate-y-0.5 hover:bg-ink hover:text-paper";
+    "border border-ink text-ink hover:bg-stone-50";
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (onClick) {
+      e.preventDefault();
+      onClick();
+    }
+  };
 
   return (
     <a
       href={CALENDLY_URL}
       target="_blank"
       rel="noopener noreferrer"
-      onClick={onClick}
+      onClick={handleClick}
       className={`${base} ${variant === "solid" ? solid : outline} ${className}`}
     >
       <span>{label}</span>
@@ -35,7 +42,7 @@ export default function BookingButton({
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        strokeWidth="1.6"
+        strokeWidth="1.5"
         aria-hidden="true"
         className="transition-transform duration-300 group-hover:translate-x-1"
       >

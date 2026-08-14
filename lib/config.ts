@@ -18,6 +18,7 @@ export const CONTACT = {
   postalCode: "34117",
   city: "Kassel",
   fullAddress: "Kurt-Schumacher-Straße 31, 34117 Kassel",
+  phone: "0561 76602459",
   phoneDisplay: "0561 76602459",
   phoneHref: "tel:+4956176602459",
   mapsUrl:
@@ -110,7 +111,7 @@ export const NAV_LINKS = [
   { label: "Leistungen", href: "#leistungen" },
   { label: "Team", href: "#team" },
   { label: "Rezensionen", href: "#rezensionen" },
-  { label: "Termin", href: "#termin" },
+  { label: "Standort", href: "#standort" },
 ];
 
 // Social-Media-Links aktuell nicht bestätigt — bewusst leer gelassen.

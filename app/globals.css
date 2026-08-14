@@ -12,6 +12,10 @@
   --color-stone-500: #6b675f;
   --color-stone-600: #55524c;
   --color-line: #e2e0da;
+
+  /* Barber Pole Colors */
+  --color-barber-red: #dc2626;
+  --color-barber-blue: #2563eb;
 }
 
 @theme inline {
@@ -27,7 +31,7 @@
   --color-stone-600: var(--color-stone-600);
   --color-line: var(--color-line);
 
-  --font-display: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
   --animate-slow-spin: slow-spin 26s linear infinite;
