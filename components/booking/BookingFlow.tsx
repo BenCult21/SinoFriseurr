@@ -55,7 +55,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
 
           {/* Modal */}
           <motion.div
-            className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-paper p-8 lg:p-12 shadow-2xl border border-stone-700"
+            className="relative w-full max-w-2xl max-h-[95vh] overflow-y-auto rounded-2xl bg-paper p-6 lg:p-10 shadow-2xl border border-stone-700"
             initial={{ opacity: 0, scale: 0.85, y: 40 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.85, y: 40 }}

@@ -52,9 +52,9 @@ const GALLERY_IMAGES: ImageLayer[] = [
     alt: "Sino Friseurstudio – Detail",
     depth: 0.3,
     x: "10%",
-    y: "350px",
+    y: "600px",
     width: "35%",
-    height: "280px",
+    height: "260px",
     sizes: "(min-width: 1024px) 35vw, 90vw",
   },
   {
@@ -62,9 +62,9 @@ const GALLERY_IMAGES: ImageLayer[] = [
     alt: "Sino Friseurstudio – Dekoration",
     depth: 0.7,
     x: "48%",
-    y: "550px",
+    y: "880px",
     width: "47%",
-    height: "320px",
+    height: "280px",
     sizes: "(min-width: 1024px) 47vw, 90vw",
   },
 ];
@@ -135,7 +135,7 @@ export default function GallerySection() {
           whileInView={{ opacity: 1 }}
           transition={{ duration: 1 }}
           viewport={{ once: true, margin: "-100px" }}
-          className="relative mt-20 hidden lg:block h-[1000px] w-full"
+          className="relative mt-20 hidden lg:block h-[1200px] w-full"
           style={{
             perspective: "1000px",
           }}
