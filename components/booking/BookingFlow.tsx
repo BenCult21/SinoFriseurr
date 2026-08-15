@@ -55,39 +55,45 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
 
           {/* Modal */}
           <motion.div
-            className="relative w-full max-w-2xl max-h-[95vh] overflow-y-auto rounded-2xl bg-paper p-6 lg:p-10 shadow-2xl border border-stone-700"
+            className="relative w-full max-w-2xl rounded-2xl bg-paper shadow-2xl border border-stone-700 flex flex-col"
             initial={{ opacity: 0, scale: 0.85, y: 40 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.85, y: 40 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
+            style={{ maxHeight: "90vh" }}
           >
-            {/* Close Button */}
-            <button
-              onClick={handleClose}
-              className="absolute right-6 top-6 flex h-8 w-8 items-center justify-center text-stone-500 hover:text-ink transition-colors"
-              aria-label="Schließen"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-                <path d="M6 6l12 12M18 6 6 18" />
-              </svg>
-            </button>
+            {/* Header: Close Button & Progress Bar */}
+            <div className="px-6 lg:px-10 pt-6 lg:pt-10 pb-0">
+              {/* Close Button */}
+              <button
+                onClick={handleClose}
+                className="absolute right-6 top-6 flex h-8 w-8 items-center justify-center text-stone-500 hover:text-ink transition-colors"
+                aria-label="Schließen"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+                  <path d="M6 6l12 12M18 6 6 18" />
+                </svg>
+              </button>
 
-            {/* Progress Bar */}
-            <div className="mb-8">
-              <div className="flex justify-between gap-2 mb-4">
-                {(["service", "barber", "date", "contact", "review", "confirmation"] as const).map((s) => (
-                  <div
-                    key={s}
-                    className={`h-1 flex-1 rounded-full transition-all ${
-                      step === s ? "bg-barber-red" : ["service", "barber", "date", "contact", "review"].indexOf(s) < ["service", "barber", "date", "contact", "review"].indexOf(step) ? "bg-barber-blue" : "bg-stone-200"
-                    }`}
-                  />
-                ))}
+              {/* Progress Bar */}
+              <div className="mb-8">
+                <div className="flex justify-between gap-2 mb-4">
+                  {(["service", "barber", "date", "contact", "review", "confirmation"] as const).map((s) => (
+                    <div
+                      key={s}
+                      className={`h-1 flex-1 rounded-full transition-all ${
+                        step === s ? "bg-barber-red" : ["service", "barber", "date", "contact", "review"].indexOf(s) < ["service", "barber", "date", "contact", "review"].indexOf(step) ? "bg-barber-blue" : "bg-stone-200"
+                      }`}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
 
-            {/* Step: Service Selection */}
-            <AnimatePresence mode="wait">
+            {/* Content: Scrollable Steps */}
+            <div className="overflow-y-auto flex-1 px-6 lg:px-10">
+              {/* Step: Service Selection */}
+              <AnimatePresence mode="wait">
               {step === "service" && (
                 <motion.div
                   key="service"
@@ -97,14 +103,11 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                   transition={{ duration: 0.3 }}
                 >
                   <h2 className="text-3xl font-light text-ink mb-8">Service wählen</h2>
-                  <div className="space-y-3 max-h-[400px] overflow-y-auto">
+                  <div className="space-y-3">
                     {SERVICES[0].items.map((service) => (
                       <motion.button
                         key={service.name}
-                        onClick={() => {
-                          setSelectedService(service);
-                          setStep("barber");
-                        }}
+                        onClick={() => setSelectedService(service)}
                         className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
                           selectedService?.name === service.name
                             ? "border-barber-red bg-barber-red/5"
@@ -135,14 +138,11 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                   transition={{ duration: 0.3 }}
                 >
                   <h2 className="text-3xl font-light text-ink mb-8">Wähle deinen Friseur</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {TEAM.map((barber) => (
                       <motion.button
                         key={barber.name}
-                        onClick={() => {
-                          setSelectedBarber(barber.name);
-                          setStep("date");
-                        }}
+                        onClick={() => setSelectedBarber(barber.name)}
                         className={`p-6 rounded-lg border-2 transition-all ${
                           selectedBarber === barber.name
                             ? "border-barber-red bg-barber-red/10"
@@ -159,16 +159,6 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                         )}
                       </motion.button>
                     ))}
-                  </div>
-
-                  <div className="flex gap-3">
-                    <motion.button
-                      onClick={() => setStep("service")}
-                      className="flex-1 px-4 py-3 rounded-lg border border-stone-200 text-ink hover:border-barber-blue transition-colors"
-                      whileHover={{ scale: 1.02 }}
-                    >
-                      Zurück
-                    </motion.button>
                   </div>
                 </motion.div>
               )}
@@ -208,24 +198,6 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                         ))}
                       </select>
                     </div>
-                  </div>
-
-                  <div className="mt-8 flex gap-3">
-                    <motion.button
-                      onClick={() => setStep("service")}
-                      className="flex-1 px-4 py-3 rounded-lg border border-stone-200 text-ink hover:border-barber-blue transition-colors"
-                      whileHover={{ scale: 1.02 }}
-                    >
-                      Zurück
-                    </motion.button>
-                    <motion.button
-                      onClick={() => selectedDate && selectedTime && setStep("contact")}
-                      disabled={!selectedDate || !selectedTime}
-                      className="flex-1 px-4 py-3 rounded-lg bg-barber-red text-paper hover:bg-barber-red/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                      whileHover={{ scale: 1.02 }}
-                    >
-                      Weiter
-                    </motion.button>
                   </div>
                 </motion.div>
               )}
@@ -271,28 +243,6 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                         className="w-full px-4 py-3 rounded-lg border border-stone-200 bg-paper text-ink focus:outline-none focus:border-barber-red placeholder:text-stone-600"
                       />
                     </div>
-                  </div>
-
-                  <div className="mt-8 flex gap-3">
-                    <motion.button
-                      onClick={() => setStep("date")}
-                      className="flex-1 px-4 py-3 rounded-lg border border-stone-200 text-ink hover:border-barber-blue transition-colors"
-                      whileHover={{ scale: 1.02 }}
-                    >
-                      Zurück
-                    </motion.button>
-                    <motion.button
-                      onClick={() => {
-                        if (contact.name && contact.phone) {
-                          setStep("review");
-                        }
-                      }}
-                      disabled={!contact.name || !contact.phone}
-                      className="flex-1 px-4 py-3 rounded-lg bg-barber-blue text-paper hover:bg-barber-blue/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                      whileHover={{ scale: 1.02 }}
-                    >
-                      Weiter zur Bestätigung
-                    </motion.button>
                   </div>
                 </motion.div>
               )}
@@ -345,40 +295,6 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                       </div>
                     </div>
                   </motion.div>
-
-                  <div className="mt-8 flex gap-3">
-                    <motion.button
-                      onClick={() => setStep("contact")}
-                      className="flex-1 px-4 py-3 rounded-lg border border-stone-700 text-ink hover:border-barber-blue transition-colors"
-                      whileHover={{ scale: 1.02 }}
-                    >
-                      Zurück
-                    </motion.button>
-                    <motion.button
-                      onClick={async () => {
-                        setIsLoading(true);
-                        await new Promise(r => setTimeout(r, 1500));
-                        setStep("confirmation");
-                        setIsLoading(false);
-                      }}
-                      disabled={isLoading}
-                      className="flex-1 px-4 py-4 rounded-lg bg-gradient-to-r from-barber-green to-barber-green/80 text-paper hover:shadow-lg hover:shadow-barber-green/30 disabled:opacity-50 transition-all flex items-center justify-center gap-2 font-light tracking-wide"
-                      whileHover={!isLoading ? { scale: 1.02 } : {}}
-                    >
-                      {isLoading ? (
-                        <>
-                          <motion.div
-                            className="w-4 h-4 border-2 border-paper border-t-paper rounded-full"
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                          />
-                          Wird gebucht...
-                        </>
-                      ) : (
-                        "Buchung bestätigen"
-                      )}
-                    </motion.button>
-                  </div>
                 </motion.div>
               )}
 
@@ -463,11 +379,82 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                       </div>
                     </div>
                   </motion.div>
+                </motion.div>
+              )}
+              </AnimatePresence>
+            </div>
 
+            {/* Footer: Action Buttons */}
+            <div className="border-t border-stone-700 px-6 lg:px-10 py-4 lg:py-6 bg-paper/50">
+              <div className="flex gap-3">
+                {step !== "service" && step !== "confirmation" && (
                   <motion.button
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5, delay: 0.6 }}
+                    onClick={() => {
+                      if (step === "barber") setStep("service");
+                      else if (step === "date") setStep("barber");
+                      else if (step === "contact") setStep("date");
+                      else if (step === "review") setStep("contact");
+                    }}
+                    className="flex-1 px-4 py-3 rounded-lg border border-stone-200 text-ink hover:border-barber-blue transition-colors"
+                    whileHover={{ scale: 1.02 }}
+                  >
+                    Zurück
+                  </motion.button>
+                )}
+
+                {step === "service" && selectedService && (
+                  <motion.button
+                    onClick={() => setStep("barber")}
+                    className="flex-1 px-4 py-3 rounded-lg bg-barber-red text-paper hover:bg-barber-red/90 transition-all"
+                    whileHover={{ scale: 1.02 }}
+                  >
+                    Weiter
+                  </motion.button>
+                )}
+
+                {step === "barber" && selectedBarber && (
+                  <motion.button
+                    onClick={() => setStep("date")}
+                    className="flex-1 px-4 py-3 rounded-lg bg-barber-red text-paper hover:bg-barber-red/90 transition-all"
+                    whileHover={{ scale: 1.02 }}
+                  >
+                    Weiter
+                  </motion.button>
+                )}
+
+                {step === "date" && selectedDate && selectedTime && (
+                  <motion.button
+                    onClick={() => setStep("contact")}
+                    className="flex-1 px-4 py-3 rounded-lg bg-barber-red text-paper hover:bg-barber-red/90 transition-all"
+                    whileHover={{ scale: 1.02 }}
+                  >
+                    Weiter
+                  </motion.button>
+                )}
+
+                {step === "contact" && contact.name && contact.phone && (
+                  <motion.button
+                    onClick={() => setStep("review")}
+                    className="flex-1 px-4 py-3 rounded-lg bg-barber-blue text-paper hover:bg-barber-blue/90 transition-all"
+                    whileHover={{ scale: 1.02 }}
+                  >
+                    Überprüfen
+                  </motion.button>
+                )}
+
+                {step === "review" && (
+                  <motion.button
+                    onClick={() => setStep("confirmation")}
+                    className="flex-1 px-4 py-3 rounded-lg bg-gradient-to-r from-barber-red to-barber-red/80 text-paper hover:shadow-lg hover:shadow-barber-red/50 transition-all font-light tracking-wide"
+                    whileHover={{ scale: 1.02, y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    Buchen
+                  </motion.button>
+                )}
+
+                {step === "confirmation" && (
+                  <motion.button
                     onClick={handleClose}
                     className="w-full px-6 py-4 rounded-lg bg-gradient-to-r from-barber-red to-barber-red/80 text-paper hover:shadow-lg hover:shadow-barber-red/50 transition-all font-light tracking-wide"
                     whileHover={{ scale: 1.02, y: -2 }}
@@ -475,9 +462,9 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                   >
                     Fenster schließen
                   </motion.button>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                )}
+              </div>
+            </div>
           </motion.div>
         </motion.div>
       )}

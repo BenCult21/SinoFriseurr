@@ -57,11 +57,10 @@ html {
 }
 
 body {
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a4a3a 40%, #0f2820 100%);
+  background: linear-gradient(135deg, #131313 0%, #1f3a34 50%, #141f1a 100%);
   color: var(--color-ink);
   font-family: var(--font-sans);
   background-attachment: fixed;
-  background-size: 400% 400%;
 }
 
 @media (prefers-reduced-motion: reduce) {
