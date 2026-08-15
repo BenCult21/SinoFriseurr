@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { SERVICES, CONTACT, TEAM } from "@/lib/config";
 import type { ServiceItem } from "@/lib/config";
 
-type BookingStep = "service" | "barber" | "date" | "contact" | "confirmation";
+type BookingStep = "service" | "barber" | "date" | "contact" | "review" | "confirmation";
 
 export default function BookingFlow({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [step, setStep] = useState<BookingStep>("service");
@@ -75,11 +75,11 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
             {/* Progress Bar */}
             <div className="mb-8">
               <div className="flex justify-between gap-2 mb-4">
-                {(["service", "barber", "date", "contact", "confirmation"] as const).map((s) => (
+                {(["service", "barber", "date", "contact", "review", "confirmation"] as const).map((s) => (
                   <div
                     key={s}
                     className={`h-1 flex-1 rounded-full transition-all ${
-                      step === s ? "bg-barber-red" : ["service", "barber", "date", "contact"].indexOf(s) < ["service", "barber", "date", "contact"].indexOf(step) ? "bg-barber-blue" : "bg-stone-200"
+                      step === s ? "bg-barber-red" : ["service", "barber", "date", "contact", "review"].indexOf(s) < ["service", "barber", "date", "contact", "review"].indexOf(step) ? "bg-barber-blue" : "bg-stone-200"
                     }`}
                   />
                 ))}
@@ -282,29 +282,100 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                       Zurück
                     </motion.button>
                     <motion.button
-                      onClick={async () => {
+                      onClick={() => {
                         if (contact.name && contact.phone) {
-                          setIsLoading(true);
-                          await new Promise(r => setTimeout(r, 1500));
-                          setStep("confirmation");
-                          setIsLoading(false);
+                          setStep("review");
                         }
                       }}
-                      disabled={!contact.name || !contact.phone || isLoading}
-                      className="flex-1 px-4 py-3 rounded-lg bg-barber-blue text-paper hover:bg-barber-blue/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
+                      disabled={!contact.name || !contact.phone}
+                      className="flex-1 px-4 py-3 rounded-lg bg-barber-blue text-paper hover:bg-barber-blue/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                      whileHover={{ scale: 1.02 }}
+                    >
+                      Weiter zur Bestätigung
+                    </motion.button>
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Step: Review & Confirm */}
+              {step === "review" && (
+                <motion.div
+                  key="review"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <h2 className="text-3xl font-light text-ink mb-8">Buchung überprüfen</h2>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="glassmorphism rounded-lg p-8 mb-8 space-y-6"
+                  >
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center pb-4 border-b border-stone-700">
+                        <span className="text-stone-400 text-sm uppercase tracking-wide">Service</span>
+                        <span className="text-barber-red font-light text-lg">{selectedService?.name}</span>
+                      </div>
+                      <div className="flex justify-between items-center pb-4 border-b border-stone-700">
+                        <span className="text-stone-400 text-sm uppercase tracking-wide">Dauer</span>
+                        <span className="text-ink font-light">{selectedService?.duration}</span>
+                      </div>
+                      <div className="flex justify-between items-center pb-4 border-b border-stone-700">
+                        <span className="text-stone-400 text-sm uppercase tracking-wide">Preis</span>
+                        <span className="text-barber-blue font-light text-lg">{selectedService?.price}</span>
+                      </div>
+                      <div className="flex justify-between items-center pb-4 border-b border-stone-700">
+                        <span className="text-stone-400 text-sm uppercase tracking-wide">Friseur</span>
+                        <span className="text-ink font-light">{selectedBarber}</span>
+                      </div>
+                      <div className="flex justify-between items-center pb-4 border-b border-stone-700">
+                        <span className="text-stone-400 text-sm uppercase tracking-wide">Datum</span>
+                        <span className="text-ink font-light">{new Date(selectedDate).toLocaleDateString("de-DE")}</span>
+                      </div>
+                      <div className="flex justify-between items-center pb-4 border-b border-stone-700">
+                        <span className="text-stone-400 text-sm uppercase tracking-wide">Uhrzeit</span>
+                        <span className="text-ink font-light">{selectedTime} Uhr</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-stone-400 text-sm uppercase tracking-wide">Name</span>
+                        <span className="text-ink font-light">{contact.name}</span>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  <div className="mt-8 flex gap-3">
+                    <motion.button
+                      onClick={() => setStep("contact")}
+                      className="flex-1 px-4 py-3 rounded-lg border border-stone-700 text-ink hover:border-barber-blue transition-colors"
+                      whileHover={{ scale: 1.02 }}
+                    >
+                      Zurück
+                    </motion.button>
+                    <motion.button
+                      onClick={async () => {
+                        setIsLoading(true);
+                        await new Promise(r => setTimeout(r, 1500));
+                        setStep("confirmation");
+                        setIsLoading(false);
+                      }}
+                      disabled={isLoading}
+                      className="flex-1 px-4 py-4 rounded-lg bg-gradient-to-r from-barber-green to-barber-green/80 text-paper hover:shadow-lg hover:shadow-barber-green/30 disabled:opacity-50 transition-all flex items-center justify-center gap-2 font-light tracking-wide"
                       whileHover={!isLoading ? { scale: 1.02 } : {}}
                     >
                       {isLoading ? (
                         <>
                           <motion.div
-                            className="w-4 h-4 border-2 border-paper border-t-barber-green rounded-full"
+                            className="w-4 h-4 border-2 border-paper border-t-paper rounded-full"
                             animate={{ rotate: 360 }}
                             transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                           />
-                          Wird verarbeitet...
+                          Wird gebucht...
                         </>
                       ) : (
-                        "Bestätigen"
+                        "Buchung bestätigen"
                       )}
                     </motion.button>
                   </div>
