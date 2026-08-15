@@ -40,22 +40,26 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
         >
           {/* Backdrop */}
           <motion.div
-            className="absolute inset-0 bg-ink/45 backdrop-blur-sm"
+            className="absolute inset-0 bg-ink/50 backdrop-blur-md"
             onClick={handleClose}
             aria-hidden="true"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
           />
 
           {/* Modal */}
           <motion.div
-            className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-paper p-8 lg:p-12 shadow-2xl"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.3 }}
+            className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-paper p-8 lg:p-12 shadow-2xl border border-stone-700"
+            initial={{ opacity: 0, scale: 0.85, y: 40 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.85, y: 40 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
           >
             {/* Close Button */}
             <button
@@ -311,55 +315,94 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
               {step === "confirmation" && (
                 <motion.div
                   key="confirmation"
-                  initial={{ opacity: 0, scale: 0.95 }}
+                  initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.3 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
                   className="text-center"
                 >
                   <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 2 }}
-                    className="w-16 h-16 rounded-full border-2 border-barber-green bg-barber-green/10 flex items-center justify-center mx-auto mb-6"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+                    className="w-20 h-20 rounded-full border-2 border-barber-green bg-barber-green/10 flex items-center justify-center mx-auto mb-8"
                   >
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-barber-green">
+                    <motion.svg
+                      width="40"
+                      height="40"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      className="text-barber-green"
+                      initial={{ pathLength: 0 }}
+                      animate={{ pathLength: 1 }}
+                      transition={{ duration: 0.8, delay: 0.4 }}
+                    >
                       <path d="M20 6L9 17l-5-5" />
-                    </svg>
+                    </motion.svg>
                   </motion.div>
 
-                  <h2 className="text-3xl font-light text-ink mb-4">Termin gebucht!</h2>
-                  <p className="text-stone-600 mb-8">
+                  <motion.h2
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                    className="text-4xl font-light text-ink mb-4"
+                  >
+                    Termin bestätigt!
+                  </motion.h2>
+
+                  <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
+                    className="text-stone-400 mb-10 leading-relaxed"
+                  >
                     Vielen Dank für Ihre Buchung. Eine Bestätigung wird in Kürze an{" "}
                     <span className="text-barber-red font-light">{contact.email}</span> versendet.
-                  </p>
+                  </motion.p>
 
-                  <div className="bg-stone-50 rounded-lg p-6 mb-8 text-left">
-                    <p className="text-sm text-stone-500 mb-4">Ihre Buchung:</p>
-                    <div className="space-y-2 text-ink font-light">
-                      <p>
-                        <span className="text-stone-500">Service:</span> {selectedService?.name}
-                      </p>
-                      <p>
-                        <span className="text-stone-500">Friseur:</span> {selectedBarber}
-                      </p>
-                      <p>
-                        <span className="text-stone-500">Datum:</span> {new Date(selectedDate).toLocaleDateString("de-DE")}
-                      </p>
-                      <p>
-                        <span className="text-stone-500">Uhrzeit:</span> {selectedTime} Uhr
-                      </p>
-                      <p>
-                        <span className="text-stone-500">Name:</span> {contact.name}
-                      </p>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.5 }}
+                    className="glassmorphism rounded-lg p-8 mb-10 text-left"
+                  >
+                    <p className="text-xs text-stone-400 mb-6 uppercase tracking-wide">Ihre Buchung:</p>
+                    <div className="space-y-3 text-ink font-light">
+                      <div className="flex justify-between items-center">
+                        <span className="text-stone-500">Service:</span>
+                        <span className="text-barber-red">{selectedService?.name}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-stone-500">Friseur:</span>
+                        <span className="text-barber-blue">{selectedBarber}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-stone-500">Datum:</span>
+                        <span>{new Date(selectedDate).toLocaleDateString("de-DE")}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-stone-500">Uhrzeit:</span>
+                        <span>{selectedTime} Uhr</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-stone-500">Name:</span>
+                        <span>{contact.name}</span>
+                      </div>
                     </div>
-                  </div>
+                  </motion.div>
 
                   <motion.button
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5, delay: 0.6 }}
                     onClick={handleClose}
-                    className="w-full px-4 py-3 rounded-lg bg-barber-red text-paper hover:bg-barber-red/90 transition-all"
-                    whileHover={{ scale: 1.02 }}
+                    className="w-full px-6 py-4 rounded-lg bg-gradient-to-r from-barber-red to-barber-red/80 text-paper hover:shadow-lg hover:shadow-barber-red/50 transition-all font-light tracking-wide"
+                    whileHover={{ scale: 1.02, y: -2 }}
+                    whileTap={{ scale: 0.98 }}
                   >
-                    Schließen
+                    Fenster schließen
                   </motion.button>
                 </motion.div>
               )}

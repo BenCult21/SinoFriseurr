@@ -128,14 +128,14 @@ export default function GallerySection() {
           description="Eine Sammlung unserer Studio-Impressionen. Jedes Bild erzählt eine Geschichte von Handwerk, Kreativität und unserem Engagement für Exzellenz."
         />
 
-        {/* 3D Parallax Gallery Container */}
+        {/* 3D Parallax Gallery Container - Desktop Only */}
         <motion.div
           ref={containerRef}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 1 }}
           viewport={{ once: true, margin: "-100px" }}
-          className="relative mt-20 h-[900px] lg:h-[1000px] w-full"
+          className="relative mt-20 hidden lg:block h-[1000px] w-full"
           style={{
             perspective: "1000px",
           }}
@@ -190,20 +190,30 @@ export default function GallerySection() {
             </motion.div>
           ))}
 
-          {/* Floating Label */}
-          <motion.div
-            className="absolute bottom-12 left-6 text-xs text-stone-500 font-light tracking-widest uppercase pointer-events-none"
-            animate={{
-              opacity: [0.4, 0.8, 0.4],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-            }}
-          >
-            Bewege die Maus • Scrolle für 3D-Effekt
-          </motion.div>
         </motion.div>
+
+        {/* Mobile Gallery */}
+        <div className="lg:hidden mt-20 space-y-4">
+          {GALLERY_IMAGES.map((image, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              viewport={{ once: true }}
+              className="relative overflow-hidden rounded-lg h-64 w-full bg-stone-200 shadow-lg"
+            >
+              <Image
+                src={image.src}
+                alt={image.alt}
+                fill
+                sizes="100vw"
+                className="object-cover"
+                quality={85}
+              />
+            </motion.div>
+          ))}
+        </div>
 
         {/* Info Text Below Gallery */}
         <motion.div
@@ -214,7 +224,7 @@ export default function GallerySection() {
           className="mt-20 max-w-2xl text-center mx-auto"
         >
           <p className="font-inter text-sm text-stone-400 leading-relaxed">
-            Diese Galerie zeigt unser Studio in verschiedenen Facetten. Die Bilder bewegen sich bei deinem Scroll in unterschiedlichen Geschwindigkeiten – ein Effekt, der räumliche Tiefe erzeugt und unser Studio wie eine digitale Ausstellung präsentiert.
+            Eine Sammlung unserer Studio-Impressionen. Jedes Bild erzählt eine Geschichte von Handwerk, Kreativität und unserem Engagement für Exzellenz.
           </p>
         </motion.div>
       </div>
