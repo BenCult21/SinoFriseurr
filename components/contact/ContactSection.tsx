@@ -9,8 +9,12 @@ export default function ContactSection() {
   const [showMap, setShowMap] = useState(false);
 
   return (
-    <section
+    <motion.section
       id="standort"
+      initial={{ opacity: 0, y: 100 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
       className="relative border-t border-line bg-paper px-6 py-32 lg:py-48"
     >
       <div className="mx-auto max-w-7xl">
@@ -134,6 +138,6 @@ export default function ContactSection() {
           </p>
         </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }

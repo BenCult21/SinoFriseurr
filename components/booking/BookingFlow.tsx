@@ -2,15 +2,16 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { SERVICES, CONTACT } from "@/lib/config";
+import { SERVICES, CONTACT, TEAM } from "@/lib/config";
 import type { ServiceItem } from "@/lib/config";
 
-type BookingStep = "service" | "date" | "contact" | "confirmation";
+type BookingStep = "service" | "barber" | "date" | "contact" | "confirmation";
 
 export default function BookingFlow({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [step, setStep] = useState<BookingStep>("service");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
+  const [selectedBarber, setSelectedBarber] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState<string>("");
   const [selectedTime, setSelectedTime] = useState<string>("");
   const [contact, setContact] = useState({ name: "", phone: "", email: "" });
@@ -18,6 +19,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
   const handleReset = () => {
     setStep("service");
     setSelectedService(null);
+    setSelectedBarber(null);
     setSelectedDate("");
     setSelectedTime("");
     setContact({ name: "", phone: "", email: "" });
@@ -69,11 +71,11 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
             {/* Progress Bar */}
             <div className="mb-8">
               <div className="flex justify-between gap-2 mb-4">
-                {(["service", "date", "contact", "confirmation"] as const).map((s) => (
+                {(["service", "barber", "date", "contact", "confirmation"] as const).map((s) => (
                   <div
                     key={s}
                     className={`h-1 flex-1 rounded-full transition-all ${
-                      step === s ? "bg-barber-red" : ["service", "date", "contact"].indexOf(s) < ["service", "date", "contact"].indexOf(step) ? "bg-barber-blue" : "bg-stone-200"
+                      step === s ? "bg-barber-red" : ["service", "barber", "date", "contact"].indexOf(s) < ["service", "barber", "date", "contact"].indexOf(step) ? "bg-barber-blue" : "bg-stone-200"
                     }`}
                   />
                 ))}
@@ -97,7 +99,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                         key={service.name}
                         onClick={() => {
                           setSelectedService(service);
-                          setStep("date");
+                          setStep("barber");
                         }}
                         className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
                           selectedService?.name === service.name
@@ -115,6 +117,54 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                         </div>
                       </motion.button>
                     ))}
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Step: Barber Selection */}
+              {step === "barber" && (
+                <motion.div
+                  key="barber"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <h2 className="text-3xl font-light text-ink mb-8">Wähle deinen Friseur</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                    {TEAM.map((barber) => (
+                      <motion.button
+                        key={barber.name}
+                        onClick={() => {
+                          setSelectedBarber(barber.name);
+                          setStep("date");
+                        }}
+                        className={`p-6 rounded-lg border-2 transition-all ${
+                          selectedBarber === barber.name
+                            ? "border-barber-red bg-barber-red/10"
+                            : "border-stone-200 hover:border-barber-blue"
+                        }`}
+                        whileHover={{ scale: 1.02 }}
+                      >
+                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-barber-red to-barber-blue flex items-center justify-center mx-auto mb-4">
+                          <span className="text-2xl font-light text-paper">{barber.name[0]}</span>
+                        </div>
+                        <p className="font-light text-ink text-lg">{barber.name}</p>
+                        {barber.specialty && (
+                          <p className="text-xs text-stone-500 mt-2">{barber.specialty}</p>
+                        )}
+                      </motion.button>
+                    ))}
+                  </div>
+
+                  <div className="flex gap-3">
+                    <motion.button
+                      onClick={() => setStep("service")}
+                      className="flex-1 px-4 py-3 rounded-lg border border-stone-200 text-ink hover:border-barber-blue transition-colors"
+                      whileHover={{ scale: 1.02 }}
+                    >
+                      Zurück
+                    </motion.button>
                   </div>
                 </motion.div>
               )}
@@ -288,6 +338,9 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                     <div className="space-y-2 text-ink font-light">
                       <p>
                         <span className="text-stone-500">Service:</span> {selectedService?.name}
+                      </p>
+                      <p>
+                        <span className="text-stone-500">Friseur:</span> {selectedBarber}
                       </p>
                       <p>
                         <span className="text-stone-500">Datum:</span> {new Date(selectedDate).toLocaleDateString("de-DE")}

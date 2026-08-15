@@ -21,10 +21,12 @@ export default function TeamCard({ member, onOpen }: TeamCardProps) {
       className="group flex flex-col items-start text-left cursor-pointer"
       aria-haspopup="dialog"
     >
-      {/* Image Container */}
-      <motion.div
-        layoutId={`team-tile-${member.name}`}
-        className="relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-lg bg-stone-200 transition-all duration-500 group-hover:bg-stone-300 group-hover:shadow-lg"
+      {/* Card Container with Glassmorphism */}
+      <div className="glassmorphism p-5 rounded-lg w-full transition-all duration-300 group-hover:border-barber-red/30">
+        {/* Image Container */}
+        <motion.div
+          layoutId={`team-tile-${member.name}`}
+          className="relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-stone-700 to-stone-900 transition-all duration-500 group-hover:shadow-lg"
         whileHover={{
           scale: 1.02,
           boxShadow: "0 15px 40px rgba(255, 46, 59, 0.1), 0 0 30px rgba(0, 153, 255, 0.05)",
@@ -53,6 +55,7 @@ export default function TeamCard({ member, onOpen }: TeamCardProps) {
           </motion.p>
         </motion.div>
       </motion.div>
+      </div>
 
       {/* Name */}
       <motion.p

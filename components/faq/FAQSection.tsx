@@ -41,7 +41,14 @@ export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="bg-paper px-6 py-28 lg:px-10 lg:py-40 border-t border-line">
+    <motion.section
+      id="faq"
+      initial={{ opacity: 0, x: -100 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
+      className="bg-paper px-6 py-28 lg:px-10 lg:py-40 border-t border-line"
+    >
       <div className="mx-auto max-w-3xl">
         <SectionHeading
           eyebrow="FAQ"
@@ -96,6 +103,6 @@ export default function FAQSection() {
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

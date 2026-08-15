@@ -116,9 +116,13 @@ export default function GallerySection() {
   };
 
   return (
-    <section
+    <motion.section
       ref={sectionRef}
       id="galerie"
+      initial={{ opacity: 0, y: 100 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
       className="relative bg-paper px-6 py-28 lg:px-10 lg:py-40 overflow-hidden"
     >
       <div className="mx-auto max-w-7xl">
@@ -218,6 +222,6 @@ export default function GallerySection() {
           </p>
         </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }
