@@ -445,11 +445,11 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                 {step === "review" && (
                   <motion.button
                     onClick={() => setStep("confirmation")}
-                    className="flex-1 px-4 py-3 rounded-lg bg-gradient-to-r from-barber-red to-barber-red/80 text-paper hover:shadow-lg hover:shadow-barber-red/50 transition-all font-light tracking-wide"
-                    whileHover={{ scale: 1.02, y: -2 }}
+                    className="w-full px-6 py-4 rounded-lg bg-gradient-to-r from-barber-red via-barber-red to-barber-red/90 text-paper font-light tracking-wide shadow-lg hover:shadow-2xl hover:shadow-barber-red/60 transition-all text-lg"
+                    whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    Buchen
+                    Termin bestätigen
                   </motion.button>
                 )}
 
