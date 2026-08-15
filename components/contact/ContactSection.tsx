@@ -64,8 +64,8 @@ export default function ContactSection() {
               </motion.a>
             </div>
 
-            {/* Opening Hours */}
-            <div className="space-y-4 mt-12 lg:mt-0">
+            {/* Opening Hours - Desktop Only */}
+            <div className="hidden lg:block space-y-4">
               <h3 className="font-display text-sm font-light uppercase tracking-[0.2em] text-stone-500">
                 Öffnungszeiten
               </h3>

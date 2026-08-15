@@ -57,10 +57,14 @@ html {
 }
 
 body {
-  background: linear-gradient(135deg, #1a1a1a 0%, #263a36 50%, #1a2420 100%);
+  background:
+    radial-gradient(ellipse 100% 60% at 20% 40%, rgba(38, 58, 54, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 50% at 80% 60%, rgba(26, 32, 26, 0.08) 0%, transparent 50%),
+    linear-gradient(135deg, #181818 0%, #1f2f2a 50%, #171e1a 100%);
   color: var(--color-ink);
   font-family: var(--font-sans);
   background-attachment: fixed;
+  position: relative;
 }
 
 @media (prefers-reduced-motion: reduce) {

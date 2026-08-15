@@ -7,6 +7,7 @@ import { CONTACT } from "@/lib/config";
 
 export default function Hero() {
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,8 +17,17 @@ export default function Hero() {
       setScrollProgress(progress);
     };
 
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   return (
@@ -163,22 +173,24 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Scroll indicator - Hidden on mobile */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 hidden lg:flex"
-        animate={{ y: [0, 12, 0] }}
-        transition={{ duration: 2.5, repeat: Infinity }}
-        style={{
-          opacity: 1 - scrollProgress,
-        }}
-      >
-        <div className="flex flex-col items-center gap-2">
-          <p className="text-xs text-stone-600 tracking-widest uppercase">
-            Scroll
-          </p>
-          <motion.div className="h-6 w-px bg-gradient-to-b from-barber-red to-transparent" />
-        </div>
-      </motion.div>
+      {/* Scroll indicator - Desktop only */}
+      {isDesktop && (
+        <motion.div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+          animate={{ y: [0, 12, 0] }}
+          transition={{ duration: 2.5, repeat: Infinity }}
+          style={{
+            opacity: 1 - scrollProgress,
+          }}
+        >
+          <div className="flex flex-col items-center gap-2">
+            <p className="text-xs text-stone-600 tracking-widest uppercase">
+              Scroll
+            </p>
+            <motion.div className="h-6 w-px bg-gradient-to-b from-barber-red to-transparent" />
+          </div>
+        </motion.div>
+      )}
     </section>
   );
 }
