@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { TEAM, type TeamMember } from "@/lib/config";
 import SectionHeading from "@/components/shared/SectionHeading";
 import TeamCard from "@/components/team/TeamCard";
@@ -11,14 +10,7 @@ export default function TeamSection() {
   const [selected, setSelected] = useState<TeamMember | null>(null);
 
   return (
-    <motion.section
-      id="team"
-      initial={{ opacity: 0, y: 100 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-      className="bg-paper px-6 py-28 lg:px-10 lg:py-36"
-    >
+    <section id="team" className="bg-paper px-6 py-28 lg:px-10 lg:py-36">
       <div className="mx-auto max-w-5xl">
         <SectionHeading
           eyebrow="Team"
@@ -35,6 +27,6 @@ export default function TeamSection() {
       </div>
 
       <TeamDetailOverlay member={selected} onClose={() => setSelected(null)} />
-    </motion.section>
+    </section>
   );
 }

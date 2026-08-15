@@ -7,12 +7,8 @@ import RatingStars from "@/components/reviews/RatingStars";
 
 export default function ReviewsSection() {
   return (
-    <motion.section
+    <section
       id="rezensionen"
-      initial={{ opacity: 0, y: 100 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
       className="relative px-6 py-28 lg:px-10 lg:py-40 border-t border-line"
       style={{
         backgroundImage: "url('/images/salon-reception.jpg')",
@@ -58,6 +54,6 @@ export default function ReviewsSection() {
           </div>
         </motion.div>
       </div>
-    </motion.section>
+    </section>
   );
 }

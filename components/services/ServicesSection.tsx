@@ -7,14 +7,7 @@ import BookingButton from "@/components/booking/BookingButton";
 
 export default function ServicesSection() {
   return (
-    <motion.section
-      id="leistungen"
-      initial={{ opacity: 0, x: 100 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-      className="bg-paper px-6 py-28 lg:px-10 lg:py-40"
-    >
+    <section id="leistungen" className="bg-paper px-6 py-28 lg:px-10 lg:py-40">
       <div className="mx-auto max-w-6xl">
         <SectionHeading
           eyebrow="Leistungen"
@@ -93,6 +86,6 @@ export default function ServicesSection() {
           <BookingButton label="Termin buchen" modal />
         </motion.div>
       </div>
-    </motion.section>
+    </section>
   );
 }

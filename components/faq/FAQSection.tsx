@@ -30,25 +30,13 @@ const FAQ_ITEMS = [
     answer:
       "Wenn du deinen Termin bis 24 Stunden vorher absagst, entstehen keine Kosten. Bei kurzfristigen Absagen können Gebühren anfallen.",
   },
-  {
-    question: "Gibt es einen Rabatt für Stammkunden?",
-    answer:
-      "Ja! Frag uns nach unserem Loyalitätsprogramm. Regelmäßige Kunden erhalten spezielle Angebote und Rabatte.",
-  },
 ];
 
 export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <motion.section
-      id="faq"
-      initial={{ opacity: 0, x: -100 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-      className="bg-paper px-6 py-28 lg:px-10 lg:py-40 border-t border-line"
-    >
+    <section id="faq" className="bg-paper px-6 py-28 lg:px-10 lg:py-40 border-t border-line">
       <div className="mx-auto max-w-3xl">
         <SectionHeading
           eyebrow="FAQ"
@@ -103,6 +91,6 @@ export default function FAQSection() {
           ))}
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }

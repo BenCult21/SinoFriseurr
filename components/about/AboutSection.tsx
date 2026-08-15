@@ -7,14 +7,7 @@ import { motion } from "framer-motion";
 
 export default function AboutSection() {
   return (
-    <motion.section
-      id="ueber-uns"
-      initial={{ opacity: 0, x: -100 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-      className="bg-paper px-6 py-28 lg:px-10 lg:py-40"
-    >
+    <section id="ueber-uns" className="bg-paper px-6 py-28 lg:px-10 lg:py-40">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           eyebrow="Über uns"
@@ -88,6 +81,6 @@ export default function AboutSection() {
 
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }
