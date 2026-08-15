@@ -9,6 +9,7 @@ type BookingStep = "service" | "date" | "contact" | "confirmation";
 
 export default function BookingFlow({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [step, setStep] = useState<BookingStep>("service");
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
   const [selectedDate, setSelectedDate] = useState<string>("");
   const [selectedTime, setSelectedTime] = useState<string>("");
@@ -227,12 +228,30 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                       Zurück
                     </motion.button>
                     <motion.button
-                      onClick={() => contact.name && contact.phone && setStep("confirmation")}
-                      disabled={!contact.name || !contact.phone}
-                      className="flex-1 px-4 py-3 rounded-lg bg-barber-blue text-paper hover:bg-barber-blue/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                      whileHover={{ scale: 1.02 }}
+                      onClick={async () => {
+                        if (contact.name && contact.phone) {
+                          setIsLoading(true);
+                          await new Promise(r => setTimeout(r, 1500));
+                          setStep("confirmation");
+                          setIsLoading(false);
+                        }
+                      }}
+                      disabled={!contact.name || !contact.phone || isLoading}
+                      className="flex-1 px-4 py-3 rounded-lg bg-barber-blue text-paper hover:bg-barber-blue/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
+                      whileHover={!isLoading ? { scale: 1.02 } : {}}
                     >
-                      Bestätigen
+                      {isLoading ? (
+                        <>
+                          <motion.div
+                            className="w-4 h-4 border-2 border-paper border-t-barber-green rounded-full"
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                          />
+                          Wird verarbeitet...
+                        </>
+                      ) : (
+                        "Bestätigen"
+                      )}
                     </motion.button>
                   </div>
                 </motion.div>

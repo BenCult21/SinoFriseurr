@@ -3,6 +3,7 @@ import { Playfair_Display, Inter, Cormorant } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import ScrollToTop from "@/components/layout/ScrollToTop";
 import BarberPoleNav from "@/components/navigation/BarberPoleNav";
 import { CONTACT, OPENING_HOURS, SALON_NAME } from "@/lib/config";
 
@@ -94,6 +95,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         />
         <Navbar />
         <BarberPoleNav />
+        <ScrollToTop />
         <main className="flex-1">{children}</main>
         <Footer />
       </body>

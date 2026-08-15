@@ -4,6 +4,7 @@ import GallerySection from "@/components/gallery/GallerySection";
 import ServicesSection from "@/components/services/ServicesSection";
 import TeamSection from "@/components/team/TeamSection";
 import ReviewsSection from "@/components/reviews/ReviewsSection";
+import FAQSection from "@/components/faq/FAQSection";
 import ContactSection from "@/components/contact/ContactSection";
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
       <ServicesSection />
       <TeamSection />
       <ReviewsSection />
+      <FAQSection />
       <ContactSection />
     </>
   );

@@ -112,6 +112,7 @@ export const NAV_LINKS = [
   { label: "Dienstleistungen", href: "#leistungen" },
   { label: "Team", href: "#team" },
   { label: "Rezensionen", href: "#rezensionen" },
+  { label: "FAQ", href: "#faq" },
   { label: "Standort", href: "#standort" },
 ];
 
