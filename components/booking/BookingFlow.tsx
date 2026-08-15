@@ -432,30 +432,34 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                   </motion.button>
                 )}
 
-                {step === "contact" && contact.name && contact.phone && (
+                {step === "contact" && (
                   <motion.button
-                    onClick={() => setStep("review")}
-                    className="flex-1 px-4 py-3 rounded-lg bg-barber-blue text-paper hover:bg-barber-blue/90 transition-all"
-                    whileHover={{ scale: 1.02 }}
+                    onClick={() => {
+                      if (contact.name && contact.phone) {
+                        setStep("review");
+                      }
+                    }}
+                    disabled={!contact.name || !contact.phone}
+                    className={`w-full px-6 py-4 rounded-lg font-bold text-lg transition-all ${
+                      contact.name && contact.phone
+                        ? "bg-barber-blue text-white hover:bg-barber-blue/90 shadow-lg"
+                        : "bg-stone-400 text-stone-600 cursor-not-allowed opacity-60"
+                    }`}
+                    whileHover={contact.name && contact.phone ? { scale: 1.03 } : {}}
                   >
                     Überprüfen
                   </motion.button>
                 )}
 
                 {step === "review" && (
-                  <div className="w-full space-y-3">
-                    <motion.button
-                      onClick={() => setStep("confirmation")}
-                      className="w-full px-6 py-5 rounded-xl bg-gradient-to-r from-barber-red via-barber-red to-barber-red/85 text-paper font-display font-light tracking-wider text-base sm:text-lg shadow-2xl hover:shadow-barber-red/70 transition-all border-2 border-barber-red/30"
-                      whileHover={{ scale: 1.03, y: -3 }}
-                      whileTap={{ scale: 0.97 }}
-                    >
-                      TERMIN VEREINBAREN
-                    </motion.button>
-                    <p className="text-xs text-center text-stone-500 px-4">
-                      Klicke zum finalen Bestätigen
-                    </p>
-                  </div>
+                  <motion.button
+                    onClick={() => setStep("confirmation")}
+                    className="w-full px-8 py-6 rounded-xl bg-white text-black font-bold tracking-wider text-lg shadow-2xl hover:shadow-white/50 transition-all border-4 border-black font-display"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    ✓ TERMIN VEREINBAREN
+                  </motion.button>
                 )}
 
                 {step === "confirmation" && (
