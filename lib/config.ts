@@ -109,7 +109,7 @@ export const NAV_LINKS = [
   { label: "Start", href: "#start" },
   { label: "Über uns", href: "#ueber-uns" },
   { label: "Galerie", href: "#galerie" },
-  { label: "Leistungen", href: "#leistungen" },
+  { label: "Dienstleistungen", href: "#leistungen" },
   { label: "Team", href: "#team" },
   { label: "Rezensionen", href: "#rezensionen" },
   { label: "Standort", href: "#standort" },
