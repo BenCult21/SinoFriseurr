@@ -43,42 +43,128 @@ export default function AboutSection() {
           ))}
         </motion.div>
 
-        {/* Editorial Image Gallery */}
-        <div className="mt-32 space-y-8">
+        {/* Editorial Story Section */}
+        <div className="mt-32 space-y-16 lg:space-y-24">
+          {/* Story Paragraph */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+            className="max-w-3xl"
+          >
+            <p className="font-light text-lg lg:text-xl text-stone-200 leading-relaxed mb-6">
+              Sino Friseurstudio ist mehr als ein Salon. Es ist ein Ort, an dem Handwerk auf Leidenschaft trifft.
+            </p>
+            <p className="font-light text-base text-stone-300 leading-relaxed">
+              Unser Team bringt Jahre an Erfahrung und eine tiefe Liebe zum Detail mit. Wir verstehen, dass jeder Haarschnitt eine Geschichte ist – eine Gelegenheit, Persönlichkeit zum Ausdruck zu bringen und Vertrauen zu schaffen.
+            </p>
+          </motion.div>
+
           {/* Hero Image - Full Width */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="relative overflow-hidden rounded-lg h-96 lg:h-[500px]"
+            className="relative overflow-hidden rounded-2xl h-80 lg:h-[500px] group"
           >
             <EditorialImage
               src="/images/salon-barber-row.jpg"
               alt="Sino Friseurstudio – Barber Stühle"
               sizes="100vw"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover group-hover:scale-[1.01] transition-transform duration-300"
               priority
             />
 
+            {/* Minimal Hover Light */}
+            <motion.div
+              className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"
+              style={{
+                background: "radial-gradient(circle 300px at center, rgba(255, 255, 255, 0.008) 0%, transparent 70%)",
+              }}
+            />
+
             {/* Text Overlay */}
-            <motion.a
-              href="#galerie"
-              className="absolute inset-0 bg-gradient-to-r from-paper/80 via-transparent to-transparent flex flex-col justify-end p-8 group cursor-pointer"
-              whileHover={{ backgroundImage: "linear-gradient(to right, rgba(10, 10, 10, 0.95), transparent)" }}
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-paper/70 via-transparent to-transparent flex flex-col justify-end p-8"
             >
               <motion.h3
-                className="font-heading text-3xl lg:text-4xl text-ink max-w-md font-light group-hover:text-barber-red transition-colors"
-                whileHover={{ x: 4 }}
+                className="font-heading text-3xl lg:text-5xl text-white max-w-2xl font-light"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
               >
                 Unser Salon
               </motion.h3>
-              <p className="text-sm text-white mt-2 max-w-sm group-hover:text-stone-100 transition-colors">
-                Ein Ort der Kreativität, wo Handwerk auf Leidenschaft trifft
-              </p>
-            </motion.a>
+              <motion.p
+                className="text-sm text-stone-200 mt-3 max-w-sm font-light"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.25 }}
+              >
+                Ein Ort der Kreativität und Handwerkskunst
+              </motion.p>
+            </motion.div>
           </motion.div>
 
+          {/* Story Continuation */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+            className="max-w-3xl"
+          >
+            <p className="font-light text-base text-stone-300 leading-relaxed">
+              Ob Haarschnitt, Bart-Design oder komplette Umgestaltung – wir nehmen uns Zeit, Ihre Wünsche zu verstehen und eine Lösung zu schaffen, die zu Ihnen passt. Qualität, Service und persönliche Beratung sind die Pfeiler unserer Arbeit.
+            </p>
+          </motion.div>
+
+          {/* Secondary Image */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="grid md:grid-cols-2 gap-6 lg:gap-12 items-center"
+          >
+            <div className="relative overflow-hidden rounded-xl h-80 md:h-96 order-2 md:order-1 group">
+              <EditorialImage
+                src="/images/salon-lounge.jpg"
+                alt="Sino Friseurstudio – Lounge"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="w-full h-full object-cover group-hover:scale-[1.01] transition-transform duration-300"
+              />
+              {/* Minimal Hover Light */}
+              <motion.div
+                className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"
+                style={{
+                  background: "radial-gradient(circle 200px at center, rgba(255, 255, 255, 0.008) 0%, transparent 70%)",
+                }}
+              />
+            </div>
+
+            <motion.div
+              className="order-1 md:order-2"
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+            >
+              <p className="text-sm font-light text-stone-400 uppercase tracking-wide mb-3">
+                Ambiente
+              </p>
+              <h4 className="font-display text-2xl lg:text-3xl text-white font-light mb-4">
+                Wohlfühl-Atmosphäre
+              </h4>
+              <p className="font-light text-base text-stone-300 leading-relaxed">
+                Unser Studio ist designed als Rückzugsort – ein Ort, wo Sie sich entspannen und aufgehoben fühlen. Moderne Einrichtung, angenehme Musik und aufmerksames Team schaffen das perfekte Ambiente für Ihren Besuch.
+              </p>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>
