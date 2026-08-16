@@ -42,7 +42,7 @@ export default function ServicesSection() {
               </motion.h3>
 
               {/* Services List */}
-              <div className="space-y-2 sm:space-y-3">
+              <div className="space-y-1 sm:space-y-3">
                 {category.items.map((item, index) => {
                   const serviceKey = `${catIndex}-${index}` as ExpandedService;
                   const isExpanded = expandedService === serviceKey;
@@ -59,7 +59,7 @@ export default function ServicesSection() {
                         onClick={() =>
                           setExpandedService(isExpanded ? null : serviceKey)
                         }
-                        className="group relative w-full p-3 sm:p-6 rounded-lg transition-all overflow-hidden text-left"
+                        className="group relative w-full p-2.5 sm:p-6 rounded-lg transition-all overflow-hidden text-left"
                         style={{
                           background: isExpanded
                             ? "rgba(255, 255, 255, 0.08)"
@@ -82,20 +82,20 @@ export default function ServicesSection() {
                         />
 
                         {/* Service Header - Always Visible */}
-                        <div className="relative flex items-start justify-between gap-6">
+                        <div className="relative flex items-start justify-between gap-3 sm:gap-6">
                           <div className="flex-1">
-                            <div className="flex items-baseline gap-4">
-                              <span className="font-heading text-sm font-semibold text-stone-300 group-hover:text-stone-200 transition-colors">
+                            <div className="flex items-baseline gap-2 sm:gap-4">
+                              <span className="font-heading text-xs sm:text-sm font-semibold text-stone-300 group-hover:text-stone-200 transition-colors">
                                 {String(index + 1).padStart(2, "0")}
                               </span>
-                              <h4 className="font-heading text-base lg:text-lg font-semibold text-white group-hover:text-stone-100 transition-colors">
+                              <h4 className="font-heading text-sm sm:text-base lg:text-lg font-semibold text-white group-hover:text-stone-100 transition-colors">
                                 {item.name}
                               </h4>
                             </div>
                           </div>
 
-                          <div className="flex items-center gap-4 flex-shrink-0">
-                            <p className="font-heading text-base lg:text-lg font-semibold text-white group-hover:text-stone-100 transition-colors">
+                          <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
+                            <p className="font-heading text-sm sm:text-base lg:text-lg font-semibold text-white group-hover:text-stone-100 transition-colors">
                               {item.price}
                             </p>
                             <motion.svg
