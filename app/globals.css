@@ -110,22 +110,22 @@ body {
 
 .glow-title {
   text-shadow:
-    0 0 40px rgba(255, 255, 255, 0.4),
-    0 0 80px rgba(255, 46, 59, 0.25),
-    0 0 120px rgba(0, 153, 255, 0.15);
+    0 0 20px rgba(255, 255, 255, 0.15),
+    0 0 40px rgba(255, 46, 59, 0.08),
+    0 0 60px rgba(0, 153, 255, 0.04);
 }
 
 .glow-star {
-  filter: drop-shadow(0 0 12px rgba(255, 193, 7, 0.8));
+  filter: drop-shadow(0 0 4px rgba(255, 193, 7, 0.25));
   color: #ffc107;
 }
 
 .glow-red {
-  text-shadow: 0 0 30px rgba(255, 46, 59, 0.7), 0 0 60px rgba(255, 46, 59, 0.3);
+  text-shadow: 0 0 12px rgba(255, 46, 59, 0.2), 0 0 24px rgba(255, 46, 59, 0.08);
 }
 
 .glow-blue {
-  text-shadow: 0 0 30px rgba(0, 153, 255, 0.7), 0 0 60px rgba(0, 153, 255, 0.3);
+  text-shadow: 0 0 12px rgba(0, 153, 255, 0.2), 0 0 24px rgba(0, 153, 255, 0.08);
 }
 
 .glassmorphism {

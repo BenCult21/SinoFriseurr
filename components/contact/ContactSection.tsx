@@ -82,8 +82,8 @@ export default function ContactSection() {
                       border: "1px solid rgba(255, 255, 255, 0.08)",
                     }}
                     whileHover={{
-                      background: "rgba(255, 255, 255, 0.06)",
-                      borderColor: "rgba(255, 255, 255, 0.12)",
+                      background: "rgba(255, 255, 255, 0.05)",
+                      borderColor: "rgba(255, 255, 255, 0.1)",
                     }}
                   >
                     <span className="font-light text-ink group-hover:text-barber-red transition-colors">

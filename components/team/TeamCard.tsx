@@ -29,64 +29,42 @@ export default function TeamCard({ member, onOpen }: TeamCardProps) {
           border: "1px solid rgba(255, 255, 255, 0.12)",
         }}
       >
-        {/* Subtle Hover Light */}
+        {/* Minimal Hover Light */}
         <motion.div
           className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"
           style={{
-            background: "radial-gradient(circle 150px at center, rgba(255, 255, 255, 0.04) 0%, transparent 70%)",
+            background: "radial-gradient(circle 120px at center, rgba(255, 255, 255, 0.008) 0%, transparent 70%)",
           }}
         />
 
         {/* Image Container */}
-        <motion.div
-          layoutId={`team-tile-${member.name}`}
+        <div
           className="relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-stone-700 to-stone-900 transition-all duration-300"
-          whileHover={{
-            scale: 1.02,
-          }}
         >
-          <motion.span
-            className="font-heading text-6xl lg:text-7xl font-light text-white/60 group-hover:text-white/40 transition-colors duration-300"
-            whileHover={{ scale: 0.95 }}
-          >
+          <span className="font-heading text-6xl lg:text-7xl font-light text-white/60 group-hover:text-white/50 transition-colors duration-300">
             {member.name.charAt(0)}
-          </motion.span>
+          </span>
 
           {/* Hover Overlay */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileHover={{ opacity: 1 }}
-            className="absolute inset-0 bg-gradient-to-t from-stone-900/50 via-transparent to-transparent flex items-end p-6"
-            transition={{ duration: 0.2 }}
-          >
-            <motion.p
-              className="font-heading text-sm font-light text-white tracking-wide"
-              initial={{ opacity: 0, y: 8 }}
-              whileHover={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.25 }}
-            >
+          <div className="absolute inset-0 bg-gradient-to-t from-stone-900/40 via-transparent to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <p className="font-heading text-sm font-light text-white tracking-wide">
               {member.role ?? "Friseur"}
-            </motion.p>
-          </motion.div>
-        </motion.div>
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Name */}
-      <motion.p
-        layoutId={`team-name-${member.name}`}
+      <p
         className="mt-6 font-heading text-lg lg:text-xl font-semibold text-white tracking-tight group-hover:text-stone-100 transition-colors"
-        whileHover={{ x: 4, letterSpacing: "0.1em" }}
       >
         {member.name}
-      </motion.p>
+      </p>
 
       {/* Subtitle */}
-      <motion.p
-        className="mt-2 text-xs font-light text-stone-200 group-hover:text-white transition-colors"
-        whileHover={{ x: -2 }}
-      >
+      <p className="mt-2 text-xs font-light text-stone-200 group-hover:text-white transition-colors">
         {member.role ?? "Team Sino Friseurstudio"}
-      </motion.p>
+      </p>
     </motion.button>
   );
 }

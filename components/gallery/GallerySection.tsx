@@ -67,93 +67,186 @@ export default function GallerySection() {
           description="Eine Sammlung unserer Studio-Impressionen. Jedes Bild erzählt eine Geschichte von Handwerk, Kreativität und unserem Engagement für Exzellenz."
         />
 
-        {/* Gallery Grid - Desktop and Tablet */}
+        {/* Desktop Gallery - Spatial Layout */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true, margin: "-100px" }}
-          className="hidden md:grid mt-20 gap-6 w-full grid-cols-3"
+          className="hidden md:block mt-20"
         >
-          {GALLERY_IMAGES.map((image, i) => (
+          {/* Custom spatial grid with varying sizes */}
+          <div className="grid gap-6 w-full" style={{
+            gridTemplateColumns: "repeat(12, 1fr)",
+            gridTemplateRows: "repeat(4, 280px)",
+          }}>
+            {/* Image 1: Large - left side, spans 2 columns */}
             <motion.div
-              key={i}
-              className="relative overflow-hidden rounded-lg bg-stone-200 shadow-lg h-80 group transition-all"
-              initial={{ opacity: 0, y: 20 }}
+              className="group col-span-5 row-span-2 relative overflow-hidden rounded-2xl bg-stone-200 shadow-lg transition-all"
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.6,
-                delay: i * 0.1,
-              }}
+              transition={{ duration: 0.7, delay: 0 }}
               viewport={{ once: true }}
               whileHover={{
-                boxShadow: "0 15px 40px rgba(0, 0, 0, 0.25)",
-                y: -2,
+                boxShadow: "0 12px 30px rgba(0, 0, 0, 0.2)",
               }}
             >
-              {/* Subtle Hover Light Overlay */}
               <motion.div
                 className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 z-10"
                 style={{
-                  background: "radial-gradient(circle 200px at center, rgba(255, 255, 255, 0.04) 0%, transparent 70%)",
+                  background: "radial-gradient(circle 200px at center, rgba(255, 255, 255, 0.008) 0%, transparent 70%)",
                 }}
               />
-
-              <motion.div
-                whileHover={{ scale: 1.03 }}
-                transition={{ duration: 0.4 }}
-                className="w-full h-full"
-              >
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover"
-                  quality={85}
-                />
-              </motion.div>
+              <Image
+                src={GALLERY_IMAGES[0].src}
+                alt={GALLERY_IMAGES[0].alt}
+                fill
+                sizes="50vw"
+                className="object-cover"
+                quality={85}
+              />
             </motion.div>
-          ))}
+
+            {/* Image 2: Medium top - right side */}
+            <motion.div
+              className="group col-span-4 row-span-1 relative overflow-hidden rounded-xl bg-stone-200 shadow-lg transition-all"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              viewport={{ once: true }}
+              whileHover={{
+                boxShadow: "0 12px 30px rgba(0, 0, 0, 0.2)",
+              }}
+            >
+              <motion.div
+                className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 z-10"
+                style={{
+                  background: "radial-gradient(circle 150px at center, rgba(255, 255, 255, 0.008) 0%, transparent 70%)",
+                }}
+              />
+              <Image
+                src={GALLERY_IMAGES[1].src}
+                alt={GALLERY_IMAGES[1].alt}
+                fill
+                sizes="30vw"
+                className="object-cover"
+                quality={85}
+              />
+            </motion.div>
+
+            {/* Image 3: Small top right corner */}
+            <motion.div
+              className="group col-span-3 row-span-1 relative overflow-hidden rounded-lg bg-stone-200 shadow-lg transition-all"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.15 }}
+              viewport={{ once: true }}
+              whileHover={{
+                boxShadow: "0 12px 30px rgba(0, 0, 0, 0.2)",
+              }}
+            >
+              <motion.div
+                className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 z-10"
+                style={{
+                  background: "radial-gradient(circle 120px at center, rgba(255, 255, 255, 0.008) 0%, transparent 70%)",
+                }}
+              />
+              <Image
+                src={GALLERY_IMAGES[2].src}
+                alt={GALLERY_IMAGES[2].alt}
+                fill
+                sizes="20vw"
+                className="object-cover"
+                quality={85}
+              />
+            </motion.div>
+
+            {/* Image 4: Medium bottom - spanning center */}
+            <motion.div
+              className="group col-span-4 row-span-2 relative overflow-hidden rounded-xl bg-stone-200 shadow-lg transition-all"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              viewport={{ once: true }}
+              whileHover={{
+                boxShadow: "0 12px 30px rgba(0, 0, 0, 0.2)",
+              }}
+            >
+              <motion.div
+                className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 z-10"
+                style={{
+                  background: "radial-gradient(circle 150px at center, rgba(255, 255, 255, 0.008) 0%, transparent 70%)",
+                }}
+              />
+              <Image
+                src={GALLERY_IMAGES[3].src}
+                alt={GALLERY_IMAGES[3].alt}
+                fill
+                sizes="30vw"
+                className="object-cover"
+                quality={85}
+              />
+            </motion.div>
+
+            {/* Image 5: Medium - right bottom */}
+            <motion.div
+              className="group col-span-4 row-span-2 relative overflow-hidden rounded-xl bg-stone-200 shadow-lg transition-all"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.25 }}
+              viewport={{ once: true }}
+              whileHover={{
+                boxShadow: "0 12px 30px rgba(0, 0, 0, 0.2)",
+              }}
+            >
+              <motion.div
+                className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 z-10"
+                style={{
+                  background: "radial-gradient(circle 150px at center, rgba(255, 255, 255, 0.008) 0%, transparent 70%)",
+                }}
+              />
+              <Image
+                src={GALLERY_IMAGES[4].src}
+                alt={GALLERY_IMAGES[4].alt}
+                fill
+                sizes="30vw"
+                className="object-cover"
+                quality={85}
+              />
+            </motion.div>
+          </div>
         </motion.div>
 
-        {/* Mobile Gallery */}
+        {/* Mobile Gallery - Simplified */}
         <div className="md:hidden mt-20 space-y-4">
           {GALLERY_IMAGES.map((image, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
               viewport={{ once: true }}
               className="relative overflow-hidden rounded-lg h-64 w-full bg-stone-200 shadow-lg group transition-all"
               whileHover={{
-                boxShadow: "0 10px 30px rgba(0, 0, 0, 0.2)",
-                y: -1,
+                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.18)",
               }}
             >
-              {/* Subtle Hover Light Overlay */}
+              {/* Minimal Hover Light Overlay */}
               <motion.div
                 className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 z-10"
                 style={{
-                  background: "radial-gradient(circle 150px at center, rgba(255, 255, 255, 0.03) 0%, transparent 70%)",
+                  background: "radial-gradient(circle 120px at center, rgba(255, 255, 255, 0.006) 0%, transparent 70%)",
                 }}
               />
 
-              <motion.div
-                whileHover={{ scale: 1.03 }}
-                transition={{ duration: 0.4 }}
-                className="w-full h-full"
-              >
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  sizes="100vw"
-                  className="object-cover"
-                  quality={85}
-                />
-              </motion.div>
+              <Image
+                src={image.src}
+                alt={image.alt}
+                fill
+                sizes="100vw"
+                className="object-cover"
+                quality={85}
+              />
             </motion.div>
           ))}
         </div>
