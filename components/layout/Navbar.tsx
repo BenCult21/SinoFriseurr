@@ -83,7 +83,7 @@ export default function Navbar() {
               className="text-right group"
               whileHover={{ scale: 1.05 }}
             >
-              <p className="text-xs text-stone-300 uppercase tracking-wider">Telefon</p>
+              <p className="text-xs text-stone-200 uppercase tracking-wider">Telefon</p>
               <p className="font-light text-sm text-white group-hover:text-barber-red transition-colors">
                 {CONTACT.phone}
               </p>
@@ -100,7 +100,7 @@ export default function Navbar() {
               className="text-left group"
               whileHover={{ scale: 1.05 }}
             >
-              <p className="text-xs text-stone-300 uppercase tracking-wider">Adresse</p>
+              <p className="text-xs text-stone-200 uppercase tracking-wider">Adresse</p>
               <p className="font-light text-sm text-white group-hover:text-barber-blue transition-colors">
                 {CONTACT.city}
               </p>

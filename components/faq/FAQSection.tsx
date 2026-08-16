@@ -69,7 +69,7 @@ export default function FAQSection() {
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
-                  className="text-stone-400 flex-shrink-0 ml-4"
+                  className="text-stone-300 flex-shrink-0 ml-4"
                   animate={{ rotate: openIndex === index ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
                 >
@@ -83,7 +83,7 @@ export default function FAQSection() {
                 transition={{ duration: 0.3, ease: "easeInOut" }}
                 className="overflow-hidden bg-stone-50/30"
               >
-                <p className="px-6 py-4 text-sm text-stone-300 leading-relaxed">
+                <p className="px-6 py-4 text-sm text-stone-200 leading-relaxed">
                   {item.answer}
                 </p>
               </motion.div>

@@ -11,7 +11,7 @@ export default function BookingTimeSelect({
   selectedTime,
   onSelectTime,
 }: BookingTimeSelectProps) {
-  // Opening hours: 09:00 - 20:00, 30-minute intervals
+  // Opening hours: 09:00 - 19:30 (closes 20:00), 30-minute intervals
   const timeSlots = [
     "09:00",
     "09:30",
@@ -35,7 +35,6 @@ export default function BookingTimeSelect({
     "18:30",
     "19:00",
     "19:30",
-    "20:00",
   ];
 
   return (

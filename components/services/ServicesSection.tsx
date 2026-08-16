@@ -54,7 +54,7 @@ export default function ServicesSection() {
                           </h4>
                         </div>
                         <motion.p
-                          className="mt-2 text-sm font-light text-stone-300 ml-14"
+                          className="mt-2 text-sm font-light text-stone-200 ml-14"
                           whileHover={{ x: 4 }}
                         >
                           {item.duration}

@@ -73,7 +73,7 @@ export default function AboutSection() {
               >
                 Unser Salon
               </motion.h3>
-              <p className="text-sm text-stone-200 mt-2 max-w-sm group-hover:text-white transition-colors">
+              <p className="text-sm text-white mt-2 max-w-sm group-hover:text-stone-100 transition-colors">
                 Ein Ort der Kreativität, wo Handwerk auf Leidenschaft trifft
               </p>
             </motion.a>
