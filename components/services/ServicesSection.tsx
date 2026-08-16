@@ -42,7 +42,7 @@ export default function ServicesSection() {
               </motion.h3>
 
               {/* Services List */}
-              <div className="space-y-0 sm:space-y-3">
+              <div className="space-y-1.5 sm:space-y-3">
                 {category.items.map((item, index) => {
                   const serviceKey = `${catIndex}-${index}` as ExpandedService;
                   const isExpanded = expandedService === serviceKey;
@@ -59,7 +59,7 @@ export default function ServicesSection() {
                         onClick={() =>
                           setExpandedService(isExpanded ? null : serviceKey)
                         }
-                        className="group relative w-full px-3 py-2 sm:p-6 rounded-lg transition-all text-left"
+                        className="group relative w-full px-3 py-3 sm:p-6 rounded-lg transition-all text-left"
                         style={{
                           background: isExpanded
                             ? "rgba(255, 255, 255, 0.08)"
