@@ -2,16 +2,17 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { SERVICES, CONTACT } from "@/lib/config";
+import { SERVICES, CONTACT, TEAM } from "@/lib/config";
 import type { ServiceItem } from "@/lib/config";
 import BookingCalendar from "./BookingCalendar";
 import BookingTimeSelect from "./BookingTimeSelect";
 
-type BookingStep = "service" | "date" | "contact" | "confirmation";
+type BookingStep = "service" | "barber" | "date" | "contact" | "confirmation";
 
 export default function BookingFlow({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [step, setStep] = useState<BookingStep>("service");
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
+  const [selectedBarber, setSelectedBarber] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string>("");
   const [contact, setContact] = useState({ name: "", phone: "", email: "" });
@@ -33,6 +34,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
   const handleReset = () => {
     setStep("service");
     setSelectedService(null);
+    setSelectedBarber(null);
     setSelectedDate(null);
     setSelectedTime("");
     setContact({ name: "", phone: "", email: "" });
@@ -44,6 +46,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
   };
 
   const isServiceValid = selectedService;
+  const isBarberValid = selectedBarber;
   const isDateTimeValid = selectedDate && selectedTime;
   const isContactValid = contact.name && contact.phone;
 
@@ -65,15 +68,14 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
           {/* Backdrop - behind everything */}
           <motion.div
             className="fixed inset-0 z-[39]"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
+            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            animate={{ opacity: 1, backdropFilter: "blur(18px)" }}
+            exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             onClick={handleClose}
             style={{
               background: "rgba(0, 0, 0, 0.78)",
-              backdropFilter: "blur(16px)",
-              WebkitBackdropFilter: "blur(16px)",
+              WebkitBackdropFilter: "blur(18px)",
             }}
             aria-hidden="true"
           />
@@ -82,10 +84,10 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
           <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 pointer-events-none overflow-y-auto py-8 lg:py-12">
             <motion.div
               className="w-full max-w-[650px] pointer-events-auto"
-              initial={{ opacity: 0, scale: 0.97, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.97, y: 20 }}
-              transition={{ duration: 0.35, ease: "easeOut" }}
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 40 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
             >
               {/* Glass Container */}
               <div
@@ -112,9 +114,10 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                       Termin vereinbaren
                     </h2>
                     <p className="text-sm text-white mt-1">
-                      {step === "service" && "Wählen Sie Ihre Leistung"}
-                      {step === "date" && "Wählen Sie Datum & Uhrzeit"}
-                      {step === "contact" && "Ihre Kontaktdaten"}
+                      {step === "service" && "01. Wählen Sie Ihre Leistung"}
+                      {step === "barber" && "02. Wählen Sie Ihren Friseur"}
+                      {step === "date" && "03. Wählen Sie Datum & Uhrzeit"}
+                      {step === "contact" && "04. Ihre Kontaktdaten"}
                       {step === "confirmation" && "Buchung bestätigt"}
                     </p>
                   </div>
@@ -186,6 +189,79 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                           </div>
                         </motion.button>
                       ))}
+                    </motion.div>
+                  )}
+
+                  {/* Step: Barber Selection */}
+                  {step === "barber" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="space-y-4"
+                    >
+                      <p className="text-sm text-white mb-6">Bei wem möchtest du deinen Termin?</p>
+                      <div className="grid grid-cols-1 gap-3">
+                        {TEAM.map((barber) => (
+                          <motion.button
+                            key={barber.name}
+                            onClick={() => setSelectedBarber(barber.name)}
+                            className="w-full text-left p-4 rounded-xl transition-all"
+                            style={{
+                              background:
+                                selectedBarber === barber.name
+                                  ? "rgba(255, 255, 255, 0.15)"
+                                  : "rgba(255, 255, 255, 0.05)",
+                              border:
+                                selectedBarber === barber.name
+                                  ? "1px solid rgba(255, 46, 59, 0.5)"
+                                  : "1px solid rgba(255, 255, 255, 0.1)",
+                              boxShadow:
+                                selectedBarber === barber.name
+                                  ? "0 0 20px rgba(255, 46, 59, 0.2)"
+                                  : "none",
+                            }}
+                            whileHover={{
+                              background: "rgba(255, 255, 255, 0.1)",
+                              borderColor: "rgba(255, 255, 255, 0.25)",
+                            }}
+                            whileTap={{ scale: 0.98 }}
+                          >
+                            <div className="flex items-center justify-between">
+                              <div className="flex-1">
+                                <div className="flex items-center gap-3">
+                                  <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-stone-700 to-stone-900 flex items-center justify-center flex-shrink-0">
+                                    <span className="text-white font-semibold text-lg">
+                                      {barber.name.charAt(0)}
+                                    </span>
+                                  </div>
+                                  <div>
+                                    <h4 className="text-white font-semibold text-base">
+                                      {barber.name}
+                                    </h4>
+                                    <p className="text-xs text-white mt-0.5">
+                                      {barber.role || "Friseur"}
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                              {selectedBarber === barber.name && (
+                                <motion.div
+                                  initial={{ scale: 0 }}
+                                  animate={{ scale: 1 }}
+                                  className="flex-shrink-0 ml-3"
+                                >
+                                  <div className="w-6 h-6 rounded-full bg-barber-red flex items-center justify-center">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3">
+                                      <polyline points="20 6 9 17 4 12" />
+                                    </svg>
+                                  </div>
+                                </motion.div>
+                              )}
+                            </div>
+                          </motion.button>
+                        ))}
+                      </div>
                     </motion.div>
                   )}
 
@@ -385,6 +461,18 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                               }}
                             />
                             <div className="flex justify-between">
+                              <span className="text-white">Friseur</span>
+                              <span className="text-white font-semibold">
+                                {selectedBarber}
+                              </span>
+                            </div>
+                            <div
+                              className="h-px"
+                              style={{
+                                background: "rgba(255, 255, 255, 0.08)",
+                              }}
+                            />
+                            <div className="flex justify-between">
                               <span className="text-white">Datum & Zeit</span>
                               <span className="text-white font-semibold">
                                 {selectedDate && formatDate(selectedDate)} {selectedTime}
@@ -421,7 +509,8 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                   {step !== "service" && step !== "confirmation" && (
                     <motion.button
                       onClick={() => {
-                        if (step === "date") setStep("service");
+                        if (step === "barber") setStep("service");
+                        else if (step === "date") setStep("barber");
                         else if (step === "contact") setStep("date");
                       }}
                       className="px-6 py-3 rounded-lg font-medium text-sm transition-all"
@@ -440,7 +529,8 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                   {/* Next/Confirm Button */}
                   <motion.button
                     onClick={() => {
-                      if (step === "service" && isServiceValid) setStep("date");
+                      if (step === "service" && isServiceValid) setStep("barber");
+                      else if (step === "barber" && isBarberValid) setStep("date");
                       else if (step === "date" && isDateTimeValid) setStep("contact");
                       else if (step === "contact" && isContactValid) setStep("confirmation");
                     }}
@@ -448,18 +538,21 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                     style={{
                       background:
                         (step === "service" && isServiceValid) ||
+                        (step === "barber" && isBarberValid) ||
                         (step === "date" && isDateTimeValid) ||
                         (step === "contact" && isContactValid)
                           ? "#ffffff"
                           : "rgba(255, 255, 255, 0.1)",
                       color:
                         (step === "service" && isServiceValid) ||
+                        (step === "barber" && isBarberValid) ||
                         (step === "date" && isDateTimeValid) ||
                         (step === "contact" && isContactValid)
                           ? "#000000"
                           : "#999999",
                       cursor:
                         (step === "service" && isServiceValid) ||
+                        (step === "barber" && isBarberValid) ||
                         (step === "date" && isDateTimeValid) ||
                         (step === "contact" && isContactValid)
                           ? "pointer"
@@ -467,6 +560,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                     }}
                     whileHover={
                       (step === "service" && isServiceValid) ||
+                      (step === "barber" && isBarberValid) ||
                       (step === "date" && isDateTimeValid) ||
                       (step === "contact" && isContactValid)
                         ? { scale: 1.05 }
@@ -474,6 +568,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                     }
                     whileTap={
                       (step === "service" && isServiceValid) ||
+                      (step === "barber" && isBarberValid) ||
                       (step === "date" && isDateTimeValid) ||
                       (step === "contact" && isContactValid)
                         ? { scale: 0.95 }
@@ -481,11 +576,13 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                     }
                     disabled={
                       (step === "service" && !isServiceValid) ||
+                      (step === "barber" && !isBarberValid) ||
                       (step === "date" && !isDateTimeValid) ||
                       (step === "contact" && !isContactValid)
                     }
                   >
                     {step === "service" && "Weiter →"}
+                    {step === "barber" && "Weiter →"}
                     {step === "date" && "Weiter →"}
                     {step === "contact" && "✓ TERMIN BESTÄTIGEN"}
                   </motion.button>
