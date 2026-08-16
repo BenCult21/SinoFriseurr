@@ -44,34 +44,33 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
         >
-          {/* Backdrop - Animated with gradient */}
+          {/* Backdrop - Dark fade */}
           <motion.div
             className="absolute inset-0"
             onClick={handleClose}
             aria-hidden="true"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            animate={{ opacity: 1, backdropFilter: "blur(8px)" }}
+            exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
             style={{
-              background: "radial-gradient(circle at 30% 50%, rgba(255, 46, 59, 0.08) 0%, transparent 50%), radial-gradient(circle at 70% 50%, rgba(0, 153, 255, 0.08) 0%, transparent 50%), rgba(0, 0, 0, 0.5)",
-              backdropFilter: "blur(8px)",
+              background: "rgba(0, 0, 0, 0.7)",
             }}
           />
 
           {/* Modal - Glassmorphism Design */}
           <motion.div
-            className="relative w-full max-w-3xl rounded-2xl flex flex-col overflow-hidden"
+            className="relative w-full max-w-2xl rounded-2xl flex flex-col overflow-hidden"
             style={{
               maxHeight: "90vh",
-              minHeight: "500px",
-              background: "linear-gradient(135deg, rgba(35, 35, 35, 1) 0%, rgba(10, 10, 10, 1) 100%)",
+              minHeight: "400px",
+              background: "linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(15, 15, 15, 0.95) 100%)",
               backdropFilter: "blur(20px)",
               WebkitBackdropFilter: "blur(20px)",
-              border: "1px solid rgba(255, 255, 255, 0.12)",
-              boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.3), inset 0 1px 1px 0 rgba(255, 255, 255, 0.06), 0 0 40px 0 rgba(255, 46, 59, 0.08), 0 0 60px 0 rgba(0, 153, 255, 0.05)",
+              border: "1px solid rgba(255, 255, 255, 0.15)",
+              boxShadow: "0 25px 50px 0 rgba(0, 0, 0, 0.5), inset 0 1px 1px 0 rgba(255, 255, 255, 0.08)",
             }}
             initial={{ opacity: 0, scale: 0.95, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -94,7 +93,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                 background: "linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%)",
               }}
             >
-              <h2 className="text-2xl font-light text-ink tracking-wide">Termin buchen</h2>
+              <h2 className="text-3xl font-semibold text-white tracking-wide">Termin buchen</h2>
               <motion.button
                 onClick={handleClose}
                 className="text-stone-400 hover:text-ink p-2 rounded-lg transition-all"
@@ -120,7 +119,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                 {/* Step 1: Service Selection */}
                 {step === "service" && (
                   <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: "easeOut" }}>
-                    <h3 className="text-xl font-light text-ink mb-6">1. Service wählen</h3>
+                    <h3 className="text-2xl font-semibold text-white mb-6">1. Service wählen</h3>
                     <div className="space-y-3">
                       {SERVICES[0].items.map((service) => (
                         <motion.button
@@ -147,7 +146,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                         >
                           <div className="flex justify-between items-center">
                             <div>
-                              <p className="text-ink font-light">{service.name}</p>
+                              <p className="text-white font-light text-base">{service.name}</p>
                               <p className="text-sm text-stone-500 mt-1">{service.duration}</p>
                             </div>
                             <p className="text-barber-red font-light">{service.price}</p>
@@ -161,7 +160,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                 {/* Step 2: Barber Selection */}
                 {step === "barber" && (
                   <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: "easeOut" }}>
-                    <h3 className="text-xl font-light text-ink mb-6">2. Friseur wählen</h3>
+                    <h3 className="text-2xl font-semibold text-white mb-6">2. Friseur wählen</h3>
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                       {TEAM.map((barber) => (
                         <motion.button
@@ -189,7 +188,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                           <div className="w-10 h-10 rounded-full bg-gradient-to-br from-barber-red to-barber-blue flex items-center justify-center mx-auto mb-2 shadow-lg">
                             <span className="text-sm font-light text-white">{barber.name[0]}</span>
                           </div>
-                          <p className="text-sm font-light text-ink">{barber.name}</p>
+                          <p className="text-sm font-light text-white">{barber.name}</p>
                           {barber.specialty && (
                             <p className="text-xs text-stone-500 mt-1">{barber.specialty}</p>
                           )}
@@ -202,7 +201,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                 {/* Step 3: Date & Time */}
                 {step === "date" && (
                   <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: "easeOut" }}>
-                    <h3 className="text-xl font-light text-ink mb-6">3. Datum & Uhrzeit</h3>
+                    <h3 className="text-2xl font-semibold text-white mb-6">3. Datum & Uhrzeit</h3>
                     <div className="space-y-6">
                       <div>
                         <label className="block text-sm text-stone-100 mb-3 uppercase tracking-wide font-light">Datum</label>
@@ -210,10 +209,11 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                           type="date"
                           value={selectedDate}
                           onChange={(e) => setSelectedDate(e.target.value)}
-                          className="w-full px-4 py-3 rounded-lg border border-stone-600/50 text-ink focus:outline-none focus:border-barber-red focus:ring-2 focus:ring-barber-red/30 transition-all"
+                          className="w-full px-4 py-2 sm:py-3 rounded-lg border border-stone-500 text-white focus:outline-none focus:border-white focus:ring-2 focus:ring-white/30 transition-all text-base"
                           style={{
-                            background: "rgba(20, 20, 20, 0.6)",
+                            background: "rgba(30, 30, 30, 0.8)",
                             backdropFilter: "blur(8px)",
+                            colorScheme: "dark"
                           }}
                         />
                       </div>
@@ -222,10 +222,11 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                         <select
                           value={selectedTime}
                           onChange={(e) => setSelectedTime(e.target.value)}
-                          className="w-full px-4 py-3 rounded-lg border border-stone-600/50 text-ink focus:outline-none focus:border-barber-red focus:ring-2 focus:ring-barber-red/30 transition-all"
+                          className="w-full px-4 py-2 sm:py-3 rounded-lg border border-stone-500 text-white focus:outline-none focus:border-white focus:ring-2 focus:ring-white/30 transition-all text-base"
                           style={{
-                            background: "rgba(20, 20, 20, 0.6)",
+                            background: "rgba(30, 30, 30, 0.8)",
                             backdropFilter: "blur(8px)",
+                            colorScheme: "dark"
                           }}
                         >
                           <option value="">-- Uhrzeit wählen --</option>
@@ -243,7 +244,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                 {/* Step 4: Contact Information */}
                 {step === "contact" && (
                   <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: "easeOut" }}>
-                    <h3 className="text-xl font-light text-ink mb-6">4. Kontaktdaten</h3>
+                    <h3 className="text-2xl font-semibold text-white mb-6">4. Kontaktdaten</h3>
                     <div className="space-y-4">
                       <div>
                         <label className="block text-sm text-stone-100 mb-2 uppercase tracking-wide font-light">Name *</label>
@@ -252,7 +253,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                           value={contact.name}
                           onChange={(e) => setContact({ ...contact, name: e.target.value })}
                           placeholder="Ihr Name"
-                          className="w-full px-4 py-3 rounded-lg border border-stone-600/50 text-ink focus:outline-none focus:border-barber-red focus:ring-2 focus:ring-barber-red/20 transition-all placeholder:text-stone-600"
+                          className="w-full px-4 py-2 sm:py-3 rounded-lg border border-stone-500 text-white focus:outline-none focus:border-white focus:ring-2 focus:ring-white/30 transition-all placeholder:text-stone-400 text-base"
                           style={{
                             background: "rgba(20, 20, 20, 0.6)",
                             backdropFilter: "blur(8px)",
@@ -266,7 +267,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                           value={contact.phone}
                           onChange={(e) => setContact({ ...contact, phone: e.target.value })}
                           placeholder={CONTACT.phone}
-                          className="w-full px-4 py-3 rounded-lg border border-stone-600/50 text-ink focus:outline-none focus:border-barber-red focus:ring-2 focus:ring-barber-red/20 transition-all placeholder:text-stone-600"
+                          className="w-full px-4 py-2 sm:py-3 rounded-lg border border-stone-500 text-white focus:outline-none focus:border-white focus:ring-2 focus:ring-white/30 transition-all placeholder:text-stone-400 text-base"
                           style={{
                             background: "rgba(20, 20, 20, 0.6)",
                             backdropFilter: "blur(8px)",
@@ -280,7 +281,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                           value={contact.email}
                           onChange={(e) => setContact({ ...contact, email: e.target.value })}
                           placeholder="ihre@email.de"
-                          className="w-full px-4 py-3 rounded-lg border border-stone-600/50 text-ink focus:outline-none focus:border-barber-red focus:ring-2 focus:ring-barber-red/20 transition-all placeholder:text-stone-600"
+                          className="w-full px-4 py-2 sm:py-3 rounded-lg border border-stone-500 text-white focus:outline-none focus:border-white focus:ring-2 focus:ring-white/30 transition-all placeholder:text-stone-400 text-base"
                           style={{
                             background: "rgba(20, 20, 20, 0.6)",
                             backdropFilter: "blur(8px)",
@@ -299,27 +300,27 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                         <path d="M20 6L9 17l-5-5" />
                       </svg>
                     </div>
-                    <h3 className="text-2xl font-light text-ink mb-2">Termin bestätigt!</h3>
+                    <h3 className="text-3xl font-semibold text-white mb-4">✓ Termin bestätigt!</h3>
                     <p className="text-stone-100 mb-8">
                       Vielen Dank für Ihre Buchung. Eine Bestätigung wird an{" "}
                       <span className="text-stone-50">{contact.email || contact.phone}</span> versendet.
                     </p>
-                    <div className="bg-stone-900/50 rounded-lg p-6 text-left space-y-3 text-sm">
+                    <div className="bg-stone-800/40 rounded-lg p-6 text-left space-y-4 text-base border border-stone-700">
                       <div className="flex justify-between">
-                        <span className="text-stone-100">Service:</span>
-                        <span className="text-barber-red font-light">{selectedService?.name}</span>
+                        <span className="text-stone-100 font-medium">Service:</span>
+                        <span className="text-white font-semibold">{selectedService?.name}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-stone-100">Friseur:</span>
-                        <span className="text-barber-blue font-light">{selectedBarber}</span>
+                        <span className="text-stone-100 font-medium">Friseur:</span>
+                        <span className="text-white font-semibold">{selectedBarber}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-stone-100">Datum:</span>
-                        <span className="text-ink font-light">{new Date(selectedDate).toLocaleDateString("de-DE")}</span>
+                        <span className="text-stone-100 font-medium">Datum:</span>
+                        <span className="text-white font-semibold">{new Date(selectedDate).toLocaleDateString("de-DE")}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-stone-100">Uhrzeit:</span>
-                        <span className="text-ink font-light">{selectedTime} Uhr</span>
+                        <span className="text-stone-100 font-medium">Uhrzeit:</span>
+                        <span className="text-white font-semibold">{selectedTime} Uhr</span>
                       </div>
                     </div>
                   </motion.div>
@@ -445,16 +446,15 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
               {step === "confirmation" && (
                 <motion.button
                   onClick={handleClose}
-                  className="flex-1 px-8 py-3 rounded-xl text-white font-light transition-all"
+                  className="flex-1 px-8 py-3 rounded-xl text-black font-semibold transition-all text-base"
                   style={{
-                    background: "linear-gradient(135deg, #10b981 0%, #34d399 100%)",
-                    backdropFilter: "blur(10px)",
-                    border: "1px solid rgba(255, 255, 255, 0.1)",
-                    boxShadow: "0 0 20px rgba(16, 185, 129, 0.3)",
+                    background: "#10b981",
+                    border: "none",
+                    boxShadow: "0 0 30px rgba(16, 185, 129, 0.4)",
                   }}
                   whileHover={{
                     scale: 1.05,
-                    boxShadow: "0 0 30px rgba(16, 185, 129, 0.5)",
+                    boxShadow: "0 0 40px rgba(16, 185, 129, 0.6)",
                   }}
                   whileTap={{ scale: 0.98 }}
                 >
