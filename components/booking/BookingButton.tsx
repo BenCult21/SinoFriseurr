@@ -23,9 +23,9 @@ export default function BookingButton({
   const [modalOpen, setModalOpen] = useState(false);
 
   const base =
-    "group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-lg px-6 py-3 text-sm font-light tracking-wide transition-all duration-300 ease-out";
-  const solid = "bg-ink text-paper hover:bg-ink/90";
-  const outline = "border border-ink text-ink hover:bg-stone-50";
+    "group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl px-8 py-3 sm:py-4 text-sm font-light tracking-wide transition-all duration-300 ease-out min-h-[48px]";
+  const solid = "bg-gradient-to-r from-ink to-stone-800 text-paper hover:from-ink hover:to-stone-900 border border-stone-600/30";
+  const outline = "border-2 border-ink text-ink hover:bg-ink/5";
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
     if (onClick) {
@@ -47,10 +47,10 @@ export default function BookingButton({
         onClick={handleClick as any}
         className={`${base} ${variant === "solid" ? solid : outline} ${className}`}
         whileHover={{
-          scale: 1.05,
-          boxShadow: "0 10px 30px rgba(255, 46, 59, 0.2)",
+          scale: 1.08,
+          boxShadow: "0 15px 40px rgba(255, 46, 59, 0.3), 0 0 20px rgba(0, 153, 255, 0.1)",
         }}
-        whileTap={{ scale: 0.98 }}
+        whileTap={{ scale: 0.95 }}
       >
         <span>{label}</span>
         <motion.svg
@@ -76,10 +76,10 @@ export default function BookingButton({
         onClick={handleClick}
         className={`${base} ${variant === "solid" ? solid : outline} ${className}`}
         whileHover={{
-          scale: 1.05,
-          boxShadow: "0 10px 30px rgba(255, 46, 59, 0.2)",
+          scale: 1.08,
+          boxShadow: "0 15px 40px rgba(255, 46, 59, 0.3), 0 0 20px rgba(0, 153, 255, 0.1)",
         }}
-        whileTap={{ scale: 0.98 }}
+        whileTap={{ scale: 0.95 }}
       >
         <span>{label}</span>
         <motion.svg

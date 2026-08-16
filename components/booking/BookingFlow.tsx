@@ -113,8 +113,8 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
             </div>
 
             {/* Content - Scrollable */}
-            <div className="flex-1 overflow-y-auto px-6 sm:px-8 py-8 relative z-10">
-              <div className="max-w-2xl mx-auto space-y-8">
+            <div className="flex-1 overflow-y-auto px-6 sm:px-8 lg:px-12 py-8 lg:py-12 relative z-10">
+              <div className="max-w-2xl mx-auto space-y-10">
                 {/* Step 1: Service Selection */}
                 {step === "service" && (
                   <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
@@ -203,12 +203,12 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                     <h3 className="text-xl font-light text-ink mb-6">3. Datum & Uhrzeit</h3>
                     <div className="space-y-6">
                       <div>
-                        <label className="block text-sm text-stone-400 mb-2 uppercase tracking-wide font-light">Datum</label>
+                        <label className="block text-sm text-stone-300 mb-3 uppercase tracking-wide font-light">Datum</label>
                         <input
                           type="date"
                           value={selectedDate}
                           onChange={(e) => setSelectedDate(e.target.value)}
-                          className="w-full px-4 py-3 rounded-lg border border-stone-600/50 text-ink focus:outline-none focus:border-barber-red focus:ring-2 focus:ring-barber-red/20 transition-all"
+                          className="w-full px-5 py-4 rounded-lg border border-stone-600/50 text-ink focus:outline-none focus:border-barber-red focus:ring-2 focus:ring-barber-red/30 transition-all"
                           style={{
                             background: "rgba(20, 20, 20, 0.6)",
                             backdropFilter: "blur(8px)",
@@ -220,7 +220,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                         <select
                           value={selectedTime}
                           onChange={(e) => setSelectedTime(e.target.value)}
-                          className="w-full px-4 py-3 rounded-lg border border-stone-600/50 text-ink focus:outline-none focus:border-barber-red focus:ring-2 focus:ring-barber-red/20 transition-all"
+                          className="w-full px-5 py-4 rounded-lg border border-stone-600/50 text-ink focus:outline-none focus:border-barber-red focus:ring-2 focus:ring-barber-red/30 transition-all"
                           style={{
                             background: "rgba(20, 20, 20, 0.6)",
                             backdropFilter: "blur(8px)",

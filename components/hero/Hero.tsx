@@ -78,7 +78,12 @@ export default function Hero() {
               y: scrollProgress * -100,
             }}
           >
-            <h1 className="font-hero text-7xl sm:text-8xl lg:text-[150px] xl:text-[180px] font-light tracking-tight leading-[0.85] text-ink glow-title">
+            <h1
+              className="font-hero text-7xl sm:text-8xl lg:text-[150px] xl:text-[180px] font-light tracking-tight leading-[0.85] text-ink"
+              style={{
+                textShadow: "0 0 40px rgba(255, 46, 59, 0.3), 0 0 80px rgba(0, 153, 255, 0.2), 0 4px 20px rgba(0, 0, 0, 0.5)"
+              }}
+            >
               SINO
             </h1>
           </motion.div>
@@ -91,7 +96,7 @@ export default function Hero() {
               y: scrollProgress * -60,
             }}
           >
-            <h2 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-regular tracking-wide text-stone-400">
+            <h2 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-regular tracking-wide text-stone-200">
               FRISEURSTUDIO
             </h2>
           </motion.div>
@@ -101,27 +106,33 @@ export default function Hero() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
-            className="flex items-center justify-center gap-4 pt-4"
+            className="flex items-center justify-center gap-6 pt-4"
             style={{
               y: scrollProgress * -40,
             }}
           >
             <motion.div
-              className="h-px w-12 bg-barber-red"
+              className="h-1 w-16 bg-barber-red rounded-full"
               animate={{
-                opacity: [0.5, 1, 0.5],
+                opacity: [0.6, 1, 0.6],
               }}
               transition={{ duration: 3, repeat: Infinity }}
+              style={{
+                boxShadow: "0 0 15px rgba(255, 46, 59, 0.8)"
+              }}
             />
             <p className="font-heading text-xl font-medium text-ink tracking-wider">
               KASSEL
             </p>
             <motion.div
-              className="h-px w-12 bg-barber-blue"
+              className="h-1 w-16 bg-barber-blue rounded-full"
               animate={{
-                opacity: [0.5, 1, 0.5],
+                opacity: [0.6, 1, 0.6],
               }}
               transition={{ duration: 3, repeat: Infinity, delay: 0.2 }}
+              style={{
+                boxShadow: "0 0 15px rgba(0, 153, 255, 0.8)"
+              }}
             />
           </motion.div>
         </div>
@@ -141,14 +152,14 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.6 }}
-          className="mt-16 space-y-3 text-center"
+          className="mt-16 space-y-4 text-center"
         >
           <motion.a
             href={CONTACT.mapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="block font-inter text-sm text-stone-500 hover:text-barber-red transition-colors"
-            whileHover={{ x: 8 }}
+            className="block font-inter text-sm text-stone-300 hover:text-barber-red transition-all"
+            whileHover={{ x: 8, scale: 1.05 }}
           >
             {CONTACT.street}
             <br />
@@ -157,8 +168,8 @@ export default function Hero() {
 
           <motion.a
             href={CONTACT.phoneHref}
-            className="block font-inter text-sm text-stone-400 hover:text-barber-blue transition-colors"
-            whileHover={{ x: -8 }}
+            className="block font-inter text-sm font-light text-stone-200 hover:text-barber-blue transition-all"
+            whileHover={{ x: -8, scale: 1.05 }}
           >
             {CONTACT.phone}
           </motion.a>

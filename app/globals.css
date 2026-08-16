@@ -87,21 +87,22 @@ body {
 
 .glow-title {
   text-shadow:
-    0 0 30px rgba(255, 255, 255, 0.3),
-    0 0 60px rgba(255, 46, 59, 0.15);
+    0 0 40px rgba(255, 255, 255, 0.4),
+    0 0 80px rgba(255, 46, 59, 0.25),
+    0 0 120px rgba(0, 153, 255, 0.15);
 }
 
 .glow-star {
-  filter: drop-shadow(0 0 8px rgba(255, 193, 7, 0.6));
+  filter: drop-shadow(0 0 12px rgba(255, 193, 7, 0.8));
   color: #ffc107;
 }
 
 .glow-red {
-  text-shadow: 0 0 20px rgba(255, 46, 59, 0.5);
+  text-shadow: 0 0 30px rgba(255, 46, 59, 0.7), 0 0 60px rgba(255, 46, 59, 0.3);
 }
 
 .glow-blue {
-  text-shadow: 0 0 20px rgba(0, 153, 255, 0.5);
+  text-shadow: 0 0 30px rgba(0, 153, 255, 0.7), 0 0 60px rgba(0, 153, 255, 0.3);
 }
 
 .glassmorphism {
