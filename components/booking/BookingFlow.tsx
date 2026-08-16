@@ -64,7 +64,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
         <>
           {/* Backdrop - behind everything */}
           <motion.div
-            className="fixed inset-0 z-40"
+            className="fixed inset-0 z-[39]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -78,8 +78,8 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
             aria-hidden="true"
           />
 
-          {/* Modal Container - centered on screen */}
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+          {/* Modal Container - centered on screen with padding */}
+          <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 pointer-events-none overflow-y-auto py-8 lg:py-12">
             <motion.div
               className="w-full max-w-[650px] pointer-events-auto"
               initial={{ opacity: 0, scale: 0.97, y: 20 }}
@@ -91,7 +91,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
               <div
                 className="relative flex flex-col rounded-3xl overflow-hidden"
                 style={{
-                  maxHeight: "90vh",
+                  maxHeight: "85vh",
                   background: "linear-gradient(135deg, rgba(20, 20, 20, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%)",
                   backdropFilter: "blur(20px)",
                   WebkitBackdropFilter: "blur(20px)",
