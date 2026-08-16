@@ -80,7 +80,7 @@ export default function BookingModal({ open, onClose }: BookingModalProps) {
                 <h2 className="font-display text-2xl font-light tracking-wide text-ink">
                   Termin vereinbaren
                 </h2>
-                <p className="mt-1 text-sm text-stone-500">
+                <p className="mt-1 text-sm text-white">
                   Wählen Sie einen passenden Termin für Ihren Besuch
                 </p>
               </div>
@@ -89,10 +89,10 @@ export default function BookingModal({ open, onClose }: BookingModalProps) {
               <div className="p-8">
                 {CALENDLY_URL_IS_PLACEHOLDER ? (
                   <div className="rounded-lg bg-stone-50 border border-line p-8 text-center">
-                    <p className="font-display text-sm font-light text-stone-600 mb-4">
+                    <p className="font-display text-sm font-light text-white mb-4">
                       ⏳ Calendly-Anbindung folgt in Kürze
                     </p>
-                    <p className="text-xs text-stone-500 mb-6">
+                    <p className="text-xs text-white mb-6">
                       Rufen Sie uns unter <strong>0561 76602459</strong> an oder nutzen Sie den
                       direkten Link zum Terminbuchen.
                     </p>

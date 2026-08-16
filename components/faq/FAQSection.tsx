@@ -69,7 +69,7 @@ export default function FAQSection() {
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
-                  className="text-stone-300 flex-shrink-0 ml-4"
+                  className="text-white flex-shrink-0 ml-4"
                   animate={{ rotate: openIndex === index ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
                 >

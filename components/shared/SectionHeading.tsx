@@ -52,7 +52,7 @@ export default function SectionHeading({
       {description && (
         <motion.p
           className={`mt-5 text-balance text-base leading-relaxed sm:text-lg ${
-            invert ? "text-stone-100" : "text-stone-200"
+            invert ? "text-stone-100" : "text-white"
           }`}
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}

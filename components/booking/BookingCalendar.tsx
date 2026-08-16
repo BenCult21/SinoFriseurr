@@ -110,7 +110,7 @@ export default function BookingCalendar({
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
-            className="text-stone-300"
+            className="text-white"
           >
             <path d="M15 19l-7-7 7-7" />
           </svg>
@@ -133,7 +133,7 @@ export default function BookingCalendar({
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
-            className="text-stone-300"
+            className="text-white"
           >
             <path d="M9 19l7-7-7-7" />
           </svg>
@@ -145,7 +145,7 @@ export default function BookingCalendar({
         {weekDays.map((day) => (
           <div
             key={day}
-            className="text-center text-xs font-medium text-stone-300 py-2"
+            className="text-center text-xs font-medium text-white py-2"
           >
             {day}
           </div>
@@ -205,7 +205,7 @@ export default function BookingCalendar({
       </div>
 
       {/* Info Text */}
-      <p className="text-xs text-stone-300 text-center mt-4">
+      <p className="text-xs text-white text-center mt-4">
         Verfügbar: Montag–Samstag
       </p>
     </motion.div>

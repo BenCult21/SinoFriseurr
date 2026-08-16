@@ -17,7 +17,7 @@ export default function RatingStars({ score = 5, size = 20 }: { score?: number; 
           stroke="currentColor"
           strokeWidth="1.2"
           aria-hidden="true"
-          className={filled ? "glow-star" : "text-stone-300"}
+          className={filled ? "glow-star" : "text-stone-400"}
           initial={filled ? { scale: 0, opacity: 0 } : { opacity: 0.4 }}
           animate={filled ? { scale: 1, opacity: 1 } : { opacity: 1 }}
           transition={{

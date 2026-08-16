@@ -26,7 +26,7 @@ export default function ContactSection() {
             {/* Address */}
             <div className="space-y-8">
               <div>
-                <h2 className="font-display text-6xl lg:text-7xl font-thin tracking-wide text-stone-300 mb-4">
+                <h2 className="font-display text-6xl lg:text-7xl font-thin tracking-wide text-white mb-4">
                   KASSEL
                 </h2>
                 <div className="space-y-1 text-sm lg:text-base font-light text-ink">
@@ -66,7 +66,7 @@ export default function ContactSection() {
 
             {/* Opening Hours - Desktop Only */}
             <div className="hidden lg:block space-y-4">
-              <h3 className="font-display text-sm font-light uppercase tracking-[0.2em] text-stone-300">
+              <h3 className="font-display text-sm font-light uppercase tracking-[0.2em] text-white">
                 Öffnungszeiten
               </h3>
               <div className="space-y-2 text-sm text-ink">
@@ -80,7 +80,7 @@ export default function ContactSection() {
                     <span className="font-light group-hover:text-barber-red transition-colors">
                       {hour.day}
                     </span>
-                    <span className="font-light text-stone-300 group-hover:text-white transition-colors">
+                    <span className="font-light text-white group-hover:text-white transition-colors">
                       {hour.hours}
                     </span>
                   </motion.div>
@@ -93,7 +93,7 @@ export default function ContactSection() {
           <div className="flex flex-col items-start justify-between lg:items-end">
             {/* Phone */}
             <div className="space-y-4">
-              <h3 className="font-display text-sm font-light uppercase tracking-[0.2em] text-stone-300">
+              <h3 className="font-display text-sm font-light uppercase tracking-[0.2em] text-white">
                 Telefon
               </h3>
               <motion.a
@@ -129,7 +129,7 @@ export default function ContactSection() {
           viewport={{ once: true }}
           className="mt-20 text-center"
         >
-          <p className="font-display text-xs font-light uppercase tracking-[0.2em] text-stone-300">
+          <p className="font-display text-xs font-light uppercase tracking-[0.2em] text-white">
             {SALON_NAME}
           </p>
         </motion.div>

@@ -71,9 +71,9 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
             transition={{ duration: 0.35, ease: "easeOut" }}
             onClick={handleClose}
             style={{
-              background: "rgba(0, 0, 0, 0.65)",
-              backdropFilter: "blur(8px)",
-              WebkitBackdropFilter: "blur(8px)",
+              background: "rgba(0, 0, 0, 0.78)",
+              backdropFilter: "blur(16px)",
+              WebkitBackdropFilter: "blur(16px)",
             }}
             aria-hidden="true"
           />
@@ -111,7 +111,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                     <h2 className="text-2xl lg:text-3xl font-semibold text-white tracking-tight">
                       Termin vereinbaren
                     </h2>
-                    <p className="text-sm text-stone-300 mt-1">
+                    <p className="text-sm text-white mt-1">
                       {step === "service" && "Wählen Sie Ihre Leistung"}
                       {step === "date" && "Wählen Sie Datum & Uhrzeit"}
                       {step === "contact" && "Ihre Kontaktdaten"}
@@ -131,7 +131,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="2"
-                      className="text-stone-300 hover:text-white transition-colors"
+                      className="text-white hover:text-white transition-colors"
                     >
                       <path d="M18 6L6 18M6 6l12 12" />
                     </svg>
@@ -174,7 +174,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                               <h3 className="text-white font-semibold text-base">
                                 {service.name}
                               </h3>
-                              <p className="text-xs text-stone-400 mt-1">
+                              <p className="text-xs text-white mt-1">
                                 {service.duration}
                               </p>
                             </div>
@@ -236,7 +236,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                             border: "1px solid rgba(16, 185, 129, 0.3)",
                           }}
                         >
-                          <p className="text-sm text-stone-300">
+                          <p className="text-sm text-white">
                             Termin: <span className="text-green-300 font-semibold">{formatDate(selectedDate)} um {selectedTime} Uhr</span>
                           </p>
                         </motion.div>
@@ -263,7 +263,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                             setContact({ ...contact, name: e.target.value })
                           }
                           placeholder="Ihr Name"
-                          className="w-full px-4 py-3 rounded-lg text-white placeholder:text-stone-400 focus:outline-none transition-all"
+                          className="w-full px-4 py-3 rounded-lg text-white placeholder:text-white focus:outline-none transition-all"
                           style={{
                             background: "rgba(255, 255, 255, 0.06)",
                             border: "1px solid rgba(255, 255, 255, 0.12)",
@@ -282,7 +282,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                             setContact({ ...contact, phone: e.target.value })
                           }
                           placeholder="+49 (0) 123 456789"
-                          className="w-full px-4 py-3 rounded-lg text-white placeholder:text-stone-400 focus:outline-none transition-all"
+                          className="w-full px-4 py-3 rounded-lg text-white placeholder:text-white focus:outline-none transition-all"
                           style={{
                             background: "rgba(255, 255, 255, 0.06)",
                             border: "1px solid rgba(255, 255, 255, 0.12)",
@@ -301,7 +301,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                             setContact({ ...contact, email: e.target.value })
                           }
                           placeholder="ihr@email.de"
-                          className="w-full px-4 py-3 rounded-lg text-white placeholder:text-stone-400 focus:outline-none transition-all"
+                          className="w-full px-4 py-3 rounded-lg text-white placeholder:text-white focus:outline-none transition-all"
                           style={{
                             background: "rgba(255, 255, 255, 0.06)",
                             border: "1px solid rgba(255, 255, 255, 0.12)",
@@ -346,7 +346,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                         <h3 className="text-2xl font-semibold text-white mb-2">
                           Termin gebucht!
                         </h3>
-                        <p className="text-stone-300 text-sm">
+                        <p className="text-white text-sm">
                           Eine Bestätigung wird versendet an
                         </p>
                       </div>
@@ -373,7 +373,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                         >
                           <div className="text-left space-y-2.5 text-sm">
                             <div className="flex justify-between">
-                              <span className="text-stone-300">Leistung</span>
+                              <span className="text-white">Leistung</span>
                               <span className="text-white font-semibold">
                                 {selectedService?.name}
                               </span>
@@ -385,7 +385,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                               }}
                             />
                             <div className="flex justify-between">
-                              <span className="text-stone-300">Datum & Zeit</span>
+                              <span className="text-white">Datum & Zeit</span>
                               <span className="text-white font-semibold">
                                 {selectedDate && formatDate(selectedDate)} {selectedTime}
                               </span>
@@ -397,7 +397,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                               }}
                             />
                             <div className="flex justify-between">
-                              <span className="text-stone-300">Name</span>
+                              <span className="text-white">Name</span>
                               <span className="text-white font-semibold">
                                 {contact.name}
                               </span>
