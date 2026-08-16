@@ -69,12 +69,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
               backdropFilter: "blur(20px)",
               WebkitBackdropFilter: "blur(20px)",
               border: "1px solid rgba(255, 255, 255, 0.12)",
-              boxShadow: `
-                0 8px 32px 0 rgba(0, 0, 0, 0.3),
-                inset 0 1px 1px 0 rgba(255, 255, 255, 0.06),
-                0 0 40px 0 rgba(255, 46, 59, 0.08),
-                0 0 60px 0 rgba(0, 153, 255, 0.05)
-              `,
+              boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.3), inset 0 1px 1px 0 rgba(255, 255, 255, 0.06), 0 0 40px 0 rgba(255, 46, 59, 0.08), 0 0 60px 0 rgba(0, 153, 255, 0.05)",
             }}
             initial={{ opacity: 0, scale: 0.95, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -83,14 +78,15 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
           >
             {/* Shimmer effect overlay */}
             <div
-              className="absolute inset-0 pointer-events-none"
+              className="absolute inset-0 pointer-events-none rounded-2xl"
               style={{
                 background: "linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.03) 50%, transparent 100%)",
               }}
             />
+
             {/* Header - Glossy gradient */}
             <div
-              className="flex justify-between items-center px-6 sm:px-8 py-6 flex-shrink-0 relative"
+              className="flex justify-between items-center px-6 sm:px-8 py-6 flex-shrink-0 relative z-10"
               style={{
                 borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
                 background: "linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%)",
@@ -117,7 +113,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
             </div>
 
             {/* Content - Scrollable */}
-            <div className="flex-1 overflow-y-auto px-6 sm:px-8 py-8">
+            <div className="flex-1 overflow-y-auto px-6 sm:px-8 py-8 relative z-10">
               <div className="max-w-2xl mx-auto space-y-8">
                 {/* Step 1: Service Selection */}
                 {step === "service" && (
@@ -331,7 +327,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
 
             {/* Footer - Action Buttons */}
             <div
-              className="px-6 sm:px-8 py-6 flex-shrink-0 flex flex-col sm:flex-row gap-4 items-center justify-between"
+              className="px-6 sm:px-8 py-6 flex-shrink-0 flex flex-col sm:flex-row gap-4 items-center justify-between relative z-10"
               style={{
                 borderTop: "1px solid rgba(255, 255, 255, 0.08)",
                 background: "linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.2) 100%)",
@@ -361,109 +357,108 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                 </motion.button>
               )}
 
-                {/* Next/Confirm Buttons */}
-                {step === "service" && (
-                  <motion.button
-                    onClick={() => setStep("barber")}
-                    disabled={!isServiceValid}
-                    className="flex-1 sm:flex-initial px-8 py-3 rounded-xl font-light text-white transition-all relative overflow-hidden group"
-                    style={{
-                      background: isServiceValid
-                        ? "linear-gradient(135deg, #ff2e3b 0%, #ff6b78 100%)"
-                        : "rgba(120, 113, 108, 0.5)",
-                      backdropFilter: isServiceValid ? "blur(10px)" : "blur(5px)",
-                      border: isServiceValid ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid rgba(255, 255, 255, 0.05)",
-                    }}
-                    whileHover={isServiceValid ? { scale: 1.05, boxShadow: "0 0 20px rgba(255, 46, 59, 0.5)" } : {}}
-                    whileTap={isServiceValid ? { scale: 0.98 } : {}}
-                  >
-                    Weiter →
-                  </motion.button>
-                )}
+              {/* Next/Confirm Buttons */}
+              {step === "service" && (
+                <motion.button
+                  onClick={() => setStep("barber")}
+                  disabled={!isServiceValid}
+                  className="flex-1 sm:flex-initial px-8 py-3 rounded-xl font-light text-white transition-all"
+                  style={{
+                    background: isServiceValid
+                      ? "linear-gradient(135deg, #ff2e3b 0%, #ff6b78 100%)"
+                      : "rgba(120, 113, 108, 0.5)",
+                    backdropFilter: isServiceValid ? "blur(10px)" : "blur(5px)",
+                    border: isServiceValid ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid rgba(255, 255, 255, 0.05)",
+                  }}
+                  whileHover={isServiceValid ? { scale: 1.05, boxShadow: "0 0 20px rgba(255, 46, 59, 0.5)" } : {}}
+                  whileTap={isServiceValid ? { scale: 0.98 } : {}}
+                >
+                  Weiter →
+                </motion.button>
+              )}
 
-                {step === "barber" && (
-                  <motion.button
-                    onClick={() => setStep("date")}
-                    disabled={!isBarberValid}
-                    className="flex-1 sm:flex-initial px-8 py-3 rounded-xl font-light text-white transition-all"
-                    style={{
-                      background: isBarberValid
-                        ? "linear-gradient(135deg, #ff2e3b 0%, #ff6b78 100%)"
-                        : "rgba(120, 113, 108, 0.5)",
-                      backdropFilter: isBarberValid ? "blur(10px)" : "blur(5px)",
-                      border: isBarberValid ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid rgba(255, 255, 255, 0.05)",
-                    }}
-                    whileHover={isBarberValid ? { scale: 1.05, boxShadow: "0 0 20px rgba(255, 46, 59, 0.5)" } : {}}
-                    whileTap={isBarberValid ? { scale: 0.98 } : {}}
-                  >
-                    Weiter →
-                  </motion.button>
-                )}
+              {step === "barber" && (
+                <motion.button
+                  onClick={() => setStep("date")}
+                  disabled={!isBarberValid}
+                  className="flex-1 sm:flex-initial px-8 py-3 rounded-xl font-light text-white transition-all"
+                  style={{
+                    background: isBarberValid
+                      ? "linear-gradient(135deg, #ff2e3b 0%, #ff6b78 100%)"
+                      : "rgba(120, 113, 108, 0.5)",
+                    backdropFilter: isBarberValid ? "blur(10px)" : "blur(5px)",
+                    border: isBarberValid ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid rgba(255, 255, 255, 0.05)",
+                  }}
+                  whileHover={isBarberValid ? { scale: 1.05, boxShadow: "0 0 20px rgba(255, 46, 59, 0.5)" } : {}}
+                  whileTap={isBarberValid ? { scale: 0.98 } : {}}
+                >
+                  Weiter →
+                </motion.button>
+              )}
 
-                {step === "date" && (
-                  <motion.button
-                    onClick={() => setStep("contact")}
-                    disabled={!isDateValid}
-                    className="flex-1 sm:flex-initial px-8 py-3 rounded-xl font-light text-white transition-all"
-                    style={{
-                      background: isDateValid
-                        ? "linear-gradient(135deg, #ff2e3b 0%, #ff6b78 100%)"
-                        : "rgba(120, 113, 108, 0.5)",
-                      backdropFilter: isDateValid ? "blur(10px)" : "blur(5px)",
-                      border: isDateValid ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid rgba(255, 255, 255, 0.05)",
-                    }}
-                    whileHover={isDateValid ? { scale: 1.05, boxShadow: "0 0 20px rgba(255, 46, 59, 0.5)" } : {}}
-                    whileTap={isDateValid ? { scale: 0.98 } : {}}
-                  >
-                    Weiter →
-                  </motion.button>
-                )}
+              {step === "date" && (
+                <motion.button
+                  onClick={() => setStep("contact")}
+                  disabled={!isDateValid}
+                  className="flex-1 sm:flex-initial px-8 py-3 rounded-xl font-light text-white transition-all"
+                  style={{
+                    background: isDateValid
+                      ? "linear-gradient(135deg, #ff2e3b 0%, #ff6b78 100%)"
+                      : "rgba(120, 113, 108, 0.5)",
+                    backdropFilter: isDateValid ? "blur(10px)" : "blur(5px)",
+                    border: isDateValid ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid rgba(255, 255, 255, 0.05)",
+                  }}
+                  whileHover={isDateValid ? { scale: 1.05, boxShadow: "0 0 20px rgba(255, 46, 59, 0.5)" } : {}}
+                  whileTap={isDateValid ? { scale: 0.98 } : {}}
+                >
+                  Weiter →
+                </motion.button>
+              )}
 
-                {step === "contact" && (
-                  <motion.button
-                    onClick={() => setStep("confirmation")}
-                    disabled={!isContactValid}
-                    className="flex-1 sm:flex-initial px-8 py-4 rounded-xl font-bold text-lg text-black transition-all relative overflow-hidden"
-                    style={{
-                      background: isContactValid
-                        ? "linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%)"
-                        : "rgba(120, 113, 108, 0.3)",
-                      border: isContactValid
-                        ? "2px solid rgba(0, 0, 0, 0.3)"
-                        : "2px solid rgba(255, 255, 255, 0.1)",
-                      backdropFilter: "blur(10px)",
-                      boxShadow: isContactValid ? "0 0 30px rgba(255, 255, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.5)" : "none",
-                    }}
-                    whileHover={isContactValid ? {
-                      scale: 1.08,
-                      boxShadow: "0 0 40px rgba(255, 255, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.6)"
-                    } : {}}
-                    whileTap={isContactValid ? { scale: 0.95 } : {}}
-                  >
-                    ✓ TERMIN BESTÄTIGEN
-                  </motion.button>
-                )}
+              {step === "contact" && (
+                <motion.button
+                  onClick={() => setStep("confirmation")}
+                  disabled={!isContactValid}
+                  className="flex-1 sm:flex-initial px-8 py-4 rounded-xl font-bold text-lg text-black transition-all"
+                  style={{
+                    background: isContactValid
+                      ? "linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%)"
+                      : "rgba(120, 113, 108, 0.3)",
+                    border: isContactValid
+                      ? "2px solid rgba(0, 0, 0, 0.3)"
+                      : "2px solid rgba(255, 255, 255, 0.1)",
+                    backdropFilter: "blur(10px)",
+                    boxShadow: isContactValid ? "0 0 30px rgba(255, 255, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.5)" : "none",
+                  }}
+                  whileHover={isContactValid ? {
+                    scale: 1.08,
+                    boxShadow: "0 0 40px rgba(255, 255, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.6)"
+                  } : {}}
+                  whileTap={isContactValid ? { scale: 0.95 } : {}}
+                >
+                  ✓ TERMIN BESTÄTIGEN
+                </motion.button>
+              )}
 
-                {step === "confirmation" && (
-                  <motion.button
-                    onClick={handleClose}
-                    className="flex-1 px-8 py-3 rounded-xl text-white font-light transition-all"
-                    style={{
-                      background: "linear-gradient(135deg, #10b981 0%, #34d399 100%)",
-                      backdropFilter: "blur(10px)",
-                      border: "1px solid rgba(255, 255, 255, 0.1)",
-                      boxShadow: "0 0 20px rgba(16, 185, 129, 0.3)",
-                    }}
-                    whileHover={{
-                      scale: 1.05,
-                      boxShadow: "0 0 30px rgba(16, 185, 129, 0.5)",
-                    }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    Fenster schließen
-                  </motion.button>
-                )}
-              </div>
+              {step === "confirmation" && (
+                <motion.button
+                  onClick={handleClose}
+                  className="flex-1 px-8 py-3 rounded-xl text-white font-light transition-all"
+                  style={{
+                    background: "linear-gradient(135deg, #10b981 0%, #34d399 100%)",
+                    backdropFilter: "blur(10px)",
+                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                    boxShadow: "0 0 20px rgba(16, 185, 129, 0.3)",
+                  }}
+                  whileHover={{
+                    scale: 1.05,
+                    boxShadow: "0 0 30px rgba(16, 185, 129, 0.5)",
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Fenster schließen
+                </motion.button>
+              )}
             </div>
           </motion.div>
         </motion.div>
