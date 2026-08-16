@@ -34,33 +34,6 @@ export default function Hero() {
     >
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-paper/85" />
-      {/* Animated background elements */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none z-0"
-        style={{
-          opacity: 1 - scrollProgress * 0.5,
-        }}
-      >
-        {/* Red accent glow */}
-        <motion.div
-          className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-barber-red blur-3xl opacity-8"
-          animate={{
-            scale: [1, 1.2, 1],
-            x: [0, 40, 0],
-          }}
-          transition={{ duration: 8, repeat: Infinity }}
-        />
-
-        {/* Blue accent glow */}
-        <motion.div
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-barber-blue blur-3xl opacity-8"
-          animate={{
-            scale: [1, 1.1, 1],
-            x: [0, -30, 0],
-          }}
-          transition={{ duration: 10, repeat: Infinity, delay: 1 }}
-        />
-      </motion.div>
 
       <motion.div
         className="flex flex-col items-center justify-center text-center relative z-20 max-w-6xl"
@@ -96,39 +69,19 @@ export default function Hero() {
             </h2>
           </motion.div>
 
-          {/* Location - with red accent */}
+          {/* Location */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
-            className="flex items-center justify-center gap-6 pt-4"
+            className="pt-4"
             style={{
               y: scrollProgress * -40,
             }}
           >
-            <motion.div
-              className="h-1 w-16 bg-barber-red rounded-full"
-              animate={{
-                opacity: [0.6, 1, 0.6],
-              }}
-              transition={{ duration: 3, repeat: Infinity }}
-              style={{
-                boxShadow: "0 0 15px rgba(255, 46, 59, 0.8)"
-              }}
-            />
             <p className="font-heading text-xl font-medium text-ink tracking-wider">
               KASSEL
             </p>
-            <motion.div
-              className="h-1 w-16 bg-barber-blue rounded-full"
-              animate={{
-                opacity: [0.6, 1, 0.6],
-              }}
-              transition={{ duration: 3, repeat: Infinity, delay: 0.2 }}
-              style={{
-                boxShadow: "0 0 15px rgba(0, 153, 255, 0.8)"
-              }}
-            />
           </motion.div>
         </div>
 
