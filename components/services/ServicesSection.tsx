@@ -49,7 +49,7 @@ export default function ServicesSection() {
                           >
                             {String(index + 1).padStart(2, "0")}
                           </motion.span>
-                          <h4 className="font-heading text-base lg:text-lg font-semibold text-white group-hover:text-yellow-300 transition-colors">
+                          <h4 className="font-heading text-base lg:text-lg font-semibold text-white group-hover:text-stone-100 transition-colors">
                             {item.name}
                           </h4>
                         </div>
@@ -62,7 +62,7 @@ export default function ServicesSection() {
                       </div>
                       <div className="whitespace-nowrap">
                         <motion.p
-                          className="font-heading text-base lg:text-lg font-semibold text-white group-hover:text-yellow-300 transition-colors"
+                          className="font-heading text-base lg:text-lg font-semibold text-white group-hover:text-stone-100 transition-colors"
                           whileHover={{ scale: 1.1 }}
                         >
                           {item.price}
