@@ -40,7 +40,7 @@ export default function SectionHeading({
       )}
       <motion.h2
         className={`text-balance font-display text-5xl font-normal tracking-wide leading-[1.2] sm:text-6xl lg:text-7xl ${
-          invert ? "text-paper" : "text-ink"
+          invert ? "text-paper" : "text-white"
         }`}
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}

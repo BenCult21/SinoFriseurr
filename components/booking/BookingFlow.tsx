@@ -44,6 +44,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
         >
           {/* Backdrop - Animated with gradient */}
           <motion.div
@@ -53,8 +54,9 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
             style={{
-              background: "radial-gradient(circle at 30% 50%, rgba(255, 46, 59, 0.08) 0%, transparent 50%), radial-gradient(circle at 70% 50%, rgba(0, 153, 255, 0.08) 0%, transparent 50%), rgba(0, 0, 0, 0.4)",
+              background: "radial-gradient(circle at 30% 50%, rgba(255, 46, 59, 0.08) 0%, transparent 50%), radial-gradient(circle at 70% 50%, rgba(0, 153, 255, 0.08) 0%, transparent 50%), rgba(0, 0, 0, 0.5)",
               backdropFilter: "blur(8px)",
             }}
           />
@@ -74,7 +76,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
             initial={{ opacity: 0, scale: 0.95, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 30 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
           >
             {/* Shimmer effect overlay */}
             <div
@@ -208,7 +210,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                           type="date"
                           value={selectedDate}
                           onChange={(e) => setSelectedDate(e.target.value)}
-                          className="w-full px-5 py-4 rounded-lg border border-stone-600/50 text-ink focus:outline-none focus:border-barber-red focus:ring-2 focus:ring-barber-red/30 transition-all"
+                          className="w-full px-4 py-3 rounded-lg border border-stone-600/50 text-ink focus:outline-none focus:border-barber-red focus:ring-2 focus:ring-barber-red/30 transition-all"
                           style={{
                             background: "rgba(20, 20, 20, 0.6)",
                             backdropFilter: "blur(8px)",
@@ -220,7 +222,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                         <select
                           value={selectedTime}
                           onChange={(e) => setSelectedTime(e.target.value)}
-                          className="w-full px-5 py-4 rounded-lg border border-stone-600/50 text-ink focus:outline-none focus:border-barber-red focus:ring-2 focus:ring-barber-red/30 transition-all"
+                          className="w-full px-4 py-3 rounded-lg border border-stone-600/50 text-ink focus:outline-none focus:border-barber-red focus:ring-2 focus:ring-barber-red/30 transition-all"
                           style={{
                             background: "rgba(20, 20, 20, 0.6)",
                             backdropFilter: "blur(8px)",

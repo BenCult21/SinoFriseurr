@@ -24,7 +24,7 @@ export default function BookingButton({
 
   const base =
     "group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl px-8 py-3 sm:py-4 text-sm font-light tracking-wide transition-all duration-300 ease-out min-h-[48px]";
-  const solid = "bg-gradient-to-r from-ink to-stone-800 text-paper hover:from-ink hover:to-stone-900 border border-stone-600/30";
+  const solid = "bg-white text-black border border-gray-300 hover:bg-gray-50";
   const outline = "border-2 border-ink text-ink hover:bg-ink/5";
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
