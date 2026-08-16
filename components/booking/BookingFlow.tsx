@@ -1,37 +1,39 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { SERVICES, CONTACT, TEAM } from "@/lib/config";
+import { SERVICES, CONTACT } from "@/lib/config";
 import type { ServiceItem } from "@/lib/config";
+import BookingCalendar from "./BookingCalendar";
+import BookingTimeSelect from "./BookingTimeSelect";
 
-type BookingStep = "service" | "barber" | "date" | "contact" | "confirmation";
+type BookingStep = "service" | "date" | "contact" | "confirmation";
 
 export default function BookingFlow({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [step, setStep] = useState<BookingStep>("service");
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
-  const [selectedBarber, setSelectedBarber] = useState<string | null>(null);
-  const [selectedDate, setSelectedDate] = useState<string>("");
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string>("");
   const [contact, setContact] = useState({ name: "", phone: "", email: "" });
 
-  // Lock body scroll when modal is open
   useEffect(() => {
     if (open) {
+      document.documentElement.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = "unset";
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
     }
     return () => {
-      document.body.style.overflow = "unset";
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
     };
   }, [open]);
 
   const handleReset = () => {
     setStep("service");
     setSelectedService(null);
-    setSelectedBarber(null);
-    setSelectedDate("");
+    setSelectedDate(null);
     setSelectedTime("");
     setContact({ name: "", phone: "", email: "" });
   };
@@ -42,400 +44,471 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
   };
 
   const isServiceValid = selectedService;
-  const isBarberValid = selectedBarber;
-  const isDateValid = selectedDate && selectedTime;
+  const isDateTimeValid = selectedDate && selectedTime;
   const isContactValid = contact.name && contact.phone;
+
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString("de-DE", {
+      weekday: "short",
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+  };
 
   if (!open) return null;
 
   return (
     <AnimatePresence>
       {open && (
-        <motion.div
-          className="fixed inset-0 z-[110] flex items-center justify-center p-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-        >
-          {/* Backdrop with blur */}
+        <>
+          {/* Backdrop - behind everything */}
           <motion.div
-            className="absolute inset-0"
+            className="fixed inset-0 z-40"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
             onClick={handleClose}
-            aria-hidden="true"
-            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
-            animate={{ opacity: 1, backdropFilter: "blur(6px)" }}
-            exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
             style={{
-              background: "rgba(0, 0, 0, 0.72)",
+              background: "rgba(0, 0, 0, 0.65)",
+              backdropFilter: "blur(8px)",
+              WebkitBackdropFilter: "blur(8px)",
             }}
+            aria-hidden="true"
           />
 
-          {/* Modal Container */}
-          <motion.div
-            className="relative w-full max-w-md flex flex-col overflow-hidden rounded-2xl"
-            style={{
-              maxHeight: "85vh",
-              background: "linear-gradient(135deg, rgba(28, 28, 28, 0.98) 0%, rgba(12, 12, 12, 0.98) 100%)",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-              border: "1px solid rgba(255, 255, 255, 0.1)",
-              boxShadow: "0 25px 50px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.08)",
-            }}
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
-          >
-            {/* Header */}
-            <div
-              className="flex justify-between items-center px-6 py-5 flex-shrink-0"
-              style={{
-                borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
-                background: "linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, transparent 100%)",
-              }}
+          {/* Modal Container - centered on screen */}
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+            <motion.div
+              className="w-full max-w-[650px] pointer-events-auto"
+              initial={{ opacity: 0, scale: 0.97, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.97, y: 20 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
             >
-              <h2 className="text-2xl font-semibold text-white">Termin buchen</h2>
-              <motion.button
-                onClick={handleClose}
-                className="text-stone-400 hover:text-white p-1 rounded-lg transition-colors"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
+              {/* Glass Container */}
+              <div
+                className="relative flex flex-col rounded-3xl overflow-hidden"
+                style={{
+                  maxHeight: "90vh",
+                  background: "linear-gradient(135deg, rgba(20, 20, 20, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%)",
+                  backdropFilter: "blur(20px)",
+                  WebkitBackdropFilter: "blur(20px)",
+                  border: "1px solid rgba(255, 255, 255, 0.12)",
+                  boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.06)",
+                }}
               >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M18 6L6 18M6 6l12 12" />
-                </svg>
-              </motion.button>
-            </div>
-
-            {/* Content - Scrollable */}
-            <div className="flex-1 overflow-y-auto px-6 py-8">
-              <div className="space-y-8">
-                {/* Step 1: Service */}
-                {step === "service" && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3 }}
+                {/* Header */}
+                <div
+                  className="flex items-start justify-between px-8 py-6 flex-shrink-0"
+                  style={{
+                    borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+                    background: "linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, transparent 100%)",
+                  }}
+                >
+                  <div className="flex-1 pr-4">
+                    <h2 className="text-2xl lg:text-3xl font-semibold text-white tracking-tight">
+                      Termin vereinbaren
+                    </h2>
+                    <p className="text-sm text-stone-300 mt-1">
+                      {step === "service" && "Wählen Sie Ihre Leistung"}
+                      {step === "date" && "Wählen Sie Datum & Uhrzeit"}
+                      {step === "contact" && "Ihre Kontaktdaten"}
+                      {step === "confirmation" && "Buchung bestätigt"}
+                    </p>
+                  </div>
+                  <motion.button
+                    onClick={handleClose}
+                    className="p-2 hover:bg-white/10 rounded-lg transition-colors flex-shrink-0"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    <h3 className="text-lg font-semibold text-white mb-4">1. Service wählen</h3>
-                    <div className="space-y-2">
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      className="text-stone-300 hover:text-white transition-colors"
+                    >
+                      <path d="M18 6L6 18M6 6l12 12" />
+                    </svg>
+                  </motion.button>
+                </div>
+
+                {/* Content - Scrollable */}
+                <div className="flex-1 overflow-y-auto px-8 py-8">
+                  {/* Step: Service Selection */}
+                  {step === "service" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="space-y-4"
+                    >
                       {SERVICES[0].items.map((service) => (
                         <motion.button
                           key={service.name}
                           onClick={() => setSelectedService(service)}
-                          className="w-full text-left p-4 rounded-lg border-2 transition-all"
+                          className="w-full text-left p-4 rounded-xl transition-all"
                           style={{
-                            borderColor: selectedService?.name === service.name
-                              ? "rgba(255, 255, 255, 0.3)"
-                              : "rgba(255, 255, 255, 0.08)",
-                            background: selectedService?.name === service.name
-                              ? "rgba(255, 255, 255, 0.08)"
-                              : "rgba(255, 255, 255, 0.02)",
+                            background:
+                              selectedService?.name === service.name
+                                ? "rgba(255, 255, 255, 0.12)"
+                                : "rgba(255, 255, 255, 0.04)",
+                            border:
+                              selectedService?.name === service.name
+                                ? "1px solid rgba(255, 255, 255, 0.25)"
+                                : "1px solid rgba(255, 255, 255, 0.08)",
                           }}
                           whileHover={{
-                            borderColor: "rgba(255, 255, 255, 0.2)",
-                            background: "rgba(255, 255, 255, 0.05)",
+                            background: "rgba(255, 255, 255, 0.08)",
+                            borderColor: "rgba(255, 255, 255, 0.18)",
                           }}
+                          whileTap={{ scale: 0.98 }}
                         >
-                          <div className="flex justify-between items-start">
-                            <div>
-                              <p className="text-white font-semibold">{service.name}</p>
-                              <p className="text-sm text-stone-400 mt-1">{service.duration}</p>
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                              <h3 className="text-white font-semibold text-base">
+                                {service.name}
+                              </h3>
+                              <p className="text-xs text-stone-400 mt-1">
+                                {service.duration}
+                              </p>
                             </div>
-                            <p className="text-white font-semibold">{service.price}</p>
+                            <div className="text-right ml-4 flex-shrink-0">
+                              <p className="text-white font-semibold text-lg">
+                                {service.price}
+                              </p>
+                            </div>
                           </div>
                         </motion.button>
                       ))}
-                    </div>
-                  </motion.div>
-                )}
+                    </motion.div>
+                  )}
 
-                {/* Step 2: Barber */}
-                {step === "barber" && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <h3 className="text-lg font-semibold text-white mb-4">2. Friseur wählen</h3>
-                    <div className="grid grid-cols-2 gap-2">
-                      {TEAM.map((barber) => (
-                        <motion.button
-                          key={barber.name}
-                          onClick={() => setSelectedBarber(barber.name)}
-                          className="p-3 rounded-lg border-2 text-center transition-all"
-                          style={{
-                            borderColor: selectedBarber === barber.name
-                              ? "rgba(255, 255, 255, 0.3)"
-                              : "rgba(255, 255, 255, 0.08)",
-                            background: selectedBarber === barber.name
-                              ? "rgba(255, 255, 255, 0.08)"
-                              : "rgba(255, 255, 255, 0.02)",
-                          }}
-                          whileHover={{
-                            borderColor: "rgba(255, 255, 255, 0.2)",
-                            background: "rgba(255, 255, 255, 0.05)",
-                          }}
-                        >
-                          <p className="text-sm font-semibold text-white">{barber.name}</p>
-                          {barber.specialty && (
-                            <p className="text-xs text-stone-400 mt-1">{barber.specialty}</p>
-                          )}
-                        </motion.button>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* Step 3: Date & Time */}
-                {step === "date" && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <h3 className="text-lg font-semibold text-white mb-4">3. Datum & Uhrzeit</h3>
-                    <div className="space-y-4">
+                  {/* Step: Date & Time Selection */}
+                  {step === "date" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="space-y-6"
+                    >
+                      {/* Calendar */}
                       <div>
-                        <label className="block text-sm text-stone-200 mb-2 font-medium">Datum</label>
-                        <input
-                          type="date"
-                          value={selectedDate}
-                          onChange={(e) => setSelectedDate(e.target.value)}
-                          className="w-full px-4 py-2.5 rounded-lg border border-stone-600 text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white/20 transition-all text-sm"
-                          style={{
-                            background: "rgba(255, 255, 255, 0.05)",
-                            colorScheme: "dark"
-                          }}
+                        <label className="block text-sm font-semibold text-white mb-4">
+                          Datum wählen
+                        </label>
+                        <BookingCalendar
+                          selectedDate={selectedDate}
+                          onSelectDate={setSelectedDate}
                         />
                       </div>
-                      <div>
-                        <label className="block text-sm text-stone-200 mb-2 font-medium">Uhrzeit</label>
-                        <select
-                          value={selectedTime}
-                          onChange={(e) => setSelectedTime(e.target.value)}
-                          className="w-full px-4 py-2.5 rounded-lg border border-stone-600 text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white/20 transition-all text-sm"
+
+                      {/* Time Selection */}
+                      {selectedDate && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <label className="block text-sm font-semibold text-white mb-4">
+                            Uhrzeit wählen
+                          </label>
+                          <BookingTimeSelect
+                            selectedTime={selectedTime}
+                            onSelectTime={setSelectedTime}
+                          />
+                        </motion.div>
+                      )}
+
+                      {/* Selected Date & Time Display */}
+                      {selectedDate && selectedTime && (
+                        <motion.div
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          className="p-4 rounded-xl"
                           style={{
-                            background: "rgba(255, 255, 255, 0.05)",
-                            colorScheme: "dark"
+                            background: "rgba(16, 185, 129, 0.1)",
+                            border: "1px solid rgba(16, 185, 129, 0.3)",
                           }}
                         >
-                          <option value="">-- Uhrzeit wählen --</option>
-                          {["09:00", "10:00", "11:00", "14:00", "15:00", "16:00", "17:00", "18:00"].map((time) => (
-                            <option key={time} value={time}>
-                              {time} Uhr
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
+                          <p className="text-sm text-stone-300">
+                            Termin: <span className="text-green-300 font-semibold">{formatDate(selectedDate)} um {selectedTime} Uhr</span>
+                          </p>
+                        </motion.div>
+                      )}
+                    </motion.div>
+                  )}
 
-                {/* Step 4: Contact */}
-                {step === "contact" && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <h3 className="text-lg font-semibold text-white mb-4">4. Deine Daten</h3>
-                    <div className="space-y-3">
+                  {/* Step: Contact Information */}
+                  {step === "contact" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="space-y-4"
+                    >
                       <div>
-                        <label className="block text-sm text-stone-200 mb-2 font-medium">Name *</label>
+                        <label className="block text-sm font-semibold text-white mb-2">
+                          Name *
+                        </label>
                         <input
                           type="text"
                           value={contact.name}
-                          onChange={(e) => setContact({ ...contact, name: e.target.value })}
-                          placeholder="Dein Name"
-                          className="w-full px-4 py-2.5 rounded-lg border border-stone-600 text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white/20 transition-all placeholder:text-stone-400 text-sm"
+                          onChange={(e) =>
+                            setContact({ ...contact, name: e.target.value })
+                          }
+                          placeholder="Ihr Name"
+                          className="w-full px-4 py-3 rounded-lg text-white placeholder:text-stone-400 focus:outline-none transition-all"
                           style={{
-                            background: "rgba(255, 255, 255, 0.05)",
+                            background: "rgba(255, 255, 255, 0.06)",
+                            border: "1px solid rgba(255, 255, 255, 0.12)",
                           }}
                         />
                       </div>
+
                       <div>
-                        <label className="block text-sm text-stone-200 mb-2 font-medium">Telefon *</label>
+                        <label className="block text-sm font-semibold text-white mb-2">
+                          Telefon *
+                        </label>
                         <input
                           type="tel"
                           value={contact.phone}
-                          onChange={(e) => setContact({ ...contact, phone: e.target.value })}
-                          placeholder={CONTACT.phone}
-                          className="w-full px-4 py-2.5 rounded-lg border border-stone-600 text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white/20 transition-all placeholder:text-stone-400 text-sm"
+                          onChange={(e) =>
+                            setContact({ ...contact, phone: e.target.value })
+                          }
+                          placeholder="+49 (0) 123 456789"
+                          className="w-full px-4 py-3 rounded-lg text-white placeholder:text-stone-400 focus:outline-none transition-all"
                           style={{
-                            background: "rgba(255, 255, 255, 0.05)",
+                            background: "rgba(255, 255, 255, 0.06)",
+                            border: "1px solid rgba(255, 255, 255, 0.12)",
                           }}
                         />
                       </div>
+
                       <div>
-                        <label className="block text-sm text-stone-200 mb-2 font-medium">E-Mail</label>
+                        <label className="block text-sm font-semibold text-white mb-2">
+                          E-Mail (optional)
+                        </label>
                         <input
                           type="email"
                           value={contact.email}
-                          onChange={(e) => setContact({ ...contact, email: e.target.value })}
-                          placeholder="deine@email.de"
-                          className="w-full px-4 py-2.5 rounded-lg border border-stone-600 text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white/20 transition-all placeholder:text-stone-400 text-sm"
+                          onChange={(e) =>
+                            setContact({ ...contact, email: e.target.value })
+                          }
+                          placeholder="ihr@email.de"
+                          className="w-full px-4 py-3 rounded-lg text-white placeholder:text-stone-400 focus:outline-none transition-all"
                           style={{
-                            background: "rgba(255, 255, 255, 0.05)",
+                            background: "rgba(255, 255, 255, 0.06)",
+                            border: "1px solid rgba(255, 255, 255, 0.12)",
                           }}
                         />
                       </div>
-                    </div>
-                  </motion.div>
-                )}
+                    </motion.div>
+                  )}
 
-                {/* Step 5: Confirmation */}
-                {step === "confirmation" && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="text-center py-4"
+                  {/* Step: Confirmation */}
+                  {step === "confirmation" && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.4, ease: "easeOut" }}
+                      className="text-center space-y-6"
+                    >
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 0.2, duration: 0.4, type: "spring", stiffness: 100 }}
+                        className="w-16 h-16 rounded-full mx-auto flex items-center justify-center"
+                        style={{
+                          background: "rgba(16, 185, 129, 0.15)",
+                          border: "2px solid rgba(16, 185, 129, 0.4)",
+                        }}
+                      >
+                        <svg
+                          width="32"
+                          height="32"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          className="text-green-400"
+                        >
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                      </motion.div>
+
+                      <div>
+                        <h3 className="text-2xl font-semibold text-white mb-2">
+                          Termin gebucht!
+                        </h3>
+                        <p className="text-stone-300 text-sm">
+                          Eine Bestätigung wird versendet an
+                        </p>
+                      </div>
+
+                      <div
+                        className="p-4 rounded-xl"
+                        style={{
+                          background: "rgba(255, 255, 255, 0.06)",
+                          border: "1px solid rgba(255, 255, 255, 0.12)",
+                        }}
+                      >
+                        <p className="text-white font-semibold break-all">
+                          {contact.email || contact.phone}
+                        </p>
+                      </div>
+
+                      <div className="space-y-3 pt-4">
+                        <div
+                          className="p-4 rounded-xl"
+                          style={{
+                            background: "rgba(255, 255, 255, 0.04)",
+                            border: "1px solid rgba(255, 255, 255, 0.08)",
+                          }}
+                        >
+                          <div className="text-left space-y-2.5 text-sm">
+                            <div className="flex justify-between">
+                              <span className="text-stone-300">Leistung</span>
+                              <span className="text-white font-semibold">
+                                {selectedService?.name}
+                              </span>
+                            </div>
+                            <div
+                              className="h-px"
+                              style={{
+                                background: "rgba(255, 255, 255, 0.08)",
+                              }}
+                            />
+                            <div className="flex justify-between">
+                              <span className="text-stone-300">Datum & Zeit</span>
+                              <span className="text-white font-semibold">
+                                {selectedDate && formatDate(selectedDate)} {selectedTime}
+                              </span>
+                            </div>
+                            <div
+                              className="h-px"
+                              style={{
+                                background: "rgba(255, 255, 255, 0.08)",
+                              }}
+                            />
+                            <div className="flex justify-between">
+                              <span className="text-stone-300">Name</span>
+                              <span className="text-white font-semibold">
+                                {contact.name}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </div>
+
+                {/* Footer - Action Buttons */}
+                <div
+                  className="flex gap-3 px-8 py-6 flex-shrink-0"
+                  style={{
+                    borderTop: "1px solid rgba(255, 255, 255, 0.08)",
+                    background: "linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.02) 100%)",
+                  }}
+                >
+                  {/* Back Button */}
+                  {step !== "service" && step !== "confirmation" && (
+                    <motion.button
+                      onClick={() => {
+                        if (step === "date") setStep("service");
+                        else if (step === "contact") setStep("date");
+                      }}
+                      className="px-6 py-3 rounded-lg font-medium text-sm transition-all"
+                      style={{
+                        background: "rgba(255, 255, 255, 0.06)",
+                        border: "1px solid rgba(255, 255, 255, 0.12)",
+                        color: "#e7e5e4",
+                      }}
+                      whileHover={{ background: "rgba(255, 255, 255, 0.1)" }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      ← Zurück
+                    </motion.button>
+                  )}
+
+                  {/* Next/Confirm Button */}
+                  <motion.button
+                    onClick={() => {
+                      if (step === "service" && isServiceValid) setStep("date");
+                      else if (step === "date" && isDateTimeValid) setStep("contact");
+                      else if (step === "contact" && isContactValid) setStep("confirmation");
+                    }}
+                    className="ml-auto px-6 py-3 rounded-lg font-semibold text-sm transition-all"
+                    style={{
+                      background:
+                        (step === "service" && isServiceValid) ||
+                        (step === "date" && isDateTimeValid) ||
+                        (step === "contact" && isContactValid)
+                          ? "#ffffff"
+                          : "rgba(255, 255, 255, 0.1)",
+                      color:
+                        (step === "service" && isServiceValid) ||
+                        (step === "date" && isDateTimeValid) ||
+                        (step === "contact" && isContactValid)
+                          ? "#000000"
+                          : "#999999",
+                      cursor:
+                        (step === "service" && isServiceValid) ||
+                        (step === "date" && isDateTimeValid) ||
+                        (step === "contact" && isContactValid)
+                          ? "pointer"
+                          : "not-allowed",
+                    }}
+                    whileHover={
+                      (step === "service" && isServiceValid) ||
+                      (step === "date" && isDateTimeValid) ||
+                      (step === "contact" && isContactValid)
+                        ? { scale: 1.05 }
+                        : {}
+                    }
+                    whileTap={
+                      (step === "service" && isServiceValid) ||
+                      (step === "date" && isDateTimeValid) ||
+                      (step === "contact" && isContactValid)
+                        ? { scale: 0.95 }
+                        : {}
+                    }
+                    disabled={
+                      (step === "service" && !isServiceValid) ||
+                      (step === "date" && !isDateTimeValid) ||
+                      (step === "contact" && !isContactValid)
+                    }
                   >
-                    <div className="w-12 h-12 rounded-full border-2 border-green-500 bg-green-500/10 flex items-center justify-center mx-auto mb-4">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-green-400">
-                        <path d="M20 6L9 17l-5-5" />
-                      </svg>
-                    </div>
-                    <h3 className="text-2xl font-semibold text-white mb-2">Termin gebucht!</h3>
-                    <p className="text-stone-300 mb-6">Eine Bestätigung wird versendet an:</p>
-                    <div className="bg-stone-700/30 rounded-lg p-4 mb-6 border border-stone-600/50">
-                      <p className="text-white font-semibold">{contact.email || contact.phone}</p>
-                    </div>
-                    <div className="bg-stone-700/20 rounded-lg p-4 space-y-3 text-sm border border-stone-600/30">
-                      <div className="flex justify-between text-stone-300">
-                        <span>Service:</span>
-                        <span className="text-white font-semibold">{selectedService?.name}</span>
-                      </div>
-                      <div className="flex justify-between text-stone-300">
-                        <span>Friseur:</span>
-                        <span className="text-white font-semibold">{selectedBarber}</span>
-                      </div>
-                      <div className="flex justify-between text-stone-300">
-                        <span>Datum:</span>
-                        <span className="text-white font-semibold">{new Date(selectedDate).toLocaleDateString("de-DE")}</span>
-                      </div>
-                      <div className="flex justify-between text-stone-300">
-                        <span>Uhrzeit:</span>
-                        <span className="text-white font-semibold">{selectedTime} Uhr</span>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
+                    {step === "service" && "Weiter →"}
+                    {step === "date" && "Weiter →"}
+                    {step === "contact" && "✓ TERMIN BESTÄTIGEN"}
+                  </motion.button>
+
+                  {/* Close Button (Confirmation) */}
+                  {step === "confirmation" && (
+                    <motion.button
+                      onClick={handleClose}
+                      className="ml-auto px-8 py-3 rounded-lg font-semibold text-sm transition-all text-white"
+                      style={{
+                        background: "rgba(16, 185, 129, 0.8)",
+                      }}
+                      whileHover={{ background: "rgba(16, 185, 129, 1)" }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Fenster schließen
+                    </motion.button>
+                  )}
+                </div>
               </div>
-            </div>
-
-            {/* Footer - Buttons */}
-            <div
-              className="px-6 py-4 flex-shrink-0 flex gap-3 items-center justify-between flex-wrap"
-              style={{
-                borderTop: "1px solid rgba(255, 255, 255, 0.08)",
-                background: "linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.2) 100%)",
-              }}
-            >
-              {/* Back Button */}
-              {step !== "service" && step !== "confirmation" && (
-                <motion.button
-                  onClick={() => {
-                    if (step === "barber") setStep("service");
-                    else if (step === "date") setStep("barber");
-                    else if (step === "contact") setStep("date");
-                  }}
-                  className="px-6 py-2.5 text-stone-300 hover:text-white border border-stone-600 hover:border-stone-500 rounded-lg text-sm font-medium transition-all"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  ← Zurück
-                </motion.button>
-              )}
-
-              {/* Next Button */}
-              {step === "service" && (
-                <motion.button
-                  onClick={() => setStep("barber")}
-                  disabled={!isServiceValid}
-                  className="px-6 py-2.5 rounded-lg font-semibold text-sm transition-all ml-auto"
-                  style={{
-                    background: isServiceValid ? "#ffffff" : "rgba(255, 255, 255, 0.15)",
-                    color: isServiceValid ? "#000000" : "#999999",
-                    cursor: isServiceValid ? "pointer" : "not-allowed",
-                  }}
-                  whileHover={isServiceValid ? { scale: 1.05 } : {}}
-                  whileTap={isServiceValid ? { scale: 0.95 } : {}}
-                >
-                  Weiter →
-                </motion.button>
-              )}
-
-              {step === "barber" && (
-                <motion.button
-                  onClick={() => setStep("date")}
-                  disabled={!isBarberValid}
-                  className="px-6 py-2.5 rounded-lg font-semibold text-sm transition-all ml-auto"
-                  style={{
-                    background: isBarberValid ? "#ffffff" : "rgba(255, 255, 255, 0.15)",
-                    color: isBarberValid ? "#000000" : "#999999",
-                    cursor: isBarberValid ? "pointer" : "not-allowed",
-                  }}
-                  whileHover={isBarberValid ? { scale: 1.05 } : {}}
-                  whileTap={isBarberValid ? { scale: 0.95 } : {}}
-                >
-                  Weiter →
-                </motion.button>
-              )}
-
-              {step === "date" && (
-                <motion.button
-                  onClick={() => setStep("contact")}
-                  disabled={!isDateValid}
-                  className="px-6 py-2.5 rounded-lg font-semibold text-sm transition-all ml-auto"
-                  style={{
-                    background: isDateValid ? "#ffffff" : "rgba(255, 255, 255, 0.15)",
-                    color: isDateValid ? "#000000" : "#999999",
-                    cursor: isDateValid ? "pointer" : "not-allowed",
-                  }}
-                  whileHover={isDateValid ? { scale: 1.05 } : {}}
-                  whileTap={isDateValid ? { scale: 0.95 } : {}}
-                >
-                  Weiter →
-                </motion.button>
-              )}
-
-              {step === "contact" && (
-                <motion.button
-                  onClick={() => setStep("confirmation")}
-                  disabled={!isContactValid}
-                  className="px-8 py-2.5 rounded-lg font-bold text-sm transition-all ml-auto"
-                  style={{
-                    background: isContactValid ? "#ffffff" : "rgba(255, 255, 255, 0.15)",
-                    color: isContactValid ? "#000000" : "#999999",
-                    cursor: isContactValid ? "pointer" : "not-allowed",
-                  }}
-                  whileHover={isContactValid ? { scale: 1.05 } : {}}
-                  whileTap={isContactValid ? { scale: 0.95 } : {}}
-                >
-                  ✓ TERMIN BESTÄTIGEN
-                </motion.button>
-              )}
-
-              {step === "confirmation" && (
-                <motion.button
-                  onClick={handleClose}
-                  className="px-6 py-2.5 rounded-lg font-semibold text-sm text-black ml-auto transition-all"
-                  style={{
-                    background: "#10b981",
-                  }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Fenster schließen
-                </motion.button>
-              )}
-            </div>
-          </motion.div>
-        </motion.div>
+            </motion.div>
+          </div>
+        </>
       )}
     </AnimatePresence>
   );
