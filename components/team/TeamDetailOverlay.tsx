@@ -56,7 +56,7 @@ export default function TeamDetailOverlay({ member, onClose }: TeamDetailOverlay
               type="button"
               onClick={onClose}
               aria-label="Schließen"
-              className="absolute right-6 top-6 flex h-8 w-8 items-center justify-center text-stone-500 transition-colors hover:text-ink"
+              className="absolute right-6 top-6 flex h-8 w-8 items-center justify-center text-stone-400 transition-colors hover:text-ink"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
                 <path d="M6 6l12 12M18 6 6 18" />
@@ -83,7 +83,7 @@ export default function TeamDetailOverlay({ member, onClose }: TeamDetailOverlay
               {member.role ?? "Team Sino Friseurstudio"}
             </p>
 
-            <p className="mt-6 max-w-xs text-sm leading-relaxed text-stone-500">
+            <p className="mt-6 max-w-xs text-sm leading-relaxed text-stone-300">
               {member.bio ??
                 "Weitere Informationen zu Spezialisierung und Erfahrung folgen in Kürze."}
             </p>

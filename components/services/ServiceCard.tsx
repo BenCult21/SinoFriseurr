@@ -14,9 +14,9 @@ export default function ServiceCard({ item, index }: { item: ServiceItem; index:
     >
       <div>
         <p className="font-display text-lg font-light text-ink sm:text-xl">{item.name}</p>
-        <p className="mt-2 text-xs font-light text-stone-500">{item.duration}</p>
+        <p className="mt-2 text-xs font-light text-stone-300">{item.duration}</p>
       </div>
-      <p className="whitespace-nowrap font-display text-lg font-light text-stone-600 sm:text-xl">{item.price}</p>
+      <p className="whitespace-nowrap font-display text-lg font-light text-white sm:text-xl">{item.price}</p>
     </motion.div>
   );
 }

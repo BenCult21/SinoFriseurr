@@ -13,7 +13,7 @@ export default function MapsLink({ className = "", showAddress = false, iconOnly
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`Standort auf Google Maps öffnen: ${CONTACT.fullAddress}`}
-      className={`group inline-flex items-center gap-2 text-ink transition-colors hover:text-stone-500 ${className}`}
+      className={`group inline-flex items-center gap-2 text-ink transition-colors hover:text-barber-red ${className}`}
     >
       <svg
         width="18"

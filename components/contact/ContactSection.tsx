@@ -66,7 +66,7 @@ export default function ContactSection() {
 
             {/* Opening Hours - Desktop Only */}
             <div className="hidden lg:block space-y-4">
-              <h3 className="font-display text-sm font-light uppercase tracking-[0.2em] text-stone-500">
+              <h3 className="font-display text-sm font-light uppercase tracking-[0.2em] text-stone-300">
                 Öffnungszeiten
               </h3>
               <div className="space-y-2 text-sm text-ink">
@@ -80,7 +80,7 @@ export default function ContactSection() {
                     <span className="font-light group-hover:text-barber-red transition-colors">
                       {hour.day}
                     </span>
-                    <span className="font-light text-stone-500 group-hover:text-stone-400 transition-colors">
+                    <span className="font-light text-stone-300 group-hover:text-white transition-colors">
                       {hour.hours}
                     </span>
                   </motion.div>
@@ -93,7 +93,7 @@ export default function ContactSection() {
           <div className="flex flex-col items-start justify-between lg:items-end">
             {/* Phone */}
             <div className="space-y-4">
-              <h3 className="font-display text-sm font-light uppercase tracking-[0.2em] text-stone-500">
+              <h3 className="font-display text-sm font-light uppercase tracking-[0.2em] text-stone-300">
                 Telefon
               </h3>
               <motion.a

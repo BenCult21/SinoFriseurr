@@ -59,7 +59,7 @@ export default function Navbar() {
               <motion.a
                 key={link.href}
                 href={link.href}
-                className="text-xs font-light uppercase tracking-wider text-stone-400 hover:text-barber-red transition-colors relative group"
+                className="text-xs font-light uppercase tracking-wider text-stone-300 hover:text-barber-red transition-colors relative group"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: i * 0.05 }}
@@ -83,7 +83,7 @@ export default function Navbar() {
               className="text-right"
               whileHover={{ scale: 1.05 }}
             >
-              <p className="text-xs text-stone-500 uppercase tracking-wider">Telefon</p>
+              <p className="text-xs text-stone-300 uppercase tracking-wider">Telefon</p>
               <p className="font-light text-sm text-ink hover:text-barber-red transition-colors">
                 {CONTACT.phone}
               </p>
@@ -100,7 +100,7 @@ export default function Navbar() {
               className="text-left"
               whileHover={{ scale: 1.05 }}
             >
-              <p className="text-xs text-stone-500 uppercase tracking-wider">Adresse</p>
+              <p className="text-xs text-stone-300 uppercase tracking-wider">Adresse</p>
               <p className="font-light text-sm text-ink hover:text-barber-blue transition-colors">
                 {CONTACT.city}
               </p>

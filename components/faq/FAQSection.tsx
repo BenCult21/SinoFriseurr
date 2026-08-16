@@ -83,7 +83,7 @@ export default function FAQSection() {
                 transition={{ duration: 0.3, ease: "easeInOut" }}
                 className="overflow-hidden bg-stone-50/30"
               >
-                <p className="px-6 py-4 text-sm text-stone-600 leading-relaxed">
+                <p className="px-6 py-4 text-sm text-stone-300 leading-relaxed">
                   {item.answer}
                 </p>
               </motion.div>

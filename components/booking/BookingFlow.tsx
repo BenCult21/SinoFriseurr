@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SERVICES, CONTACT, TEAM } from "@/lib/config";
 import type { ServiceItem } from "@/lib/config";
@@ -14,6 +14,18 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
   const [selectedDate, setSelectedDate] = useState<string>("");
   const [selectedTime, setSelectedTime] = useState<string>("");
   const [contact, setContact] = useState({ name: "", phone: "", email: "" });
+
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [open]);
 
   const handleReset = () => {
     setStep("service");
@@ -40,116 +52,99 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-[110] flex items-center justify-center p-4 sm:p-6"
+          className="fixed inset-0 z-[110] flex items-center justify-center p-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
         >
-          {/* Backdrop - Dark fade */}
+          {/* Backdrop with blur */}
           <motion.div
             className="absolute inset-0"
             onClick={handleClose}
             aria-hidden="true"
             initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
-            animate={{ opacity: 1, backdropFilter: "blur(8px)" }}
+            animate={{ opacity: 1, backdropFilter: "blur(6px)" }}
             exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
             style={{
-              background: "rgba(0, 0, 0, 0.7)",
+              background: "rgba(0, 0, 0, 0.72)",
             }}
           />
 
-          {/* Modal - Glassmorphism Design */}
+          {/* Modal Container */}
           <motion.div
-            className="relative w-full max-w-2xl rounded-2xl flex flex-col overflow-hidden"
+            className="relative w-full max-w-md flex flex-col overflow-hidden rounded-2xl"
             style={{
-              maxHeight: "90vh",
-              minHeight: "400px",
-              background: "linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(15, 15, 15, 0.95) 100%)",
+              maxHeight: "85vh",
+              background: "linear-gradient(135deg, rgba(28, 28, 28, 0.98) 0%, rgba(12, 12, 12, 0.98) 100%)",
               backdropFilter: "blur(20px)",
               WebkitBackdropFilter: "blur(20px)",
-              border: "1px solid rgba(255, 255, 255, 0.15)",
-              boxShadow: "0 25px 50px 0 rgba(0, 0, 0, 0.5), inset 0 1px 1px 0 rgba(255, 255, 255, 0.08)",
+              border: "1px solid rgba(255, 255, 255, 0.1)",
+              boxShadow: "0 25px 50px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.08)",
             }}
-            initial={{ opacity: 0, scale: 0.95, y: 30 }}
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 30 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
           >
-            {/* Shimmer effect overlay */}
+            {/* Header */}
             <div
-              className="absolute inset-0 pointer-events-none rounded-2xl"
-              style={{
-                background: "linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.03) 50%, transparent 100%)",
-              }}
-            />
-
-            {/* Header - Glossy gradient */}
-            <div
-              className="flex justify-between items-center px-6 sm:px-8 py-6 flex-shrink-0 relative z-10"
+              className="flex justify-between items-center px-6 py-5 flex-shrink-0"
               style={{
                 borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
-                background: "linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%)",
+                background: "linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, transparent 100%)",
               }}
             >
-              <h2 className="text-3xl font-semibold text-white tracking-wide">Termin buchen</h2>
+              <h2 className="text-2xl font-semibold text-white">Termin buchen</h2>
               <motion.button
                 onClick={handleClose}
-                className="text-stone-400 hover:text-ink p-2 rounded-lg transition-all"
-                style={{
-                  background: "rgba(255, 255, 255, 0.05)",
-                  backdropFilter: "blur(10px)",
-                }}
-                whileHover={{
-                  background: "rgba(255, 255, 255, 0.1)",
-                  scale: 1.1,
-                }}
+                className="text-stone-400 hover:text-white p-1 rounded-lg transition-colors"
+                whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M18 6L6 18M6 6l12 12" />
                 </svg>
               </motion.button>
             </div>
 
             {/* Content - Scrollable */}
-            <div className="flex-1 overflow-y-auto px-6 sm:px-8 lg:px-12 py-8 lg:py-12 pb-20 relative z-10">
-              <div className="max-w-2xl mx-auto space-y-10">
-                {/* Step 1: Service Selection */}
+            <div className="flex-1 overflow-y-auto px-6 py-8">
+              <div className="space-y-8">
+                {/* Step 1: Service */}
                 {step === "service" && (
-                  <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: "easeOut" }}>
-                    <h3 className="text-2xl font-semibold text-white mb-6">1. Service wählen</h3>
-                    <div className="space-y-3">
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <h3 className="text-lg font-semibold text-white mb-4">1. Service wählen</h3>
+                    <div className="space-y-2">
                       {SERVICES[0].items.map((service) => (
                         <motion.button
                           key={service.name}
                           onClick={() => setSelectedService(service)}
-                          className="w-full text-left p-4 rounded-xl border transition-all"
+                          className="w-full text-left p-4 rounded-lg border-2 transition-all"
                           style={{
-                            border: selectedService?.name === service.name
-                              ? "2px solid rgba(255, 46, 59, 0.8)"
-                              : "2px solid rgba(255, 255, 255, 0.1)",
+                            borderColor: selectedService?.name === service.name
+                              ? "rgba(255, 255, 255, 0.3)"
+                              : "rgba(255, 255, 255, 0.08)",
                             background: selectedService?.name === service.name
-                              ? "linear-gradient(135deg, rgba(255, 46, 59, 0.15) 0%, rgba(255, 46, 59, 0.05) 100%)"
-                              : "rgba(255, 255, 255, 0.03)",
-                            backdropFilter: "blur(10px)",
+                              ? "rgba(255, 255, 255, 0.08)"
+                              : "rgba(255, 255, 255, 0.02)",
                           }}
                           whileHover={{
-                            borderColor: "rgba(0, 153, 255, 0.6)",
-                            background: selectedService?.name === service.name
-                              ? "linear-gradient(135deg, rgba(255, 46, 59, 0.2) 0%, rgba(255, 46, 59, 0.08) 100%)"
-                              : "rgba(255, 255, 255, 0.06)",
-                            scale: 1.02,
+                            borderColor: "rgba(255, 255, 255, 0.2)",
+                            background: "rgba(255, 255, 255, 0.05)",
                           }}
-                          whileTap={{ scale: 0.98 }}
                         >
-                          <div className="flex justify-between items-center">
+                          <div className="flex justify-between items-start">
                             <div>
-                              <p className="text-white font-light text-base">{service.name}</p>
-                              <p className="text-sm text-stone-500 mt-1">{service.duration}</p>
+                              <p className="text-white font-semibold">{service.name}</p>
+                              <p className="text-sm text-stone-400 mt-1">{service.duration}</p>
                             </div>
-                            <p className="text-barber-red font-light">{service.price}</p>
+                            <p className="text-white font-semibold">{service.price}</p>
                           </div>
                         </motion.button>
                       ))}
@@ -157,40 +152,36 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                   </motion.div>
                 )}
 
-                {/* Step 2: Barber Selection */}
+                {/* Step 2: Barber */}
                 {step === "barber" && (
-                  <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: "easeOut" }}>
-                    <h3 className="text-2xl font-semibold text-white mb-6">2. Friseur wählen</h3>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <h3 className="text-lg font-semibold text-white mb-4">2. Friseur wählen</h3>
+                    <div className="grid grid-cols-2 gap-2">
                       {TEAM.map((barber) => (
                         <motion.button
                           key={barber.name}
                           onClick={() => setSelectedBarber(barber.name)}
-                          className="p-4 rounded-xl text-center border transition-all"
+                          className="p-3 rounded-lg border-2 text-center transition-all"
                           style={{
-                            border: selectedBarber === barber.name
-                              ? "2px solid rgba(255, 46, 59, 0.8)"
-                              : "2px solid rgba(255, 255, 255, 0.1)",
+                            borderColor: selectedBarber === barber.name
+                              ? "rgba(255, 255, 255, 0.3)"
+                              : "rgba(255, 255, 255, 0.08)",
                             background: selectedBarber === barber.name
-                              ? "linear-gradient(135deg, rgba(255, 46, 59, 0.15) 0%, rgba(255, 46, 59, 0.05) 100%)"
-                              : "rgba(255, 255, 255, 0.03)",
-                            backdropFilter: "blur(10px)",
+                              ? "rgba(255, 255, 255, 0.08)"
+                              : "rgba(255, 255, 255, 0.02)",
                           }}
                           whileHover={{
-                            borderColor: "rgba(0, 153, 255, 0.6)",
-                            background: selectedBarber === barber.name
-                              ? "linear-gradient(135deg, rgba(255, 46, 59, 0.2) 0%, rgba(255, 46, 59, 0.08) 100%)"
-                              : "rgba(255, 255, 255, 0.06)",
-                            scale: 1.05,
+                            borderColor: "rgba(255, 255, 255, 0.2)",
+                            background: "rgba(255, 255, 255, 0.05)",
                           }}
-                          whileTap={{ scale: 0.95 }}
                         >
-                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-barber-red to-barber-blue flex items-center justify-center mx-auto mb-2 shadow-lg">
-                            <span className="text-sm font-light text-white">{barber.name[0]}</span>
-                          </div>
-                          <p className="text-sm font-light text-white">{barber.name}</p>
+                          <p className="text-sm font-semibold text-white">{barber.name}</p>
                           {barber.specialty && (
-                            <p className="text-xs text-stone-500 mt-1">{barber.specialty}</p>
+                            <p className="text-xs text-stone-400 mt-1">{barber.specialty}</p>
                           )}
                         </motion.button>
                       ))}
@@ -200,32 +191,34 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
 
                 {/* Step 3: Date & Time */}
                 {step === "date" && (
-                  <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: "easeOut" }}>
-                    <h3 className="text-2xl font-semibold text-white mb-6">3. Datum & Uhrzeit</h3>
-                    <div className="space-y-6">
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <h3 className="text-lg font-semibold text-white mb-4">3. Datum & Uhrzeit</h3>
+                    <div className="space-y-4">
                       <div>
-                        <label className="block text-sm text-stone-100 mb-3 uppercase tracking-wide font-light">Datum</label>
+                        <label className="block text-sm text-stone-200 mb-2 font-medium">Datum</label>
                         <input
                           type="date"
                           value={selectedDate}
                           onChange={(e) => setSelectedDate(e.target.value)}
-                          className="w-full px-4 py-2 sm:py-3 rounded-lg border border-stone-500 text-white focus:outline-none focus:border-white focus:ring-2 focus:ring-white/30 transition-all text-base"
+                          className="w-full px-4 py-2.5 rounded-lg border border-stone-600 text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white/20 transition-all text-sm"
                           style={{
-                            background: "rgba(30, 30, 30, 0.8)",
-                            backdropFilter: "blur(8px)",
+                            background: "rgba(255, 255, 255, 0.05)",
                             colorScheme: "dark"
                           }}
                         />
                       </div>
                       <div>
-                        <label className="block text-sm text-stone-100 mb-2 uppercase tracking-wide font-light">Uhrzeit</label>
+                        <label className="block text-sm text-stone-200 mb-2 font-medium">Uhrzeit</label>
                         <select
                           value={selectedTime}
                           onChange={(e) => setSelectedTime(e.target.value)}
-                          className="w-full px-4 py-2 sm:py-3 rounded-lg border border-stone-500 text-white focus:outline-none focus:border-white focus:ring-2 focus:ring-white/30 transition-all text-base"
+                          className="w-full px-4 py-2.5 rounded-lg border border-stone-600 text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white/20 transition-all text-sm"
                           style={{
-                            background: "rgba(30, 30, 30, 0.8)",
-                            backdropFilter: "blur(8px)",
+                            background: "rgba(255, 255, 255, 0.05)",
                             colorScheme: "dark"
                           }}
                         >
@@ -241,50 +234,51 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                   </motion.div>
                 )}
 
-                {/* Step 4: Contact Information */}
+                {/* Step 4: Contact */}
                 {step === "contact" && (
-                  <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: "easeOut" }}>
-                    <h3 className="text-2xl font-semibold text-white mb-6">4. Kontaktdaten</h3>
-                    <div className="space-y-4">
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <h3 className="text-lg font-semibold text-white mb-4">4. Deine Daten</h3>
+                    <div className="space-y-3">
                       <div>
-                        <label className="block text-sm text-stone-100 mb-2 uppercase tracking-wide font-light">Name *</label>
+                        <label className="block text-sm text-stone-200 mb-2 font-medium">Name *</label>
                         <input
                           type="text"
                           value={contact.name}
                           onChange={(e) => setContact({ ...contact, name: e.target.value })}
-                          placeholder="Ihr Name"
-                          className="w-full px-4 py-2 sm:py-3 rounded-lg border border-stone-500 text-white focus:outline-none focus:border-white focus:ring-2 focus:ring-white/30 transition-all placeholder:text-stone-400 text-base"
+                          placeholder="Dein Name"
+                          className="w-full px-4 py-2.5 rounded-lg border border-stone-600 text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white/20 transition-all placeholder:text-stone-400 text-sm"
                           style={{
-                            background: "rgba(20, 20, 20, 0.6)",
-                            backdropFilter: "blur(8px)",
+                            background: "rgba(255, 255, 255, 0.05)",
                           }}
                         />
                       </div>
                       <div>
-                        <label className="block text-sm text-stone-100 mb-2 uppercase tracking-wide font-light">Telefon *</label>
+                        <label className="block text-sm text-stone-200 mb-2 font-medium">Telefon *</label>
                         <input
                           type="tel"
                           value={contact.phone}
                           onChange={(e) => setContact({ ...contact, phone: e.target.value })}
                           placeholder={CONTACT.phone}
-                          className="w-full px-4 py-2 sm:py-3 rounded-lg border border-stone-500 text-white focus:outline-none focus:border-white focus:ring-2 focus:ring-white/30 transition-all placeholder:text-stone-400 text-base"
+                          className="w-full px-4 py-2.5 rounded-lg border border-stone-600 text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white/20 transition-all placeholder:text-stone-400 text-sm"
                           style={{
-                            background: "rgba(20, 20, 20, 0.6)",
-                            backdropFilter: "blur(8px)",
+                            background: "rgba(255, 255, 255, 0.05)",
                           }}
                         />
                       </div>
                       <div>
-                        <label className="block text-sm text-stone-100 mb-2 uppercase tracking-wide font-light">E-Mail</label>
+                        <label className="block text-sm text-stone-200 mb-2 font-medium">E-Mail</label>
                         <input
                           type="email"
                           value={contact.email}
                           onChange={(e) => setContact({ ...contact, email: e.target.value })}
-                          placeholder="ihre@email.de"
-                          className="w-full px-4 py-2 sm:py-3 rounded-lg border border-stone-500 text-white focus:outline-none focus:border-white focus:ring-2 focus:ring-white/30 transition-all placeholder:text-stone-400 text-base"
+                          placeholder="deine@email.de"
+                          className="w-full px-4 py-2.5 rounded-lg border border-stone-600 text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white/20 transition-all placeholder:text-stone-400 text-sm"
                           style={{
-                            background: "rgba(20, 20, 20, 0.6)",
-                            backdropFilter: "blur(8px)",
+                            background: "rgba(255, 255, 255, 0.05)",
                           }}
                         />
                       </div>
@@ -294,32 +288,37 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
 
                 {/* Step 5: Confirmation */}
                 {step === "confirmation" && (
-                  <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: "easeOut" }} className="text-center py-8">
-                    <div className="w-16 h-16 rounded-full border-2 border-barber-green bg-barber-green/10 flex items-center justify-center mx-auto mb-6">
-                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-barber-green">
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-center py-4"
+                  >
+                    <div className="w-12 h-12 rounded-full border-2 border-green-500 bg-green-500/10 flex items-center justify-center mx-auto mb-4">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-green-400">
                         <path d="M20 6L9 17l-5-5" />
                       </svg>
                     </div>
-                    <h3 className="text-3xl font-semibold text-white mb-4">✓ Termin bestätigt!</h3>
-                    <p className="text-stone-100 mb-8">
-                      Vielen Dank für Ihre Buchung. Eine Bestätigung wird an{" "}
-                      <span className="text-stone-50">{contact.email || contact.phone}</span> versendet.
-                    </p>
-                    <div className="bg-stone-800/40 rounded-lg p-6 text-left space-y-4 text-base border border-stone-700">
-                      <div className="flex justify-between">
-                        <span className="text-stone-100 font-medium">Service:</span>
+                    <h3 className="text-2xl font-semibold text-white mb-2">Termin gebucht!</h3>
+                    <p className="text-stone-300 mb-6">Eine Bestätigung wird versendet an:</p>
+                    <div className="bg-stone-700/30 rounded-lg p-4 mb-6 border border-stone-600/50">
+                      <p className="text-white font-semibold">{contact.email || contact.phone}</p>
+                    </div>
+                    <div className="bg-stone-700/20 rounded-lg p-4 space-y-3 text-sm border border-stone-600/30">
+                      <div className="flex justify-between text-stone-300">
+                        <span>Service:</span>
                         <span className="text-white font-semibold">{selectedService?.name}</span>
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-stone-100 font-medium">Friseur:</span>
+                      <div className="flex justify-between text-stone-300">
+                        <span>Friseur:</span>
                         <span className="text-white font-semibold">{selectedBarber}</span>
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-stone-100 font-medium">Datum:</span>
+                      <div className="flex justify-between text-stone-300">
+                        <span>Datum:</span>
                         <span className="text-white font-semibold">{new Date(selectedDate).toLocaleDateString("de-DE")}</span>
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-stone-100 font-medium">Uhrzeit:</span>
+                      <div className="flex justify-between text-stone-300">
+                        <span>Uhrzeit:</span>
                         <span className="text-white font-semibold">{selectedTime} Uhr</span>
                       </div>
                     </div>
@@ -328,13 +327,12 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
               </div>
             </div>
 
-            {/* Footer - Action Buttons */}
+            {/* Footer - Buttons */}
             <div
-              className="px-6 sm:px-8 py-6 flex-shrink-0 flex flex-col sm:flex-row gap-4 items-center justify-between relative z-10"
+              className="px-6 py-4 flex-shrink-0 flex gap-3 items-center justify-between flex-wrap"
               style={{
                 borderTop: "1px solid rgba(255, 255, 255, 0.08)",
                 background: "linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.2) 100%)",
-                backdropFilter: "blur(10px)",
               }}
             >
               {/* Back Button */}
@@ -345,36 +343,27 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                     else if (step === "date") setStep("barber");
                     else if (step === "contact") setStep("date");
                   }}
-                  className="w-full sm:w-auto px-6 py-3 text-ink border border-stone-600/50 rounded-xl text-sm font-light transition-all"
-                  style={{
-                    background: "rgba(255, 255, 255, 0.05)",
-                    backdropFilter: "blur(10px)",
-                  }}
-                  whileHover={{
-                    background: "rgba(255, 255, 255, 0.1)",
-                    borderColor: "rgba(0, 153, 255, 0.5)",
-                  }}
-                  whileTap={{ scale: 0.98 }}
+                  className="px-6 py-2.5 text-stone-300 hover:text-white border border-stone-600 hover:border-stone-500 rounded-lg text-sm font-medium transition-all"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   ← Zurück
                 </motion.button>
               )}
 
-              {/* Next/Confirm Buttons */}
+              {/* Next Button */}
               {step === "service" && (
                 <motion.button
                   onClick={() => setStep("barber")}
                   disabled={!isServiceValid}
-                  className="flex-1 sm:flex-initial px-8 py-3 rounded-xl font-light text-white transition-all"
+                  className="px-6 py-2.5 rounded-lg font-semibold text-sm transition-all ml-auto"
                   style={{
-                    background: isServiceValid
-                      ? "linear-gradient(135deg, #ff2e3b 0%, #ff6b78 100%)"
-                      : "rgba(120, 113, 108, 0.5)",
-                    backdropFilter: isServiceValid ? "blur(10px)" : "blur(5px)",
-                    border: isServiceValid ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid rgba(255, 255, 255, 0.05)",
+                    background: isServiceValid ? "#ffffff" : "rgba(255, 255, 255, 0.15)",
+                    color: isServiceValid ? "#000000" : "#999999",
+                    cursor: isServiceValid ? "pointer" : "not-allowed",
                   }}
-                  whileHover={isServiceValid ? { scale: 1.05, boxShadow: "0 0 20px rgba(255, 46, 59, 0.5)" } : {}}
-                  whileTap={isServiceValid ? { scale: 0.98 } : {}}
+                  whileHover={isServiceValid ? { scale: 1.05 } : {}}
+                  whileTap={isServiceValid ? { scale: 0.95 } : {}}
                 >
                   Weiter →
                 </motion.button>
@@ -384,16 +373,14 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                 <motion.button
                   onClick={() => setStep("date")}
                   disabled={!isBarberValid}
-                  className="flex-1 sm:flex-initial px-8 py-3 rounded-xl font-light text-white transition-all"
+                  className="px-6 py-2.5 rounded-lg font-semibold text-sm transition-all ml-auto"
                   style={{
-                    background: isBarberValid
-                      ? "linear-gradient(135deg, #ff2e3b 0%, #ff6b78 100%)"
-                      : "rgba(120, 113, 108, 0.5)",
-                    backdropFilter: isBarberValid ? "blur(10px)" : "blur(5px)",
-                    border: isBarberValid ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid rgba(255, 255, 255, 0.05)",
+                    background: isBarberValid ? "#ffffff" : "rgba(255, 255, 255, 0.15)",
+                    color: isBarberValid ? "#000000" : "#999999",
+                    cursor: isBarberValid ? "pointer" : "not-allowed",
                   }}
-                  whileHover={isBarberValid ? { scale: 1.05, boxShadow: "0 0 20px rgba(255, 46, 59, 0.5)" } : {}}
-                  whileTap={isBarberValid ? { scale: 0.98 } : {}}
+                  whileHover={isBarberValid ? { scale: 1.05 } : {}}
+                  whileTap={isBarberValid ? { scale: 0.95 } : {}}
                 >
                   Weiter →
                 </motion.button>
@@ -403,16 +390,14 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                 <motion.button
                   onClick={() => setStep("contact")}
                   disabled={!isDateValid}
-                  className="flex-1 sm:flex-initial px-8 py-3 rounded-xl font-light text-white transition-all"
+                  className="px-6 py-2.5 rounded-lg font-semibold text-sm transition-all ml-auto"
                   style={{
-                    background: isDateValid
-                      ? "linear-gradient(135deg, #ff2e3b 0%, #ff6b78 100%)"
-                      : "rgba(120, 113, 108, 0.5)",
-                    backdropFilter: isDateValid ? "blur(10px)" : "blur(5px)",
-                    border: isDateValid ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid rgba(255, 255, 255, 0.05)",
+                    background: isDateValid ? "#ffffff" : "rgba(255, 255, 255, 0.15)",
+                    color: isDateValid ? "#000000" : "#999999",
+                    cursor: isDateValid ? "pointer" : "not-allowed",
                   }}
-                  whileHover={isDateValid ? { scale: 1.05, boxShadow: "0 0 20px rgba(255, 46, 59, 0.5)" } : {}}
-                  whileTap={isDateValid ? { scale: 0.98 } : {}}
+                  whileHover={isDateValid ? { scale: 1.05 } : {}}
+                  whileTap={isDateValid ? { scale: 0.95 } : {}}
                 >
                   Weiter →
                 </motion.button>
@@ -422,21 +407,13 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                 <motion.button
                   onClick={() => setStep("confirmation")}
                   disabled={!isContactValid}
-                  className="flex-1 sm:flex-initial px-8 py-4 rounded-xl font-bold text-lg text-black transition-all"
+                  className="px-8 py-2.5 rounded-lg font-bold text-sm transition-all ml-auto"
                   style={{
-                    background: isContactValid
-                      ? "linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%)"
-                      : "rgba(120, 113, 108, 0.3)",
-                    border: isContactValid
-                      ? "2px solid rgba(0, 0, 0, 0.3)"
-                      : "2px solid rgba(255, 255, 255, 0.1)",
-                    backdropFilter: "blur(10px)",
-                    boxShadow: isContactValid ? "0 0 30px rgba(255, 255, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.5)" : "none",
+                    background: isContactValid ? "#ffffff" : "rgba(255, 255, 255, 0.15)",
+                    color: isContactValid ? "#000000" : "#999999",
+                    cursor: isContactValid ? "pointer" : "not-allowed",
                   }}
-                  whileHover={isContactValid ? {
-                    scale: 1.08,
-                    boxShadow: "0 0 40px rgba(255, 255, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.6)"
-                  } : {}}
+                  whileHover={isContactValid ? { scale: 1.05 } : {}}
                   whileTap={isContactValid ? { scale: 0.95 } : {}}
                 >
                   ✓ TERMIN BESTÄTIGEN
@@ -446,17 +423,12 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
               {step === "confirmation" && (
                 <motion.button
                   onClick={handleClose}
-                  className="flex-1 px-8 py-3 rounded-xl text-black font-semibold transition-all text-base"
+                  className="px-6 py-2.5 rounded-lg font-semibold text-sm text-black ml-auto transition-all"
                   style={{
                     background: "#10b981",
-                    border: "none",
-                    boxShadow: "0 0 30px rgba(16, 185, 129, 0.4)",
                   }}
-                  whileHover={{
-                    scale: 1.05,
-                    boxShadow: "0 0 40px rgba(16, 185, 129, 0.6)",
-                  }}
-                  whileTap={{ scale: 0.98 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   Fenster schließen
                 </motion.button>

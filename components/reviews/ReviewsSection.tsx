@@ -35,7 +35,7 @@ export default function ReviewsSection() {
           <p className="mt-6 font-display text-5xl font-thin tracking-wide text-ink">
             {RATING.overall.toFixed(1)} von 5
           </p>
-          <p className="mt-3 font-light text-stone-500">{RATING.reviewCount} Bewertungen</p>
+          <p className="mt-3 font-light text-stone-300">{RATING.reviewCount} Bewertungen</p>
 
           <div className="mt-16 grid grid-cols-2 gap-8 max-w-2xl mx-auto md:grid-cols-4">
             {RATING.categories.map((cat) => (
@@ -48,7 +48,7 @@ export default function ReviewsSection() {
                 className="flex flex-col items-center gap-3 py-4"
               >
                 <RatingStars score={cat.score} size={16} />
-                <p className="text-xs font-light text-stone-500">{cat.label}</p>
+                <p className="text-xs font-light text-stone-300">{cat.label}</p>
               </motion.div>
             ))}
           </div>
