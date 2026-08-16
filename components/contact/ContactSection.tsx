@@ -69,18 +69,27 @@ export default function ContactSection() {
               <h3 className="font-display text-sm font-light uppercase tracking-[0.2em] text-white">
                 Öffnungszeiten
               </h3>
-              <div className="space-y-2 text-sm text-ink">
+              <div className="space-y-2 text-sm">
                 {OPENING_HOURS.map((hour, i) => (
                   <motion.div
                     key={i}
-                    className="flex justify-between gap-8 group cursor-default"
+                    className="flex justify-between gap-8 group cursor-default px-4 py-2.5 rounded-lg transition-all"
                     initial={{ opacity: 0.7 }}
-                    whileHover={{ opacity: 1 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    style={{
+                      background: "rgba(255, 255, 255, 0.04)",
+                      border: "1px solid rgba(255, 255, 255, 0.08)",
+                    }}
+                    whileHover={{
+                      background: "rgba(255, 255, 255, 0.06)",
+                      borderColor: "rgba(255, 255, 255, 0.12)",
+                    }}
                   >
-                    <span className="font-light group-hover:text-barber-red transition-colors">
+                    <span className="font-light text-ink group-hover:text-barber-red transition-colors">
                       {hour.day}
                     </span>
-                    <span className="font-light text-white group-hover:text-white transition-colors">
+                    <span className="font-light text-white group-hover:text-stone-100 transition-colors">
                       {hour.hours}
                     </span>
                   </motion.div>

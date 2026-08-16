@@ -26,7 +26,7 @@ export default function ReviewsSection() {
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.8 }}
           className="mt-20 text-center"
         >
           <div className="flex justify-center">
@@ -37,18 +37,47 @@ export default function ReviewsSection() {
           </p>
           <p className="mt-3 font-light text-stone-200">{RATING.reviewCount} Bewertungen</p>
 
-          <div className="mt-16 grid grid-cols-2 gap-8 max-w-2xl mx-auto md:grid-cols-4">
-            {RATING.categories.map((cat) => (
+          {/* Glass Category Cards */}
+          <div className="mt-16 grid grid-cols-2 gap-4 max-w-3xl mx-auto md:grid-cols-4">
+            {RATING.categories.map((cat, idx) => (
               <motion.div
                 key={cat.label}
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                className="flex flex-col items-center gap-3 py-4"
+                transition={{ delay: idx * 0.05 }}
+                className="group rounded-2xl p-5 transition-all relative overflow-hidden"
+                style={{
+                  background: "rgba(255, 255, 255, 0.06)",
+                  border: "1px solid rgba(255, 255, 255, 0.12)",
+                }}
+                whileHover={{
+                  background: "rgba(255, 255, 255, 0.09)",
+                  borderColor: "rgba(255, 255, 255, 0.18)",
+                  y: -2,
+                }}
               >
-                <RatingStars score={cat.score} size={16} />
-                <p className="text-xs font-light text-stone-200">{cat.label}</p>
+                {/* Subtle Hover Light */}
+                <motion.div
+                  className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"
+                  style={{
+                    background: "radial-gradient(circle 120px at center, rgba(255, 255, 255, 0.06) 0%, transparent 70%)",
+                  }}
+                />
+
+                <div className="relative flex flex-col items-center gap-2.5">
+                  <motion.div
+                    initial={{ scale: 1 }}
+                    whileInView={{ scale: 1.05 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.08 + 0.2 }}
+                  >
+                    <RatingStars score={cat.score} size={16} />
+                  </motion.div>
+                  <p className="text-xs font-light text-stone-200 group-hover:text-stone-100 transition-colors">
+                    {cat.label}
+                  </p>
+                </div>
               </motion.div>
             ))}
           </div>

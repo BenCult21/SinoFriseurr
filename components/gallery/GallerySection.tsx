@@ -78,23 +78,30 @@ export default function GallerySection() {
           {GALLERY_IMAGES.map((image, i) => (
             <motion.div
               key={i}
-              className="relative overflow-hidden rounded-lg bg-stone-200 shadow-lg h-80 group"
+              className="relative overflow-hidden rounded-lg bg-stone-200 shadow-lg h-80 group transition-all"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{
                 duration: 0.6,
                 delay: i * 0.1,
-                ease: "easeOut",
               }}
               viewport={{ once: true }}
               whileHover={{
-                boxShadow:
-                  "0 25px 50px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.1)",
+                boxShadow: "0 15px 40px rgba(0, 0, 0, 0.25)",
+                y: -2,
               }}
             >
+              {/* Subtle Hover Light Overlay */}
               <motion.div
-                whileHover={{ scale: 1.04 }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 z-10"
+                style={{
+                  background: "radial-gradient(circle 200px at center, rgba(255, 255, 255, 0.04) 0%, transparent 70%)",
+                }}
+              />
+
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                transition={{ duration: 0.4 }}
                 className="w-full h-full"
               >
                 <Image
@@ -119,15 +126,23 @@ export default function GallerySection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               viewport={{ once: true }}
-              className="relative overflow-hidden rounded-lg h-64 w-full bg-stone-200 shadow-lg group"
+              className="relative overflow-hidden rounded-lg h-64 w-full bg-stone-200 shadow-lg group transition-all"
               whileHover={{
-                boxShadow:
-                  "0 15px 35px rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 255, 255, 0.1)",
+                boxShadow: "0 10px 30px rgba(0, 0, 0, 0.2)",
+                y: -1,
               }}
             >
+              {/* Subtle Hover Light Overlay */}
               <motion.div
-                whileHover={{ scale: 1.04 }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 z-10"
+                style={{
+                  background: "radial-gradient(circle 150px at center, rgba(255, 255, 255, 0.03) 0%, transparent 70%)",
+                }}
+              />
+
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                transition={{ duration: 0.4 }}
                 className="w-full h-full"
               >
                 <Image

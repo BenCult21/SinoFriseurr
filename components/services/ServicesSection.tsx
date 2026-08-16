@@ -38,14 +38,31 @@ export default function ServicesSection() {
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.05 }}
                     viewport={{ once: true }}
-                    className="group relative glassmorphism p-6 rounded-lg"
+                    className="group relative p-6 rounded-lg transition-all overflow-hidden"
+                    style={{
+                      background: "rgba(255, 255, 255, 0.06)",
+                      border: "1px solid rgba(255, 255, 255, 0.12)",
+                    }}
+                    whileHover={{
+                      background: "rgba(255, 255, 255, 0.08)",
+                      borderColor: "rgba(255, 255, 255, 0.15)",
+                      y: -1,
+                    }}
                   >
-                    <div className="flex items-start justify-between gap-6 transition-all duration-300 group-hover:border-barber-red/50">
+                    {/* Subtle Hover Light */}
+                    <motion.div
+                      className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"
+                      style={{
+                        background: "radial-gradient(circle 150px at center, rgba(255, 255, 255, 0.05) 0%, transparent 70%)",
+                      }}
+                    />
+
+                    <div className="relative flex items-start justify-between gap-6">
                       <div className="flex-1">
                         <div className="flex items-baseline gap-4">
                           <motion.span
-                            className="font-heading text-sm font-semibold text-stone-200 tracking-wide"
-                            whileHover={{ scale: 1.2, color: "rgb(255, 46, 59)" }}
+                            className="font-heading text-sm font-semibold text-stone-300 tracking-wide group-hover:text-stone-100 transition-colors"
+                            whileHover={{ scale: 1.05 }}
                           >
                             {String(index + 1).padStart(2, "0")}
                           </motion.span>
@@ -54,8 +71,8 @@ export default function ServicesSection() {
                           </h4>
                         </div>
                         <motion.p
-                          className="mt-2 text-sm font-light text-stone-200 ml-14"
-                          whileHover={{ x: 4 }}
+                          className="mt-2 text-sm font-light text-stone-200 ml-14 group-hover:text-stone-100 transition-colors"
+                          whileHover={{ x: 2 }}
                         >
                           {item.duration}
                         </motion.p>
@@ -63,7 +80,7 @@ export default function ServicesSection() {
                       <div className="whitespace-nowrap">
                         <motion.p
                           className="font-heading text-base lg:text-lg font-semibold text-white group-hover:text-stone-100 transition-colors"
-                          whileHover={{ scale: 1.1 }}
+                          whileHover={{ scale: 1.02 }}
                         >
                           {item.price}
                         </motion.p>
