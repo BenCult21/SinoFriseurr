@@ -24,9 +24,9 @@ const GALLERY_IMAGES: GalleryImage[] = [
   {
     src: "/images/salon-reception.jpg",
     alt: "Sino Friseurstudio – Empfangsbereich",
-    height: "350px",
+    height: "300px",
     colSpan: 1,
-    rowSpan: 2,
+    rowSpan: 1,
   },
   {
     src: "/images/salon-lounge.jpg",
@@ -45,9 +45,9 @@ const GALLERY_IMAGES: GalleryImage[] = [
   {
     src: "/images/salon-detail-leopard.jpg",
     alt: "Sino Friseurstudio – Dekoration",
-    height: "350px",
+    height: "300px",
     colSpan: 1,
-    rowSpan: 2,
+    rowSpan: 1,
   },
 ];
 
@@ -67,26 +67,18 @@ export default function GallerySection() {
           description="Eine Sammlung unserer Studio-Impressionen. Jedes Bild erzählt eine Geschichte von Handwerk, Kreativität und unserem Engagement für Exzellenz."
         />
 
-        {/* Masonry Gallery Grid - Desktop and Tablet */}
+        {/* Gallery Grid - Desktop and Tablet */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true, margin: "-100px" }}
-          className="hidden md:grid mt-20 gap-4 w-full"
-          style={{
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gridAutoRows: "300px",
-          }}
+          className="hidden md:grid mt-20 gap-6 w-full grid-cols-3"
         >
           {GALLERY_IMAGES.map((image, i) => (
             <motion.div
               key={i}
-              className="relative overflow-hidden rounded-lg bg-stone-200 shadow-lg"
-              style={{
-                gridColumn: `span ${image.colSpan || 1}`,
-                gridRow: `span ${image.rowSpan || 1}`,
-              }}
+              className="relative overflow-hidden rounded-lg bg-stone-200 shadow-lg h-80"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{
@@ -97,7 +89,7 @@ export default function GallerySection() {
               viewport={{ once: true }}
               whileHover={{
                 boxShadow:
-                  "0 25px 50px rgba(255, 46, 59, 0.2), 0 0 40px rgba(0, 153, 255, 0.1)",
+                  "0 25px 50px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.1)",
                 scale: 1.02,
               }}
             >
