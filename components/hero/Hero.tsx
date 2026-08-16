@@ -64,7 +64,7 @@ export default function Hero() {
               y: scrollProgress * -60,
             }}
           >
-            <h2 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-regular tracking-wide text-stone-200">
+            <h2 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-regular tracking-wide text-white">
               FRISEURSTUDIO
             </h2>
           </motion.div>
@@ -106,7 +106,7 @@ export default function Hero() {
             href={CONTACT.mapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="block font-inter text-sm text-stone-300 hover:text-barber-red transition-all"
+            className="block font-inter text-sm text-stone-100 hover:text-white transition-all"
             whileHover={{ x: 8, scale: 1.05 }}
           >
             {CONTACT.street}
@@ -116,7 +116,7 @@ export default function Hero() {
 
           <motion.a
             href={CONTACT.phoneHref}
-            className="block font-inter text-sm font-light text-stone-200 hover:text-barber-blue transition-all"
+            className="block font-inter text-sm font-light text-stone-100 hover:text-white transition-all"
             whileHover={{ x: -8, scale: 1.05 }}
           >
             {CONTACT.phone}

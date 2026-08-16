@@ -28,7 +28,7 @@ export default function SectionHeading({
       {eyebrow && (
         <motion.p
           className={`mb-4 text-xs font-medium uppercase tracking-[0.3em] ${
-            invert ? "text-stone-400" : "text-stone-500"
+            invert ? "text-stone-200" : "text-stone-300"
           }`}
           initial={{ opacity: 0, x: -10 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -52,7 +52,7 @@ export default function SectionHeading({
       {description && (
         <motion.p
           className={`mt-5 text-balance text-base leading-relaxed sm:text-lg ${
-            invert ? "text-stone-300" : "text-stone-600"
+            invert ? "text-stone-100" : "text-stone-300"
           }`}
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}

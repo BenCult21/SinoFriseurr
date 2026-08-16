@@ -136,7 +136,7 @@ export default function GallerySection() {
           viewport={{ once: true }}
           className="mt-20 max-w-2xl text-center mx-auto"
         >
-          <p className="font-inter text-sm text-stone-400 leading-relaxed">
+          <p className="font-inter text-sm text-stone-200 leading-relaxed">
             Eine Sammlung unserer Studio-Impressionen. Jedes Bild erzählt eine Geschichte von Handwerk, Kreativität und unserem Engagement für Exzellenz.
           </p>
         </motion.div>

@@ -113,11 +113,11 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
             </div>
 
             {/* Content - Scrollable */}
-            <div className="flex-1 overflow-y-auto px-6 sm:px-8 lg:px-12 py-8 lg:py-12 relative z-10">
+            <div className="flex-1 overflow-y-auto px-6 sm:px-8 lg:px-12 py-8 lg:py-12 pb-20 relative z-10">
               <div className="max-w-2xl mx-auto space-y-10">
                 {/* Step 1: Service Selection */}
                 {step === "service" && (
-                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+                  <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: "easeOut" }}>
                     <h3 className="text-xl font-light text-ink mb-6">1. Service wählen</h3>
                     <div className="space-y-3">
                       {SERVICES[0].items.map((service) => (
@@ -158,7 +158,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
 
                 {/* Step 2: Barber Selection */}
                 {step === "barber" && (
-                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+                  <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: "easeOut" }}>
                     <h3 className="text-xl font-light text-ink mb-6">2. Friseur wählen</h3>
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                       {TEAM.map((barber) => (
@@ -199,11 +199,11 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
 
                 {/* Step 3: Date & Time */}
                 {step === "date" && (
-                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+                  <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: "easeOut" }}>
                     <h3 className="text-xl font-light text-ink mb-6">3. Datum & Uhrzeit</h3>
                     <div className="space-y-6">
                       <div>
-                        <label className="block text-sm text-stone-300 mb-3 uppercase tracking-wide font-light">Datum</label>
+                        <label className="block text-sm text-stone-100 mb-3 uppercase tracking-wide font-light">Datum</label>
                         <input
                           type="date"
                           value={selectedDate}
@@ -216,7 +216,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                         />
                       </div>
                       <div>
-                        <label className="block text-sm text-stone-400 mb-2 uppercase tracking-wide font-light">Uhrzeit</label>
+                        <label className="block text-sm text-stone-100 mb-2 uppercase tracking-wide font-light">Uhrzeit</label>
                         <select
                           value={selectedTime}
                           onChange={(e) => setSelectedTime(e.target.value)}
@@ -240,11 +240,11 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
 
                 {/* Step 4: Contact Information */}
                 {step === "contact" && (
-                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+                  <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: "easeOut" }}>
                     <h3 className="text-xl font-light text-ink mb-6">4. Kontaktdaten</h3>
                     <div className="space-y-4">
                       <div>
-                        <label className="block text-sm text-stone-400 mb-2 uppercase tracking-wide font-light">Name *</label>
+                        <label className="block text-sm text-stone-100 mb-2 uppercase tracking-wide font-light">Name *</label>
                         <input
                           type="text"
                           value={contact.name}
@@ -258,7 +258,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                         />
                       </div>
                       <div>
-                        <label className="block text-sm text-stone-400 mb-2 uppercase tracking-wide font-light">Telefon *</label>
+                        <label className="block text-sm text-stone-100 mb-2 uppercase tracking-wide font-light">Telefon *</label>
                         <input
                           type="tel"
                           value={contact.phone}
@@ -272,7 +272,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
                         />
                       </div>
                       <div>
-                        <label className="block text-sm text-stone-400 mb-2 uppercase tracking-wide font-light">E-Mail</label>
+                        <label className="block text-sm text-stone-100 mb-2 uppercase tracking-wide font-light">E-Mail</label>
                         <input
                           type="email"
                           value={contact.email}
@@ -291,32 +291,32 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
 
                 {/* Step 5: Confirmation */}
                 {step === "confirmation" && (
-                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="text-center py-8">
+                  <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: "easeOut" }} className="text-center py-8">
                     <div className="w-16 h-16 rounded-full border-2 border-barber-green bg-barber-green/10 flex items-center justify-center mx-auto mb-6">
                       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-barber-green">
                         <path d="M20 6L9 17l-5-5" />
                       </svg>
                     </div>
                     <h3 className="text-2xl font-light text-ink mb-2">Termin bestätigt!</h3>
-                    <p className="text-stone-400 mb-8">
+                    <p className="text-stone-100 mb-8">
                       Vielen Dank für Ihre Buchung. Eine Bestätigung wird an{" "}
-                      <span className="text-barber-red">{contact.email || contact.phone}</span> versendet.
+                      <span className="text-stone-50">{contact.email || contact.phone}</span> versendet.
                     </p>
                     <div className="bg-stone-900/50 rounded-lg p-6 text-left space-y-3 text-sm">
                       <div className="flex justify-between">
-                        <span className="text-stone-400">Service:</span>
+                        <span className="text-stone-100">Service:</span>
                         <span className="text-barber-red font-light">{selectedService?.name}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-stone-400">Friseur:</span>
+                        <span className="text-stone-100">Friseur:</span>
                         <span className="text-barber-blue font-light">{selectedBarber}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-stone-400">Datum:</span>
+                        <span className="text-stone-100">Datum:</span>
                         <span className="text-ink font-light">{new Date(selectedDate).toLocaleDateString("de-DE")}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-stone-400">Uhrzeit:</span>
+                        <span className="text-stone-100">Uhrzeit:</span>
                         <span className="text-ink font-light">{selectedTime} Uhr</span>
                       </div>
                     </div>
