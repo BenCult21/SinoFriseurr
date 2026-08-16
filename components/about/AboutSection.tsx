@@ -5,6 +5,13 @@ import SectionHeading from "@/components/shared/SectionHeading";
 import EditorialImage from "@/components/about/EditorialImage";
 import { motion } from "framer-motion";
 
+const scrollToGallery = () => {
+  const galleryElement = document.getElementById("galerie");
+  if (galleryElement) {
+    galleryElement.scrollIntoView({ behavior: "smooth" });
+  }
+};
+
 export default function AboutSection() {
   return (
     <section id="ueber-uns" className="bg-paper px-6 py-28 lg:px-10 lg:py-40">
@@ -61,13 +68,16 @@ export default function AboutSection() {
             </p>
           </motion.div>
 
-          {/* Hero Image - Full Width */}
-          <motion.div
+          {/* Hero Image - Full Width - Clickable to Gallery */}
+          <motion.button
+            type="button"
+            onClick={scrollToGallery}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="relative overflow-hidden rounded-2xl h-80 lg:h-[500px] group"
+            className="relative overflow-hidden rounded-2xl h-80 lg:h-[500px] group cursor-pointer w-full text-left"
+            aria-label="Zur Galerie"
           >
             <EditorialImage
               src="/images/salon-barber-row.jpg"
@@ -108,7 +118,7 @@ export default function AboutSection() {
                 Ein Ort der Kreativität und Handwerkskunst
               </motion.p>
             </motion.div>
-          </motion.div>
+          </motion.button>
 
           {/* Story Continuation */}
           <motion.div

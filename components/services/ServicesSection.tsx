@@ -21,7 +21,7 @@ export default function ServicesSection() {
           description="Professionelle Haarschnitte und Treatments, exakt auf Ihren Typ abgestimmt."
         />
 
-        <div className="mt-24 space-y-20">
+        <div className="mt-24 space-y-12">
           {SERVICES.map((category, catIndex) => (
             <motion.div
               key={category.category}
@@ -32,7 +32,7 @@ export default function ServicesSection() {
             >
               {/* Category Header */}
               <motion.h3
-                className="font-heading text-2xl lg:text-3xl font-semibold text-white tracking-tight mb-10"
+                className="font-heading text-2xl lg:text-3xl font-semibold text-white tracking-tight mb-6"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
@@ -123,7 +123,7 @@ export default function ServicesSection() {
                           transition={{ duration: 0.3 }}
                           className="overflow-hidden"
                         >
-                          <div className="pt-5 mt-5 border-t border-stone-600/50 space-y-4">
+                          <div className="pt-3 mt-3 border-t border-stone-600/50 space-y-2">
                             <div className="flex justify-between items-start gap-6">
                               <div>
                                 <p className="text-xs font-light text-stone-400 uppercase tracking-wide mb-1">
@@ -144,7 +144,7 @@ export default function ServicesSection() {
                             </div>
 
                             {/* CTA Button in Service Detail */}
-                            <div className="pt-4 mt-4 border-t border-stone-600/30">
+                            <div className="pt-2 mt-2 border-t border-stone-600/30">
                               <BookingButton
                                 label="→ Termin buchen"
                                 modal
