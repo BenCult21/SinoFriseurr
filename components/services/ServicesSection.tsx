@@ -59,7 +59,7 @@ export default function ServicesSection() {
                         onClick={() =>
                           setExpandedService(isExpanded ? null : serviceKey)
                         }
-                        className="group relative w-full px-3 py-2 sm:p-6 rounded-lg transition-all overflow-hidden text-left"
+                        className="group relative w-full px-3 py-2 sm:p-6 rounded-lg transition-all text-left"
                         style={{
                           background: isExpanded
                             ? "rgba(255, 255, 255, 0.08)"
@@ -81,25 +81,25 @@ export default function ServicesSection() {
                           }}
                         />
 
-                        {/* Service Header - Always Visible */}
+                        {/* Service Header - Compact on Mobile */}
                         <div className="relative flex items-center justify-between gap-3 sm:gap-6">
-                          <div className="flex-1">
+                          <div className="flex-1 min-w-0">
                             <div className="flex items-baseline gap-2 sm:gap-4">
-                              <span className="font-heading text-xs sm:text-sm font-semibold text-stone-300 group-hover:text-stone-200 transition-colors">
+                              <span className="font-heading text-xs sm:text-sm font-semibold text-stone-300 group-hover:text-stone-200 transition-colors flex-shrink-0">
                                 {String(index + 1).padStart(2, "0")}
                               </span>
-                              <h4 className="font-heading text-sm sm:text-base lg:text-lg font-semibold text-white group-hover:text-stone-100 transition-colors">
+                              <h4 className="font-heading text-sm sm:text-base lg:text-lg font-semibold text-white group-hover:text-stone-100 transition-colors truncate">
                                 {item.name}
                               </h4>
                             </div>
                           </div>
 
                           <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
-                            <p className="font-heading text-sm sm:text-base lg:text-lg font-semibold text-white group-hover:text-stone-100 transition-colors">
+                            <p className="font-heading text-xs sm:text-base lg:text-lg font-semibold text-white group-hover:text-stone-100 transition-colors">
                               {item.price}
                             </p>
                             <motion.svg
-                              className="w-5 h-5 text-stone-300"
+                              className="w-4 h-4 sm:w-5 sm:h-5 text-stone-300 flex-shrink-0"
                               fill="none"
                               stroke="currentColor"
                               viewBox="0 0 24 24"
@@ -116,14 +116,51 @@ export default function ServicesSection() {
                           </div>
                         </div>
 
-                        {/* Expandable Details */}
+                        {/* Mobile: Expandable Details - Only render when open */}
+                        {isExpanded && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -8 }}
+                            transition={{ duration: 0.2 }}
+                            className="sm:hidden pt-2 mt-2 border-t border-stone-600/50 space-y-2"
+                          >
+                            <div className="flex justify-between items-start gap-6 text-xs">
+                              <div>
+                                <p className="font-light text-stone-400 uppercase tracking-wide mb-1">
+                                  Dauer
+                                </p>
+                                <p className="text-stone-200">
+                                  {item.duration}
+                                </p>
+                              </div>
+                              <div>
+                                <p className="font-light text-stone-400 uppercase tracking-wide mb-1">
+                                  Preis
+                                </p>
+                                <p className="text-stone-200 font-medium">
+                                  {item.price}
+                                </p>
+                              </div>
+                            </div>
+
+                            <div className="pt-2 mt-2 border-t border-stone-600/30">
+                              <BookingButton
+                                label="→ Termin buchen"
+                                modal
+                              />
+                            </div>
+                          </motion.div>
+                        )}
+
+                        {/* Desktop: Animated Expandable Details */}
                         <motion.div
                           initial={{ height: 0, opacity: 0 }}
                           animate={isExpanded ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
                           transition={{ duration: 0.3 }}
-                          className="overflow-hidden"
+                          className="hidden sm:block overflow-hidden"
                         >
-                          <div className="pt-1.5 mt-1.5 sm:pt-3 sm:mt-3 border-t border-stone-600/50 space-y-0 sm:space-y-2">
+                          <div className="pt-3 mt-3 border-t border-stone-600/50 space-y-2">
                             <div className="flex justify-between items-start gap-6">
                               <div>
                                 <p className="text-xs font-light text-stone-400 uppercase tracking-wide mb-1">
@@ -143,8 +180,7 @@ export default function ServicesSection() {
                               </div>
                             </div>
 
-                            {/* CTA Button in Service Detail */}
-                            <div className="pt-1.5 mt-1.5 sm:pt-2 sm:mt-2 border-t border-stone-600/30">
+                            <div className="pt-2 mt-2 border-t border-stone-600/30">
                               <BookingButton
                                 label="→ Termin buchen"
                                 modal
