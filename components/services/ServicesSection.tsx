@@ -42,7 +42,7 @@ export default function ServicesSection() {
               </motion.h3>
 
               {/* Services List */}
-              <div className="space-y-1 sm:space-y-3">
+              <div className="space-y-0 sm:space-y-3">
                 {category.items.map((item, index) => {
                   const serviceKey = `${catIndex}-${index}` as ExpandedService;
                   const isExpanded = expandedService === serviceKey;
@@ -59,7 +59,7 @@ export default function ServicesSection() {
                         onClick={() =>
                           setExpandedService(isExpanded ? null : serviceKey)
                         }
-                        className="group relative w-full p-2.5 sm:p-6 rounded-lg transition-all overflow-hidden text-left"
+                        className="group relative w-full px-3 py-2 sm:p-6 rounded-lg transition-all overflow-hidden text-left"
                         style={{
                           background: isExpanded
                             ? "rgba(255, 255, 255, 0.08)"
@@ -82,7 +82,7 @@ export default function ServicesSection() {
                         />
 
                         {/* Service Header - Always Visible */}
-                        <div className="relative flex items-start justify-between gap-3 sm:gap-6">
+                        <div className="relative flex items-center justify-between gap-3 sm:gap-6">
                           <div className="flex-1">
                             <div className="flex items-baseline gap-2 sm:gap-4">
                               <span className="font-heading text-xs sm:text-sm font-semibold text-stone-300 group-hover:text-stone-200 transition-colors">
@@ -123,7 +123,7 @@ export default function ServicesSection() {
                           transition={{ duration: 0.3 }}
                           className="overflow-hidden"
                         >
-                          <div className="pt-2 mt-2 sm:pt-3 sm:mt-3 border-t border-stone-600/50 space-y-0.5 sm:space-y-2">
+                          <div className="pt-1.5 mt-1.5 sm:pt-3 sm:mt-3 border-t border-stone-600/50 space-y-0 sm:space-y-2">
                             <div className="flex justify-between items-start gap-6">
                               <div>
                                 <p className="text-xs font-light text-stone-400 uppercase tracking-wide mb-1">
@@ -144,7 +144,7 @@ export default function ServicesSection() {
                             </div>
 
                             {/* CTA Button in Service Detail */}
-                            <div className="pt-2 mt-2 border-t border-stone-600/30">
+                            <div className="pt-1.5 mt-1.5 sm:pt-2 sm:mt-2 border-t border-stone-600/30">
                               <BookingButton
                                 label="→ Termin buchen"
                                 modal
