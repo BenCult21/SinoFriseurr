@@ -14,7 +14,7 @@ const backdropVariants = {
   visible: {
     opacity: 1,
     backdropFilter: "blur(25px)",
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
+    transition: { duration: 0.6 }
   },
   exit: {
     opacity: 0,
@@ -31,7 +31,6 @@ const modalVariants = {
     scale: 1,
     transition: {
       duration: 0.7,
-      ease: [0.16, 1, 0.3, 1],
       delay: 0.2
     }
   },
