@@ -78,7 +78,7 @@ export default function GallerySection() {
           {GALLERY_IMAGES.map((image, i) => (
             <motion.div
               key={i}
-              className="relative overflow-hidden rounded-lg bg-stone-200 shadow-lg h-80"
+              className="relative overflow-hidden rounded-lg bg-stone-200 shadow-lg h-80 group"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{
@@ -90,17 +90,22 @@ export default function GallerySection() {
               whileHover={{
                 boxShadow:
                   "0 25px 50px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.1)",
-                scale: 1.02,
               }}
             >
-              <Image
-                src={image.src}
-                alt={image.alt}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                className="object-cover"
-                quality={85}
-              />
+              <motion.div
+                whileHover={{ scale: 1.04 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="w-full h-full"
+              >
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover"
+                  quality={85}
+                />
+              </motion.div>
             </motion.div>
           ))}
         </motion.div>
@@ -114,16 +119,26 @@ export default function GallerySection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               viewport={{ once: true }}
-              className="relative overflow-hidden rounded-lg h-64 w-full bg-stone-200 shadow-lg"
+              className="relative overflow-hidden rounded-lg h-64 w-full bg-stone-200 shadow-lg group"
+              whileHover={{
+                boxShadow:
+                  "0 15px 35px rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 255, 255, 0.1)",
+              }}
             >
-              <Image
-                src={image.src}
-                alt={image.alt}
-                fill
-                sizes="100vw"
-                className="object-cover"
-                quality={85}
-              />
+              <motion.div
+                whileHover={{ scale: 1.04 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="w-full h-full"
+              >
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  sizes="100vw"
+                  className="object-cover"
+                  quality={85}
+                />
+              </motion.div>
             </motion.div>
           ))}
         </div>
