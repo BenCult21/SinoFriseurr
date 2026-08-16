@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import BookingFlow from "./BookingFlow";
+import BookingPortal from "./BookingPortal";
 import { CALENDLY_URL } from "@/lib/config";
 
 type BookingButtonProps = {
@@ -96,7 +97,9 @@ export default function BookingButton({
           <path d="M5 12h14M13 6l6 6-6 6" />
         </motion.svg>
       </motion.button>
-      <BookingFlow open={modalOpen} onClose={() => setModalOpen(false)} />
+      <BookingPortal>
+        <BookingFlow open={modalOpen} onClose={() => setModalOpen(false)} />
+      </BookingPortal>
     </>
   );
 }

@@ -26,7 +26,7 @@ export default function ContactSection() {
             {/* Address */}
             <div className="space-y-8">
               <div>
-                <h2 className="font-display text-6xl lg:text-7xl font-thin tracking-wide text-stone-400 mb-4">
+                <h2 className="font-display text-6xl lg:text-7xl font-thin tracking-wide text-stone-300 mb-4">
                   KASSEL
                 </h2>
                 <div className="space-y-1 text-sm lg:text-base font-light text-ink">
@@ -129,7 +129,7 @@ export default function ContactSection() {
           viewport={{ once: true }}
           className="mt-20 text-center"
         >
-          <p className="font-display text-xs font-light uppercase tracking-[0.2em] text-stone-400">
+          <p className="font-display text-xs font-light uppercase tracking-[0.2em] text-stone-300">
             {SALON_NAME}
           </p>
         </motion.div>

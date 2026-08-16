@@ -79,7 +79,7 @@ export default function TeamDetailOverlay({ member, onClose }: TeamDetailOverlay
             >
               {member.name}
             </motion.h3>
-            <p className="mt-1 text-xs uppercase tracking-[0.2em] text-stone-400">
+            <p className="mt-1 text-xs uppercase tracking-[0.2em] text-stone-300">
               {member.role ?? "Team Sino Friseurstudio"}
             </p>
 

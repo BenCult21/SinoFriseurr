@@ -68,7 +68,7 @@ export default function TeamCard({ member, onOpen }: TeamCardProps) {
 
       {/* Subtitle */}
       <motion.p
-        className="mt-2 text-xs font-light text-stone-300 group-hover:text-stone-200 transition-colors"
+        className="mt-2 text-xs font-light text-stone-200 group-hover:text-white transition-colors"
         whileHover={{ x: -2 }}
       >
         {member.role ?? "Team Sino Friseurstudio"}
