@@ -21,7 +21,7 @@ export default function ServicesSection() {
           description="Professionelle Haarschnitte und Treatments, exakt auf Ihren Typ abgestimmt."
         />
 
-        <div className="mt-24 space-y-12">
+        <div className="mt-24 space-y-6 sm:space-y-12">
           {SERVICES.map((category, catIndex) => (
             <motion.div
               key={category.category}
@@ -32,7 +32,7 @@ export default function ServicesSection() {
             >
               {/* Category Header */}
               <motion.h3
-                className="font-heading text-2xl lg:text-3xl font-semibold text-white tracking-tight mb-6"
+                className="font-heading text-2xl lg:text-3xl font-semibold text-white tracking-tight mb-4 sm:mb-6"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
@@ -59,7 +59,7 @@ export default function ServicesSection() {
                         onClick={() =>
                           setExpandedService(isExpanded ? null : serviceKey)
                         }
-                        className="group relative w-full p-4 sm:p-6 rounded-lg transition-all overflow-hidden text-left"
+                        className="group relative w-full p-3 sm:p-6 rounded-lg transition-all overflow-hidden text-left"
                         style={{
                           background: isExpanded
                             ? "rgba(255, 255, 255, 0.08)"
@@ -123,7 +123,7 @@ export default function ServicesSection() {
                           transition={{ duration: 0.3 }}
                           className="overflow-hidden"
                         >
-                          <div className="pt-2 mt-2 sm:pt-3 sm:mt-3 border-t border-stone-600/50 space-y-1 sm:space-y-2">
+                          <div className="pt-2 mt-2 sm:pt-3 sm:mt-3 border-t border-stone-600/50 space-y-0.5 sm:space-y-2">
                             <div className="flex justify-between items-start gap-6">
                               <div>
                                 <p className="text-xs font-light text-stone-400 uppercase tracking-wide mb-1">
