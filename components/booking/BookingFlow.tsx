@@ -65,7 +65,7 @@ export default function BookingFlow({ open, onClose }: { open: boolean; onClose:
             style={{
               maxHeight: "90vh",
               minHeight: "500px",
-              background: "linear-gradient(135deg, rgba(20, 20, 20, 0.9) 0%, rgba(15, 15, 15, 0.95) 100%)",
+              background: "linear-gradient(135deg, rgba(35, 35, 35, 1) 0%, rgba(10, 10, 10, 1) 100%)",
               backdropFilter: "blur(20px)",
               WebkitBackdropFilter: "blur(20px)",
               border: "1px solid rgba(255, 255, 255, 0.12)",

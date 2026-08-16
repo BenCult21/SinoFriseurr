@@ -78,12 +78,7 @@ export default function Hero() {
               y: scrollProgress * -100,
             }}
           >
-            <h1
-              className="font-hero text-7xl sm:text-8xl lg:text-[150px] xl:text-[180px] font-light tracking-tight leading-[0.85] text-ink"
-              style={{
-                textShadow: "0 0 40px rgba(255, 46, 59, 0.3), 0 0 80px rgba(0, 153, 255, 0.2), 0 4px 20px rgba(0, 0, 0, 0.5)"
-              }}
-            >
+            <h1 className="font-hero text-7xl sm:text-8xl lg:text-[150px] xl:text-[180px] font-light tracking-tight leading-[0.85] text-ink glow-title">
               SINO
             </h1>
           </motion.div>
