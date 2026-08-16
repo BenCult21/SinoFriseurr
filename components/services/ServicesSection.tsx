@@ -26,7 +26,7 @@ export default function ServicesSection() {
               viewport={{ once: true }}
             >
               {/* Services List */}
-                <h3 className="font-heading text-2xl lg:text-3xl font-light text-ink tracking-tight mb-10">
+                <h3 className="font-heading text-2xl lg:text-3xl font-semibold text-white tracking-tight mb-10">
                   {category.category}
                 </h3>
 
@@ -44,17 +44,17 @@ export default function ServicesSection() {
                       <div className="flex-1">
                         <div className="flex items-baseline gap-4">
                           <motion.span
-                            className="font-heading text-sm font-light text-stone-400 tracking-wide"
+                            className="font-heading text-sm font-semibold text-stone-200 tracking-wide"
                             whileHover={{ scale: 1.2, color: "rgb(255, 46, 59)" }}
                           >
                             {String(index + 1).padStart(2, "0")}
                           </motion.span>
-                          <h4 className="font-heading text-base lg:text-lg font-light text-ink group-hover:text-barber-red transition-colors">
+                          <h4 className="font-heading text-base lg:text-lg font-semibold text-white group-hover:text-yellow-300 transition-colors">
                             {item.name}
                           </h4>
                         </div>
                         <motion.p
-                          className="mt-2 text-sm font-light text-stone-500 ml-14"
+                          className="mt-2 text-sm font-light text-stone-300 ml-14"
                           whileHover={{ x: 4 }}
                         >
                           {item.duration}
@@ -62,7 +62,7 @@ export default function ServicesSection() {
                       </div>
                       <div className="whitespace-nowrap">
                         <motion.p
-                          className="font-heading text-base lg:text-lg font-light text-stone-600 group-hover:text-barber-blue transition-colors"
+                          className="font-heading text-base lg:text-lg font-semibold text-white group-hover:text-yellow-300 transition-colors"
                           whileHover={{ scale: 1.1 }}
                         >
                           {item.price}

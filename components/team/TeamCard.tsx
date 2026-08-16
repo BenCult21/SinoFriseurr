@@ -60,7 +60,7 @@ export default function TeamCard({ member, onOpen }: TeamCardProps) {
       {/* Name */}
       <motion.p
         layoutId={`team-name-${member.name}`}
-        className="mt-6 font-heading text-lg lg:text-xl font-light text-ink tracking-tight group-hover:text-barber-red transition-colors"
+        className="mt-6 font-heading text-lg lg:text-xl font-semibold text-white tracking-tight group-hover:text-yellow-300 transition-colors"
         whileHover={{ x: 4, letterSpacing: "0.1em" }}
       >
         {member.name}
@@ -68,7 +68,7 @@ export default function TeamCard({ member, onOpen }: TeamCardProps) {
 
       {/* Subtitle */}
       <motion.p
-        className="mt-2 text-xs font-light text-stone-500 group-hover:text-barber-blue transition-colors"
+        className="mt-2 text-xs font-light text-stone-300 group-hover:text-yellow-200 transition-colors"
         whileHover={{ x: -2 }}
       >
         {member.role ?? "Team Sino Friseurstudio"}
