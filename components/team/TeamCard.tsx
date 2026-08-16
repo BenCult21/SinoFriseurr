@@ -18,10 +18,10 @@ export default function TeamCard({ member, onOpen }: TeamCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.7, ease: "easeOut" }}
-      className="group flex flex-col items-start text-left cursor-pointer"
+      className="group flex flex-col items-start text-left cursor-pointer w-full"
       aria-haspopup="dialog"
     >
-      {/* Card Container with Glassmorphism */}
+      {/* Card Container - includes image and text overlay */}
       <div
         className="p-5 rounded-lg w-full transition-all duration-300 relative overflow-hidden"
         style={{
@@ -37,34 +37,30 @@ export default function TeamCard({ member, onOpen }: TeamCardProps) {
           }}
         />
 
-        {/* Image Container */}
+        {/* Image Container with Text Overlay */}
         <div
-          className="relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-stone-700 to-stone-900 transition-all duration-300"
+          className="relative flex flex-col items-center justify-between overflow-hidden rounded-lg bg-gradient-to-br from-stone-700 to-stone-900 transition-all duration-300 h-64 sm:h-72 lg:h-80"
         >
-          <span className="font-heading text-6xl lg:text-7xl font-light text-white/60 group-hover:text-white/50 transition-colors duration-300">
-            {member.name.charAt(0)}
-          </span>
+          {/* Character Initial */}
+          <div className="flex items-center justify-center flex-1 w-full">
+            <span className="font-heading text-6xl lg:text-7xl font-light text-white/60 group-hover:text-white/50 transition-colors duration-300">
+              {member.name.charAt(0)}
+            </span>
+          </div>
 
-          {/* Hover Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-stone-900/40 via-transparent to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <p className="font-heading text-sm font-light text-white tracking-wide">
-              {member.role ?? "Friseur"}
-            </p>
+          {/* Text Overlay at Bottom */}
+          <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-stone-950/30 to-transparent flex flex-col justify-end p-5 sm:p-6">
+            <div className="space-y-1">
+              <p className="font-heading text-sm sm:text-base lg:text-lg font-semibold text-white tracking-tight">
+                {member.name}
+              </p>
+              <p className="text-xs sm:text-xs font-light text-stone-300">
+                {member.role ?? "Team Sino Friseurstudio"}
+              </p>
+            </div>
           </div>
         </div>
       </div>
-
-      {/* Name */}
-      <p
-        className="mt-6 font-heading text-lg lg:text-xl font-semibold text-white tracking-tight group-hover:text-stone-100 transition-colors"
-      >
-        {member.name}
-      </p>
-
-      {/* Subtitle */}
-      <p className="mt-2 text-xs font-light text-stone-200 group-hover:text-white transition-colors">
-        {member.role ?? "Team Sino Friseurstudio"}
-      </p>
     </motion.button>
   );
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Playfair_Display, Inter, Cormorant } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
+import MobileNav from "@/components/navigation/MobileNav";
 import Footer from "@/components/layout/Footer";
 import ScrollToTop from "@/components/layout/ScrollToTop";
 import { CONTACT, OPENING_HOURS, SALON_NAME } from "@/lib/config";
@@ -93,6 +94,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <Navbar />
+        <MobileNav />
         <ScrollToTop />
         <main className="flex-1">{children}</main>
         <Footer />
